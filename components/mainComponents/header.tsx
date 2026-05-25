@@ -48,7 +48,7 @@ function Header() {
             <div className="bg-orange-500 text-white p-1.5 rounded-xl shadow-lg shadow-orange-200">
               <Plane className="rotate-45" fill="currentColor" size={20} />
             </div>
-            <span className="text-slate-950 font-black tracking-tight">Mountain Monkey</span>
+            <span className="text-slate-950 font-black tracking-tight">Mountain Monkey testing</span>
           </Link>
         </div>
 
