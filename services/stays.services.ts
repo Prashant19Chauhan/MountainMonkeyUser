@@ -1,13 +1,4 @@
-import axios from "axios";
-
-// Determine the base URL dynamically
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/mm/api";
-
-const api = axios.create({
-  baseURL: BASE_URL,
-  withCredentials: true,
-});
-
+import api from "@/lib/api";
 export const getAllStays = async () => {
     try {
         const response = await api.get('/user/stays');
