@@ -1,0 +1,51 @@
+import React from 'react';
+import { Star } from 'lucide-react';
+
+type DestinationStaysProps = {
+  stays: any[];
+  destinationImages: string[];
+};
+
+export const DestinationStays = ({ stays, destinationImages }: DestinationStaysProps) => {
+  if (stays.length === 0) return null;
+
+  return (
+    <section className="space-y-6">
+      <div>
+        <h2 className="text-2xl font-black text-slate-900">🏨 Hand-Selected Accommodations</h2>
+        <p className="text-slate-400 text-xs">Verified hotels and resorts for your stay</p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {stays.map((stay: any, idx: any) => (
+          <div key={stay._id} className="bg-white rounded-xl overflow-hidden border border-slate-100 shadow-2xs hover:shadow-md transition p-3 flex gap-4 items-center">
+            <img 
+              src={stay.images?.[0] || destinationImages[idx % destinationImages.length]} 
+              alt={stay.name} 
+              className="w-24 h-24 object-cover rounded-lg flex-shrink-0" 
+            />
+            <div className="flex-1 min-w-0 space-y-1.5">
+              <div>
+                <span className="text-[9px] font-black uppercase tracking-wider text-blue-500">
+                  {stay.type}
+                </span>
+                <h4 className="font-bold text-slate-800 text-sm truncate mt-0.5">{stay.name}</h4>
+                {stay.starRating && (
+                  <div className="flex items-center gap-1 text-xs text-amber-500 font-bold">
+                    <Star className="w-3 h-3 fill-amber-500 text-amber-500" /> {stay.starRating} Star
+                  </div>
+                )}
+              </div>
+              <div className="text-xs font-bold text-slate-900 pt-1.5 border-t border-slate-50 flex items-baseline justify-between">
+                <span className="text-slate-400 font-medium text-[10px]">From / Night</span>
+                <span className="text-emerald-600 font-black text-sm">
+                  ₹{stay.priceRange?.min?.toLocaleString('en-IN') || 'N/A'}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
