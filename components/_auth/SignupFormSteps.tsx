@@ -53,7 +53,7 @@ export const SignupFormSteps = () => {
             <form onSubmit={handleNext} className="space-y-8">
               {/* --- STEP 1: WELCOME --- */}
               {currentStep === 1 && (
-                <div className="relative p-10 bg-rose-50/50 rounded-[40px] border border-rose-100 overflow-hidden">
+                <div className="relative p-6 sm:p-10 bg-rose-50/50 rounded-[24px] sm:rounded-[40px] border border-rose-100 overflow-hidden">
                   <div className="absolute top-[-20px] right-[-20px] opacity-10">
                       <Plane size={200} className="rotate-12" />
                   </div>

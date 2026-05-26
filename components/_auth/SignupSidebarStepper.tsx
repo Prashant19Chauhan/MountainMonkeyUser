@@ -42,7 +42,7 @@ export const SignupSidebarStepper = () => {
   ];
 
   return (
-    <div className="w-[420px] bg-slate-50/80 border-r border-slate-100 p-12 flex flex-col justify-between lg:flex relative overflow-hidden">
+    <div className="hidden lg:flex w-[420px] bg-slate-50/80 border-r border-slate-100 p-12 flex flex-col justify-between relative overflow-hidden">
       {/* Abstract Background Decoration */}
       <div className="absolute top-[-100px] left-[-100px] w-64 h-64 bg-rose-50 rounded-full blur-3xl opacity-50" />
       <div className="absolute bottom-[-50px] right-[-50px] w-80 h-80 bg-blue-50 rounded-full blur-3xl opacity-50" />
