@@ -211,7 +211,7 @@ export default function Sidebar() {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 left-0 w-[280px] z-[70] md:hidden shadow-2xl"
+              className="fixed inset-y-0 left-0 w-[280px] h-screen z-[70] md:hidden shadow-2xl flex flex-col"
             >
               <div className="absolute top-4 right-[-50px] z-20">
                 <button 

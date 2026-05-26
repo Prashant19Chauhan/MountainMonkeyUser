@@ -201,13 +201,12 @@ function Header() {
               className="fixed inset-0 bg-slate-950/40 backdrop-blur-[4px] z-[100] md:hidden"
             />
 
-            {/* Drawer Panel */}
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-              className="fixed inset-y-0 right-0 w-[280px] bg-white z-[110] md:hidden shadow-2xl flex flex-col border-l border-slate-100 font-sans"
+              className="fixed inset-y-0 right-0 w-[280px] h-screen bg-white z-[110] md:hidden shadow-2xl flex flex-col border-l border-slate-100 font-sans"
             >
               {/* Drawer Header */}
               <div className="p-5 border-b border-slate-50 flex items-center justify-between">
