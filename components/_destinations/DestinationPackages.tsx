@@ -1,3 +1,4 @@
+import Image from "@/components/ui/Image";
 import React from 'react';
 import Link from 'next/link';
 import { Clock, ArrowRight, Package } from 'lucide-react';
@@ -28,7 +29,7 @@ export const DestinationPackages = ({ packages, destinationImages }: Destination
             className="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-2xs hover:shadow-md transition flex flex-col group no-underline cursor-pointer"
           >
             <div className="h-44 relative overflow-hidden">
-              <img 
+              <Image 
                 src={destinationImages[0]} 
                 alt={pkg.title} 
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500" 

@@ -1,3 +1,4 @@
+import Image from "@/components/ui/Image";
 // @/components/cards/HorizontalCard.tsx
 import React from 'react';
 import { Heart } from 'lucide-react'; 
@@ -23,7 +24,7 @@ export const HorizontalCard = ({ title, location, price, image, slug }: Horizont
         >
           <Heart className="w-4 h-4" />
         </button>
-        <img 
+        <Image 
           src={image || "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&q=80&w=800"} 
           alt={title} 
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 

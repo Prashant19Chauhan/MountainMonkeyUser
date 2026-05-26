@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { useInView } from '@/hooks/useInView';
 import { usePackageAdvertisements } from '@/hooks/usePackages';
@@ -31,7 +32,7 @@ export const PackagePromoBanner = () => {
         Claim Offer
       </button>
       {topAd && topAd.imageUrl && (
-        <img 
+        <Image 
           src={topAd.imageUrl} 
           alt="Sale background" 
           className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none" 

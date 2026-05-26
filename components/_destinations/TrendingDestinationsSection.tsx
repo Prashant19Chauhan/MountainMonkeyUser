@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { TrendingUp, MapPin, Star, Heart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -41,7 +42,7 @@ export const TrendingDestinationsSection = () => {
           <>
             {/* Large Featured Spotlight Element */}
             <div className="lg:col-span-2 relative rounded-3xl overflow-hidden group">
-              <img 
+              <Image 
                 src={trendingDestinations[0]?.images?.[0] || "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80"} 
                 alt={trendingDestinations[0]?.name || "Destination"} 
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
@@ -89,7 +90,7 @@ export const TrendingDestinationsSection = () => {
                   onClick={() => router.push(`/destinations/${dest.slug}`)}
                   className="relative flex-1 rounded-3xl overflow-hidden group cursor-pointer"
                 >
-                  <img 
+                  <Image 
                     src={dest.images?.[0] || "https://images.unsplash.com/photo-1633321088390-843d7d73948e?auto=format&fit=crop&q=80"} 
                     alt={dest.name || "Destination"} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" 

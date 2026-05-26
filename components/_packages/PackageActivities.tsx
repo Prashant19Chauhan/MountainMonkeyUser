@@ -1,3 +1,4 @@
+import Image from "@/components/ui/Image";
 import React from 'react';
 import Link from 'next/link';
 import { CheckCircle2 } from 'lucide-react';
@@ -21,7 +22,7 @@ export const PackageActivities = ({ packageDetails, heroImages }: PackageActivit
             key={activity.id?._id || index} 
             className="bg-white border border-gray-100 rounded-2xl p-4 flex items-center gap-4 group cursor-pointer hover:shadow-md transition-all no-underline"
           >
-            <img 
+            <Image 
               src={heroImages[index % heroImages.length]} 
               className="w-16 h-16 rounded-xl object-cover flex-shrink-0" 
               alt={activity.id?.name || 'Activity image'}

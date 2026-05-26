@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React, { useState } from 'react';
 import { Compass, MapPin, Share2, Heart, Grid } from 'lucide-react';
 import { Destination } from '@/types/type';
@@ -54,14 +55,14 @@ export const DestinationHero = ({ destination, destinationImages }: DestinationH
       {/* Structural Photo Mesh Canvas Grid */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3 h-[42vh] md:h-[52vh] rounded-2xl overflow-hidden relative shadow-sm">
         <div className="md:col-span-8 h-full relative overflow-hidden">
-          <img src={destinationImages[0]} alt={destination.name} className="w-full h-full object-cover" />
+          <Image src={destinationImages[0]} alt={destination.name} className="w-full h-full object-cover" />
         </div>
         <div className="hidden md:grid grid-rows-2 col-span-4 gap-3 h-full">
           <div className="relative overflow-hidden h-full">
-            <img src={destinationImages[1]} alt={`${destination.name} view 1`} className="w-full h-full object-cover" />
+            <Image src={destinationImages[1]} alt={`${destination.name} view 1`} className="w-full h-full object-cover" />
           </div>
           <div className="relative overflow-hidden h-full">
-            <img src={destinationImages[2]} alt={`${destination.name} view 2`} className="w-full h-full object-cover" />
+            <Image src={destinationImages[2]} alt={`${destination.name} view 2`} className="w-full h-full object-cover" />
             <button type="button" className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md border border-slate-300 text-slate-900 text-xs font-black px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-md hover:bg-white transition cursor-pointer">
               <Grid className="w-4 h-4"/> View Gallery
             </button>

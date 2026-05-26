@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { Info } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
@@ -37,7 +38,7 @@ export const StayPromoBanner = () => {
           Join for Free
         </button>
         {ad && ad.imageUrl && (
-          <img 
+          <Image 
             src={ad.imageUrl} 
             alt="Ad background" 
             className="absolute -right-20 -top-20 h-[150%] w-1/2 object-cover opacity-20 group-hover:opacity-30 transition-opacity mix-blend-multiply pointer-events-none" 

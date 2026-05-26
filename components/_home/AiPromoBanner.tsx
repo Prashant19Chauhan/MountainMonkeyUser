@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { useHomeAds } from '@/hooks/useHome';
 import Link from 'next/link';
@@ -50,7 +51,7 @@ export const AiPromoBanner = () => {
         
         {aiPromoAd?.imageUrl && (
           <div className="absolute inset-0 z-0">
-             <img src={aiPromoAd.imageUrl} alt="Promo Background" className="w-full h-full object-cover opacity-40 mix-blend-overlay" />
+             <Image src={aiPromoAd.imageUrl} alt="Promo Background" className="w-full h-full object-cover opacity-40 mix-blend-overlay" />
              <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent" />
           </div>
         )}

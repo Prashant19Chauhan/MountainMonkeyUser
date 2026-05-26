@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { Heart } from 'lucide-react';
 import { useTopDestinations } from '@/hooks/useHome';
@@ -52,11 +53,9 @@ export const TopDestinationsSection = () => {
                     <Heart className="w-4 h-4" />
                   </div>
                   {dest.images?.[0] ? (
-                    <img src={dest.images[0]} alt={dest.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <Image src={dest.images[0]} alt={dest.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   ) : (
-                    <div className="w-full h-full bg-slate-200 group-hover:scale-110 transition-transform duration-700 ease-out" 
-                         style={{ backgroundImage: 'radial-gradient(#cbd5e1 2px, transparent 2px)', backgroundSize: '20px 20px' }} 
-                    />
+                    <Image alt={dest.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   )}
                   <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-6 left-6 text-white">

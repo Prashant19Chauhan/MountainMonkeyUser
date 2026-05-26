@@ -1,3 +1,4 @@
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { ChevronLeft, ChevronRight, Heart, Clock } from 'lucide-react';
 import { TourPackage } from '@/types/type';
@@ -33,7 +34,7 @@ export const PackageSimilarAdventures = ({
         {similarPackages.slice(0, 3).map((similarPackage: TourPackage) => (
           <div key={similarPackage._id} className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm cursor-pointer group flex flex-col">
             <div className="relative h-48">
-              <img 
+              <Image 
                 src={similarPackage.images?.[0] || heroImages[0]} 
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                 alt={similarPackage.title} 

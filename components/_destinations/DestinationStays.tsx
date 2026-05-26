@@ -1,3 +1,4 @@
+import Image from "@/components/ui/Image";
 import React from 'react';
 import Link from 'next/link';
 import { Star, Hotel } from 'lucide-react';
@@ -27,7 +28,7 @@ export const DestinationStays = ({ stays, destinationImages }: DestinationStaysP
             key={stay._id} 
             className="bg-white rounded-xl overflow-hidden border border-slate-100 shadow-2xs hover:shadow-md transition p-3 flex gap-4 items-center no-underline cursor-pointer group"
           >
-            <img 
+            <Image 
               src={stay.images?.[0] || destinationImages[idx % destinationImages.length]} 
               alt={stay.name} 
               className="w-24 h-24 object-cover rounded-lg flex-shrink-0" 

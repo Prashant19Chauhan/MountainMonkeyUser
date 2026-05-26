@@ -1,3 +1,4 @@
+import Image from "@/components/ui/Image";
 import React from 'react';
 import Link from 'next/link';
 import { Wifi, Coffee, Star } from 'lucide-react';
@@ -24,7 +25,7 @@ export const PackageStays = ({ packageDetails, heroImages }: PackageStaysProps) 
             className="flex flex-col sm:flex-row bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-md transition-shadow no-underline cursor-pointer group"
           >
             <div className="sm:w-48 h-40 relative flex-shrink-0">
-              <img 
+              <Image 
                 src={heroImages[index % heroImages.length]} 
                 className="w-full h-full object-cover" 
                 alt={accommodation.stayId?.name || 'Stay image'}

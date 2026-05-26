@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { Landmark, ArrowRight, Info } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -44,7 +45,7 @@ export const HistoricalDestinationsSection = () => {
                   className="flex flex-col md:flex-row overflow-hidden rounded-[2rem] border border-gray-100 bg-white hover:shadow-lg transition-shadow duration-300 cursor-pointer"
                 >
                   <div className="md:w-2/5 h-48 md:h-auto overflow-hidden bg-slate-100">
-                    <img 
+                    <Image 
                       src={item.images?.[0] || "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=80"} 
                       alt={item.name} 
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
@@ -87,7 +88,7 @@ export const HistoricalDestinationsSection = () => {
           </div>
           
           <div className="relative h-[600px] rounded-[2.5rem] overflow-hidden group shadow-md">
-            <img 
+            <Image 
               src={bottomAd ? bottomAd.imageUrl : "https://images.unsplash.com/photo-1581553680321-4fffae59fccd?auto=format&fit=crop&q=80"} 
               alt={bottomAd ? bottomAd.title : "Travel Gear"} 
               className="w-full h-full object-cover"

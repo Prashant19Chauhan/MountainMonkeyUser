@@ -1,6 +1,7 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
 import Link from 'next/link';
+import Image from '../ui/Image';
 
 interface PackageCardProps {
   title?: string;
@@ -30,7 +31,7 @@ export const PackageCard = ({ title, location, price, duration, tag, image, slug
           <Heart className="w-5 h-5 transition-transform group-hover:scale-110" />
         </button>
 
-        <img 
+        <Image 
           src={image || "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=800"} 
           alt={title} 
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 

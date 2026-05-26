@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { Package, Clock, Star, Heart, Zap } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -41,7 +42,7 @@ export const PopularPackagesSection = () => {
               className="bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm cursor-pointer group flex flex-col"
             >
               <div className="relative h-56 bg-slate-100">
-                <img 
+                <Image 
                   src={popularPackages[0]?.images?.[0] || "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&q=80"} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                   alt={popularPackages[0]?.title || "Tokyo"} 
@@ -80,7 +81,7 @@ export const PopularPackagesSection = () => {
                 className="bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm cursor-pointer group flex flex-col"
               >
                 <div className="relative h-56 bg-slate-100">
-                  <img 
+                  <Image 
                     src={popularPackages[1]?.images?.[0] || "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&q=80"} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                     alt={popularPackages[1]?.title || "Maldives"} 
@@ -118,7 +119,7 @@ export const PopularPackagesSection = () => {
 
             {/* Marketing Ad Panel Display Component */}
             <div className="row-span-2 relative h-full min-h-[500px] rounded-[2.5rem] overflow-hidden shadow-xs">
-              <img 
+              <Image 
                 src={bottomAd ? bottomAd.imageUrl : "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&q=80"} 
                 className="w-full h-full object-cover" 
                 alt={bottomAd ? bottomAd.title : "Insurance Ad"}
@@ -146,7 +147,7 @@ export const PopularPackagesSection = () => {
                 className="lg:col-span-2 bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm flex flex-col md:flex-row cursor-pointer group"
               >
                 <div className="md:w-1/2 relative h-64 md:h-auto overflow-hidden bg-slate-100">
-                  <img 
+                  <Image 
                     src={popularPackages[2]?.images?.[0] || "https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&fit=crop&q=80"} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                     alt={popularPackages[2]?.title || "Peru"} 

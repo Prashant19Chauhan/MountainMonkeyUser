@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React, { useState } from 'react';
 import { Settings2, ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -40,7 +41,7 @@ export const DestinationFilterHeader = () => {
             className="flex flex-col items-center gap-3 flex-shrink-0 cursor-pointer group"
           >
             <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-transparent group-hover:border-gray-200 transition-all">
-              <img 
+              <Image 
                 src={dest.images?.[0] || 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=150&h=150&fit=crop'} 
                 alt={dest.name} 
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"

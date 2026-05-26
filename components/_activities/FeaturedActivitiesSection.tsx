@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { Heart, Star, Clock, RotateCcw, Users, MapPin } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -28,7 +29,7 @@ export const FeaturedActivitiesSection = () => {
             className="lg:col-span-2 bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm group cursor-pointer"
           >
             <div className="relative h-[500px]">
-              <img 
+              <Image 
                 src={featuredActivities[0]?.images?.[0] || "https://images.unsplash.com/photo-1544551763-47a0159f963f?auto=format&fit=crop&q=80"} 
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                 alt={featuredActivities[0]?.name || "Activity"}
@@ -78,7 +79,7 @@ export const FeaturedActivitiesSection = () => {
                 className="bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm group cursor-pointer"
               >
                 <div className="relative h-56 bg-slate-100">
-                  <img src={activity.images?.[0] || "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt={activity.name} />
+                  <Image src={activity.images?.[0] || "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt={activity.name} />
                   {activity.tags?.[0] && (
                     <div className="absolute top-4 left-4 bg-blue-600 text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">{activity.tags[0]}</div>
                   )}

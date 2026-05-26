@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Share, Heart, Star, MapPin } from 'lucide-react';
 import { TourPackage, Destination } from '@/types/type';
@@ -19,7 +20,7 @@ export const PackageHero = ({ packageDetails, heroImages }: PackageHeroProps) =>
     <div className="relative h-[60vh] w-full">
       {/* Background Image Carousel */}
       <div className="absolute inset-0">
-        <img 
+        <Image 
           src={heroImages[currentHeroImage]} 
           alt={packageDetails.title} 
           className="w-full h-full object-cover transition-opacity duration-500"

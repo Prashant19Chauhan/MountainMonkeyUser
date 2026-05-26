@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { Star, Heart, CheckCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -34,7 +35,7 @@ export const ExploreActivitiesSection = () => {
               className="flex flex-col md:flex-row bg-white rounded-3xl border border-gray-100 overflow-hidden group hover:shadow-md transition-shadow cursor-pointer relative"
             >
               <div className="md:w-64 h-44 relative overflow-hidden flex-shrink-0 bg-slate-50">
-                <img 
+                <Image 
                   src={item.images?.[0] || "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80"} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                   alt={item.name} 

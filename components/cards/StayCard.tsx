@@ -1,5 +1,6 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
+import Image from '../ui/Image';
 
 interface StayCardProps {
   title?: string;
@@ -21,7 +22,7 @@ export const StayCard = ({ title, location, price, image }: StayCardProps) => {
         >
           <Heart className="w-5 h-5" />
         </div>
-        <img 
+        <Image 
           src={image || "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800"} 
           alt={title} 
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 

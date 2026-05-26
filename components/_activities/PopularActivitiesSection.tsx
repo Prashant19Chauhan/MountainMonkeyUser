@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { Heart, Star, Clock, MapPin } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -30,7 +31,7 @@ export const PopularActivitiesSection = () => {
             className="bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm cursor-pointer group flex flex-col"
           >
             <div className="relative h-48 bg-slate-100">
-              <img src={popularActivities[0]?.images?.[0] || "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&q=80"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt={popularActivities[0]?.name || "Activity"} />
+              <Image src={popularActivities[0]?.images?.[0] || "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&q=80"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt={popularActivities[0]?.name || "Activity"} />
               <div 
                 onClick={(e) => {
                   e.stopPropagation();
@@ -58,7 +59,7 @@ export const PopularActivitiesSection = () => {
 
           {/* Vertical Promotional Sidebar Card */}
           <div className="relative rounded-[2.5rem] overflow-hidden h-full min-h-[400px] shadow-xs">
-            <img 
+            <Image 
               src={bottomAd ? bottomAd.imageUrl : "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80"} 
               className="w-full h-full object-cover" 
               alt={bottomAd ? bottomAd.title : "Camera"}
@@ -86,7 +87,7 @@ export const PopularActivitiesSection = () => {
               className="lg:col-span-1 bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm flex flex-col cursor-pointer group"
             >
               <div className="relative h-64 overflow-hidden bg-slate-100">
-                <img src={popularActivities[1]?.images?.[0] || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt={popularActivities[1]?.name || "Safari"} />
+                <Image src={popularActivities[1]?.images?.[0] || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt={popularActivities[1]?.name || "Safari"} />
                 <div className="absolute top-4 left-4 bg-blue-600 text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">{popularActivities[1]?.tags?.[0] || "Adventure"}</div>
                 <div 
                   onClick={(e) => {

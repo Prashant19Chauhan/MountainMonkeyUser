@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { Star } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
@@ -43,7 +44,7 @@ export const TravelerStoriesSection = () => {
             <div 
               className="min-w-[280px] aspect-[3/4] bg-slate-200 rounded-2xl relative overflow-hidden group snap-start"
             >
-              <img 
+              <Image 
                 src={story.images?.[0] || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=400"} 
                 alt={story.title}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"

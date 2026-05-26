@@ -1,3 +1,4 @@
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import { TourPackage, ItineraryDay } from '@/types/type';
@@ -37,7 +38,7 @@ export const PackageItinerary = ({ packageDetails, heroImages }: PackageItinerar
                 </div>
                 {heroImages[index] && (
                   <div className="w-full md:w-32 h-32 rounded-2xl overflow-hidden shrink-0">
-                    <img src={heroImages[index]} className="w-full h-full object-cover" alt={day.title || 'Itinerary image'}/>
+                    <Image src={heroImages[index]} className="w-full h-full object-cover" alt={day.title || 'Itinerary image'}/>
                   </div>
                 )}
               </div>

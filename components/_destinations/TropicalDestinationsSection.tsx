@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { Sun, ChevronLeft, ChevronRight, MapPin, Heart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -47,7 +48,7 @@ export const TropicalDestinationsSection = () => {
               className="group bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
             >
               <div className="relative h-64 overflow-hidden bg-slate-100">
-                <img 
+                <Image 
                   src={dest.images?.[0] || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80'} 
                   alt={dest.name} 
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 

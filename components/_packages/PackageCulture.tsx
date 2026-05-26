@@ -1,3 +1,4 @@
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { Users } from 'lucide-react';
 import { LocalInfo, UsefulPhrase } from '@/types/type';
@@ -13,7 +14,7 @@ export const PackageCulture = ({ localInfo, heroImages }: PackageCultureProps) =
   return (
     <section className="bg-gray-900 rounded-[2rem] p-8 text-white relative overflow-hidden">
       <div className="absolute inset-0 opacity-20">
-        <img src={heroImages[0]} className="w-full h-full object-cover mix-blend-overlay" alt="Texture"/>
+        <Image src={heroImages[0]} className="w-full h-full object-cover mix-blend-overlay" alt="Texture"/>
       </div>
       <div className="relative z-10">
         <span className="bg-white/10 backdrop-blur border border-white/20 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider mb-4 inline-block">

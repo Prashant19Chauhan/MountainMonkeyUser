@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { useInView } from '@/hooks/useInView';
 import { useActivityAdvertisements } from '@/hooks/useActivities';
@@ -17,7 +18,7 @@ export const ActivityPromoBanner = () => {
       className="relative rounded-3xl overflow-hidden h-32 flex items-center px-12 border border-blue-100 shadow-2xs font-sans"
     >
       <div className="absolute inset-0 bg-gradient-to-r from-blue-50/90 to-transparent z-10" />
-      <img 
+      <Image 
         src={topAd ? topAd.imageUrl : "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80"} 
         className="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none" 
         alt={topAd ? topAd.title : "Festivals"}

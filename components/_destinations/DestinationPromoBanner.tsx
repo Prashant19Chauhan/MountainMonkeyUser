@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { TrendingUp } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
@@ -40,7 +41,7 @@ export const DestinationPromoBanner = () => {
         Explore Now
       </button>
       {topAd && topAd.imageUrl && (
-        <img 
+        <Image 
           src={topAd.imageUrl} 
           alt="Ad background" 
           className="absolute right-0 top-0 h-full w-1/3 object-cover opacity-30 pointer-events-none" 

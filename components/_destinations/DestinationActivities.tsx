@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { Compass } from 'lucide-react';
@@ -64,7 +65,7 @@ export const DestinationActivities = ({ activities, destinationImages }: Destina
             className="group bg-white rounded-xl overflow-hidden border border-slate-100 shadow-2xs hover:shadow-md transition no-underline cursor-pointer flex flex-col justify-between"
           >
             <div className="h-32 overflow-hidden relative">
-              <img 
+              <Image 
                 src={destinationImages[idx % destinationImages.length]} 
                 alt={act.name} 
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-300" 

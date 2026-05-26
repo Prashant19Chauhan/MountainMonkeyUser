@@ -1,5 +1,6 @@
 import { Calendar } from 'lucide-react';
 import Link from 'next/link';
+import Image from '../ui/Image';
 
 interface ComingSoonCardProps {
   title?: string;
@@ -19,7 +20,7 @@ export const ComingSoonCard = ({ title, date, image, slug }: ComingSoonCardProps
         <span className="absolute top-4 left-4 bg-black text-white text-[10px] font-black px-3 py-1.5 rounded-md uppercase tracking-widest z-10">
           COMING SOON
         </span>
-        <img 
+        <Image 
           src={image || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800"} 
           alt={title} 
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 

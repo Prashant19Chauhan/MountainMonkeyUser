@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { Heart, Star } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -22,7 +23,7 @@ const StayCard = ({ stay }: { stay: Stay }) => {
       className="flex flex-col group cursor-pointer"
     >
       <div className="relative aspect-square rounded-[2rem] overflow-hidden mb-3 bg-slate-100">
-        <img src={image} alt={location} className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-500" />
+        <Image src={image} alt={location} className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-500" />
         {isFavorite && (
           <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-2 py-1 rounded-md text-[8px] font-bold uppercase tracking-wider shadow-sm">
             Guest favorite

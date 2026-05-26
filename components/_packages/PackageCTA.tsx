@@ -1,3 +1,4 @@
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { MessageCircle } from 'lucide-react';
 
@@ -9,7 +10,7 @@ export const PackageCTA = ({ heroImages }: PackageCTAProps) => {
   return (
     <div className="relative py-24 bg-gray-900 text-center flex flex-col items-center justify-center px-4 overflow-hidden">
       <div className="absolute inset-0 opacity-40">
-        <img src={heroImages[0]} className="w-full h-full object-cover mix-blend-overlay" alt="CTA Background"/>
+        <Image src={heroImages[0]} className="w-full h-full object-cover mix-blend-overlay" alt="CTA Background"/>
       </div>
       <div className="relative z-10 max-w-xl">
         <h2 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">Ready for your next adventure?</h2>

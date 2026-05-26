@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/components/ui/Image";
 import React from 'react';
 import { Heart, Star, Clock, Plane, Users, MapPin } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -28,7 +29,7 @@ export const FeaturedPackagesSection = () => {
             className="lg:col-span-2 bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm group cursor-pointer"
           >
             <div className="relative h-[450px]">
-              <img 
+              <Image 
                 src={featuredPackages[0]?.images?.[0] || "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&q=80"} 
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                 alt={featuredPackages[0]?.title || "Package"}
@@ -82,7 +83,7 @@ export const FeaturedPackagesSection = () => {
                   className="bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm group cursor-pointer"
                 >
                   <div className="relative h-48 bg-slate-100">
-                    <img 
+                    <Image 
                       src={pkg.images?.[0] || "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80"} 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                       alt={pkg.title} 
