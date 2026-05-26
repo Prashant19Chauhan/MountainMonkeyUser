@@ -6,7 +6,7 @@ export const PackageCard = ({ title, location, price, duration, tag, image, id }
   return (
     <Link 
       href={`/packages/${id}`}
-      className="min-w-[380px] group cursor-pointer snap-start"
+      className="min-w-[285px] sm:min-w-[380px] group cursor-pointer snap-start"
     >
       <div className="relative aspect-[4/5] bg-slate-100 rounded-[40px] overflow-hidden mb-6 shadow-xl shadow-slate-200/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-rose-500/20 group-hover:-translate-y-2">
         <div className="absolute top-6 left-6 flex flex-col gap-2 z-10">

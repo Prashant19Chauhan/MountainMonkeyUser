@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
+import { Compass } from 'lucide-react';
 
 type DestinationActivitiesProps = {
   activities: any[];
@@ -27,7 +28,9 @@ export const DestinationActivities = ({ activities, destinationImages }: Destina
     <section className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-black text-slate-900">🏄‍♂️ Top Experiences</h2>
+          <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+            <Compass className="text-blue-500 w-6 h-6 shrink-0" /> Top Experiences
+          </h2>
           <p className="text-slate-400 text-xs">Activities and attractions in this destination</p>
         </div>
 

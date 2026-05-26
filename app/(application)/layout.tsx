@@ -2,6 +2,7 @@ import React, { Suspense } from 'react'
 import Header from '../../components/mainComponents/header'
 import Monkey from '../../components/mainComponents/monkey'
 import HeroSection from '@/components/mainComponents/heroSection'
+import Footer from '../../components/mainComponents/footer'
 
 function ApplicationLayout({
   children
@@ -22,6 +23,7 @@ function ApplicationLayout({
               <HeroSection />
             </Suspense>
             {children}
+            <Footer />
           </div>
         </div>
       </div>
@@ -34,4 +36,4 @@ function ApplicationLayout({
   )
 }
 
-export default ApplicationLayout
+export default ApplicationLayout

@@ -38,7 +38,7 @@ export const PopularActivitiesSection = () => {
           </div>
         ) : popularActivities?.length > 0 ? (
           popularActivities.map((activity:ActivityType) => (
-            <div key={activity._id} className="min-w-[320px] md:min-w-[400px] snap-start">
+            <div key={activity._id} className="min-w-[285px] sm:min-w-[320px] md:min-w-[400px] snap-start">
               <HorizontalCard 
                 id={activity._id}
                 title={activity.name} 

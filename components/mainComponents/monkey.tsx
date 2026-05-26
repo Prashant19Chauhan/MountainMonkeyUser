@@ -30,7 +30,7 @@ function Monkey() {
           setIsPulsing(true);
         }}
         className="relative flex items-center justify-center 
-                   w-20 h-20 
+                   w-14 h-14 sm:w-20 sm:h-20 
                    bg-linear-to-br from-purple-500 via-indigo-600 to-blue-600
                    rounded-full 
                    shadow-2xl 
@@ -41,7 +41,8 @@ function Monkey() {
                    focus:outline-none
                    focus:ring-4 focus:ring-purple-300
                    overflow-hidden
-                   border-4 border-white/20"
+                   border-4 border-white/20
+                   cursor-pointer"
       >
         {/* Shimmer effect */}
         <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -51,12 +52,13 @@ function Monkey() {
           animationData={monkeyAnimation}
           loop
           autoplay
-          style={{ width: 140, height: 140 }}
+          className="w-24 h-24 sm:w-[140px] sm:h-[140px] shrink-0"
         />
 
         {/* Notification Badge */}
-        <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full border-2 border-white flex items-center justify-center">
-          <Sparkles size={10} className="text-white" />
+        <div className="absolute -top-0.5 -right-0.5 w-4 h-4 sm:w-5 sm:h-5 bg-red-500 rounded-full border-2 border-white flex items-center justify-center">
+          <Sparkles size={8} className="text-white sm:hidden" />
+          <Sparkles size={10} className="text-white hidden sm:block" />
         </div>
       </button>
 

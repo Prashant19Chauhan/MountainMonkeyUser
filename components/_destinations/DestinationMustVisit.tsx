@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Clock } from 'lucide-react';
+import { Calendar, Clock, MapPin } from 'lucide-react';
 
 type DestinationMustVisitProps = {
   localInfo: any;
@@ -10,7 +10,9 @@ export const DestinationMustVisit = ({ localInfo }: DestinationMustVisitProps) =
 
   return (
     <section className="space-y-6">
-      <h2 className="text-2xl font-black text-slate-900">📍 Must-Visit Places</h2>
+      <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+        <MapPin className="text-rose-500 w-6 h-6 shrink-0" /> Must-Visit Places
+      </h2>
       
       <div className="relative border-l-2 border-slate-200 pl-6 ml-4 space-y-6">
         {localInfo.famousPlaces.map((place: any, index: any) => (

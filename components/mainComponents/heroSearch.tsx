@@ -20,30 +20,32 @@ function HeroSearch() {
 
   // AI Search Bar for home page
   const AISearchBar = () => (
-  <div className="max-w-4xl mx-auto p-8">
-    <div className="text-center mb-8">
-      <h1 className="text-5xl font-black text-foreground mb-4">
+  <div className="max-w-4xl mx-auto p-4 sm:p-8">
+    <div className="text-center mb-6 sm:mb-8">
+      <h1 className="text-2xl sm:text-3xl md:text-5xl font-black text-foreground mb-3 sm:mb-4">
         {currentHero?.title || "Where would you like to go?"}
       </h1>
-      <p className="text-lg text-foreground/70">
+      <p className="text-sm sm:text-base md:text-lg text-foreground/70">
         {currentHero?.tagline || "Ask anything - we'll help you plan the perfect trip"}
       </p>
     </div>
     
     <div className="relative">
-      <form onSubmit={handleSearchSubmit} className="flex items-center gap-4 bg-white border-2 border-gray-200 rounded-full p-4 shadow-2xl hover:border-rose-500 transition-all">
-        <Sparkles className="text-rose-500 ml-2" size={24} />
-        <input
-          type="text"
-          name="query"
-          value={searchData.query}
-          onChange={handleSearchChange}
-          placeholder={currentHero?.searchBarPrompt || "Try: 'Beach destinations in Thailand under $1000' or 'Weekend getaway from Delhi'"}
-          className="flex-1 text-lg outline-none text-slate-700 placeholder:text-slate-400"
-        />
+      <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 bg-white border border-gray-200 sm:border-2 rounded-3xl sm:rounded-full p-3 sm:p-4 shadow-2xl hover:border-rose-500 transition-all">
+        <div className="flex items-center gap-2 flex-1 min-w-0">
+          <Sparkles className="text-rose-500 ml-1 shrink-0 hidden sm:block" size={20} />
+          <input
+            type="text"
+            name="query"
+            value={searchData.query}
+            onChange={handleSearchChange}
+            placeholder={currentHero?.searchBarPrompt || "Try: 'Beach destinations in Thailand under $1000' or 'Weekend getaway from Delhi'"}
+            className="flex-1 text-base sm:text-lg outline-none text-slate-700 placeholder:text-slate-400 min-w-0"
+          />
+        </div>
         <button 
           type="submit"
-          className="bg-linear-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white px-8 py-3 rounded-full font-bold shadow-lg transition-all active:scale-95"
+          className="bg-linear-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white px-6 sm:px-8 py-3 rounded-full font-bold shadow-lg transition-all active:scale-95 text-sm sm:text-base cursor-pointer shrink-0 border-0"
         >
           Ask AI
         </button>
@@ -70,9 +72,9 @@ function HeroSearch() {
 
   // Destinations Search
   const DestinationsSearch = () => (
-    <div className="p-8">
-      <h2 className="text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
-        <MapPin className="text-rose-500" /> Explore Destinations
+    <div className="p-4 sm:p-8">
+      <h2 className="text-2xl sm:text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
+        <MapPin className="text-rose-500 shrink-0" size={24} /> Explore Destinations
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-4 border border-gray-200 rounded-2xl mb-6">
@@ -124,7 +126,7 @@ function HeroSearch() {
       </div>
 
       <div className="flex justify-center">
-        <button className="bg-linear-to-r from-blue-500 to-blue-600 hover:from-rose-500 hover:to-rose-600 text-white px-20 py-4 rounded-full text-2xl font-black shadow-xl transition-all active:scale-95 uppercase tracking-widest">
+        <button className="bg-linear-to-r from-blue-500 to-blue-600 hover:from-rose-500 hover:to-rose-600 text-white px-8 sm:px-20 py-3 sm:py-4 rounded-full text-lg sm:text-2xl font-black shadow-xl transition-all active:scale-95 uppercase tracking-widest cursor-pointer border-0">
           Explore
         </button>
       </div>
@@ -133,9 +135,9 @@ function HeroSearch() {
 
   // Activities Search
   const ActivitiesSearch = () => (
-    <div className="p-8">
-      <h2 className="text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
-        <Activity className="text-rose-500" /> Find Activities
+    <div className="p-4 sm:p-8">
+      <h2 className="text-2xl sm:text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
+        <Activity className="text-rose-500 shrink-0" size={24} /> Find Activities
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-4 border border-gray-200 rounded-2xl mb-6">
@@ -184,7 +186,7 @@ function HeroSearch() {
       </div>
 
       <div className="flex justify-center">
-        <button className="bg-linear-to-r from-blue-500 to-blue-600 hover:from-rose-500 hover:to-rose-600 text-white px-20 py-4 rounded-full text-2xl font-black shadow-xl transition-all active:scale-95 uppercase tracking-widest">
+        <button className="bg-linear-to-r from-blue-500 to-blue-600 hover:from-rose-500 hover:to-rose-600 text-white px-8 sm:px-20 py-3 sm:py-4 rounded-full text-lg sm:text-2xl font-black shadow-xl transition-all active:scale-95 uppercase tracking-widest cursor-pointer border-0">
           Search Activities
         </button>
       </div>
@@ -193,9 +195,9 @@ function HeroSearch() {
 
   // Packages Search
   const PackagesSearch = () => (
-    <div className="p-8">
-      <h2 className="text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
-        <Package className="text-rose-500" /> Browse Packages
+    <div className="p-4 sm:p-8">
+      <h2 className="text-2xl sm:text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
+        <Package className="text-rose-500 shrink-0" size={24} /> Browse Packages
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-5 border border-gray-200 rounded-2xl mb-6">
@@ -254,7 +256,7 @@ function HeroSearch() {
       </div>
 
       <div className="flex justify-center">
-        <button className="bg-linear-to-r from-blue-500 to-blue-600 hover:from-rose-500 hover:to-rose-600 text-white px-20 py-4 rounded-full text-2xl font-black shadow-xl transition-all active:scale-95 uppercase tracking-widest">
+        <button className="bg-linear-to-r from-blue-500 to-blue-600 hover:from-rose-500 hover:to-rose-600 text-white px-8 sm:px-20 py-3 sm:py-4 rounded-full text-lg sm:text-2xl font-black shadow-xl transition-all active:scale-95 uppercase tracking-widest cursor-pointer border-0">
           Find Packages
         </button>
       </div>
@@ -263,9 +265,9 @@ function HeroSearch() {
 
   // Stays Search
   const StaysSearch = () => (
-    <div className="p-8">
-      <h2 className="text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
-        <Hotel className="text-rose-500" /> Book Stays
+    <div className="p-4 sm:p-8">
+      <h2 className="text-2xl sm:text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
+        <Hotel className="text-rose-500 shrink-0" size={24} /> Book Stays
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-5 border border-gray-200 rounded-2xl mb-6">
@@ -328,7 +330,7 @@ function HeroSearch() {
       </div>
 
       <div className="flex justify-center">
-        <button className="bg-linear-to-r from-blue-500 to-blue-600 hover:from-rose-500 hover:to-rose-600 text-white px-20 py-4 rounded-full text-2xl font-black shadow-xl transition-all active:scale-95 uppercase tracking-widest">
+        <button className="bg-linear-to-r from-blue-500 to-blue-600 hover:from-rose-500 hover:to-rose-600 text-white px-8 sm:px-20 py-3 sm:py-4 rounded-full text-lg sm:text-2xl font-black shadow-xl transition-all active:scale-95 uppercase tracking-widest cursor-pointer border-0">
           Search Stays
         </button>
       </div>
@@ -337,7 +339,7 @@ function HeroSearch() {
 
   // Original Flight Search (default fallback)
   const FlightSearch = () => (
-    <div className="p-8">
+    <div className="p-4 sm:p-8">
       {/* --- 2. Trip Type Radio Selection --- */}
       <div className="flex gap-6 mb-6">
         {['One Way', 'Round Trip', 'Multi City'].map((type) => (
@@ -406,7 +408,7 @@ function HeroSearch() {
 
       {/* --- 5. Main Search Button --- */}
       <div className="flex justify-center">
-        <button className="bg-linear-to-r from-blue-500 to-blue-600 hover:from-rose-500 hover:to-rose-600 text-white px-20 py-4 rounded-full text-2xl font-black shadow-xl transition-all active:scale-95 uppercase tracking-widest">
+        <button className="bg-linear-to-r from-blue-500 to-blue-600 hover:from-rose-500 hover:to-rose-600 text-white px-8 sm:px-20 py-3 sm:py-4 rounded-full text-lg sm:text-2xl font-black shadow-xl transition-all active:scale-95 uppercase tracking-widest cursor-pointer border-0">
           Search
         </button>
       </div>

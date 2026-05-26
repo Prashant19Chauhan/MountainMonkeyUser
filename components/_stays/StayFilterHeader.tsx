@@ -19,7 +19,7 @@ const categories = [
 export const StayFilterHeader = () => {
 
   return (
-    <div className="pt-20 px-20 font-sans">
+    <div className="pt-20 px-4 md:px-20 font-sans">
       <div className="w-full mx-auto px-4 flex items-center justify-between gap-8">
         
         {/* Category Icons List Selector */}

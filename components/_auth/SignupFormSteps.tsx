@@ -61,7 +61,7 @@ export const SignupFormSteps = () => {
                       <div className="w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center text-rose-500 mb-6">
                           <Sparkles size={32} />
                       </div>
-                      <h3 className="text-2xl font-black text-slate-900 mb-4">Hello, Explorer! 👋</h3>
+                      <h3 className="text-2xl font-black text-slate-900 mb-4 flex items-center gap-2">Hello, Explorer! <Sparkles className="text-rose-500 w-6 h-6 shrink-0 animate-pulse" /></h3>
                       <p className="text-slate-600 font-medium leading-relaxed mb-8">
                           SunSeeker is more than just a travel app. It&apos;s your companion for finding hidden gems, 
                           connecting with like-minded travelers, and creating memories that last a lifetime.

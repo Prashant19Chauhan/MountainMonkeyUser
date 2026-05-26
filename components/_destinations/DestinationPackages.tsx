@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, ArrowRight } from 'lucide-react';
+import { Clock, ArrowRight, Package } from 'lucide-react';
 
 type DestinationPackagesProps = {
   packages: any[];
@@ -12,7 +12,9 @@ export const DestinationPackages = ({ packages, destinationImages }: Destination
   return (
     <section className="space-y-6">
       <div>
-        <h2 className="text-2xl font-black text-slate-900">📦 Premium Tour Packages</h2>
+        <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+          <Package className="text-orange-500 w-6 h-6 shrink-0" /> Premium Tour Packages
+        </h2>
         <p className="text-slate-400 text-xs">All-inclusive multi-day guided travel itineraries</p>
       </div>
 

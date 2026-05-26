@@ -31,7 +31,7 @@ export const UpcomingPackagesSection = () => {
           </div>
         ) : upcomingPackages?.length > 0 ? (
           upcomingPackages.map((pkg: any) => (
-            <div key={pkg._id} className="min-w-[320px] md:min-w-[400px] snap-start">
+            <div key={pkg._id} className="min-w-[285px] sm:min-w-[320px] md:min-w-[400px] snap-start">
               <ComingSoonCard 
                 id={pkg._id}
                 title={pkg.title} 

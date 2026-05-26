@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { 
   Map, Utensils, Landmark, HelpCircle as LocalIcon, 
-  Shirt, ShieldAlert, PhoneCall 
+  Shirt, ShieldAlert, PhoneCall, Sparkles 
 } from 'lucide-react';
 
 type DetailInsightMatrixProps = {
@@ -91,7 +91,9 @@ export const DetailInsightMatrix = ({ localInfo }: DetailInsightMatrixProps) => 
               <span className="text-xs font-black text-purple-900 uppercase tracking-wide block">Festivals & Celebrations</span>
               <div className="flex flex-wrap gap-1.5">
                 {localInfo.culture.festivals?.map((item: string, i: number) => (
-                  <span key={i} className="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg border border-slate-200/40 font-medium">🎉 {item}</span>
+                  <span key={i} className="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg border border-slate-200/40 font-medium flex items-center gap-1.5 w-fit">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" /> {item}
+                  </span>
                 ))}
               </div>
             </div>

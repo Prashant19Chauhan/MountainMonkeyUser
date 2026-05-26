@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star } from 'lucide-react';
+import { Star, Hotel } from 'lucide-react';
 
 type DestinationStaysProps = {
   stays: any[];
@@ -12,7 +12,9 @@ export const DestinationStays = ({ stays, destinationImages }: DestinationStaysP
   return (
     <section className="space-y-6">
       <div>
-        <h2 className="text-2xl font-black text-slate-900">🏨 Hand-Selected Accommodations</h2>
+        <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+          <Hotel className="text-blue-500 w-6 h-6 shrink-0" /> Hand-Selected Accommodations
+        </h2>
         <p className="text-slate-400 text-xs">Verified hotels and resorts for your stay</p>
       </div>
 

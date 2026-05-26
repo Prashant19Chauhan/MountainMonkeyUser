@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, useState, useEffect } from 'react';
-import { Plane, User, LogOut, Sparkles, ChevronDown } from 'lucide-react';
+import { Plane, User, LogOut, Sparkles, ChevronDown, Menu, X } from 'lucide-react';
 import { tabs } from './navigation-data';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -9,6 +9,7 @@ import { useAppSelector, useAppDispatch } from '@/store/store';
 import { logout } from '@/store/userSlice';
 import { useTheme } from '@/components/theme/ThemeProvider';
 import { useLogout } from '@/hooks/useAuth';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function Header() {
   const currentRoute = usePathname();
@@ -16,6 +17,8 @@ function Header() {
   
   const [mounted, setMounted] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileMoodsOpen, setIsMobileMoodsOpen] = useState(false);
   
   const { handleLogout, isLogoutPending } = useLogout();
   
@@ -40,20 +43,20 @@ function Header() {
 
   return (
     <div className="w-full h-fit fixed top-0 z-50 bg-white/15 backdrop-blur-[10px] border-b border-slate-100 shadow-xs p-1">
-      <header className="px-10 py-3 flex items-center justify-between max-w-[1600px] mx-auto relative font-sans">
+      <header className="px-4 md:px-10 py-3 flex items-center justify-between max-w-[1600px] mx-auto relative font-sans">
 
         {/* Left Side: Brand & Logo */}
-        <div className="flex items-center gap-6 min-w-[300px]">
-          <Link href="/" className="flex items-center gap-2.5 text-orange-500 font-black text-2xl tracking-tighter shrink-0 cursor-pointer no-underline">
+        <div className="flex items-center gap-6 min-w-0 md:min-w-[300px]">
+          <Link href="/" className="flex items-center gap-2 text-orange-500 font-black text-xl md:text-2xl tracking-tighter shrink-0 cursor-pointer no-underline">
             <div className="bg-orange-500 text-white p-1.5 rounded-xl shadow-lg shadow-orange-200">
-              <Plane className="rotate-45" fill="currentColor" size={20} />
+              <Plane className="rotate-45" fill="currentColor" size={18} />
             </div>
-            <span className="text-slate-950 font-black tracking-tight">Mountain Monkey testing</span>
+            <span className="text-slate-950 font-black tracking-tight truncate max-w-[150px] sm:max-w-none">Mountain Monkey</span>
           </Link>
         </div>
 
-        {/* Center: Constant Navigation Tabs */}
-        <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
+        {/* Center: Constant Navigation Tabs (Desktop Only) */}
+        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center justify-center pointer-events-auto">
           <div className="flex items-center gap-1 bg-slate-100/80 p-1 rounded-2xl">
             {tabs.map((tab) => {
               const Icon = tab.icon;
@@ -77,14 +80,14 @@ function Header() {
           </div>
         </div>
 
-        {/* Right Side: Mood (Theme) Switcher & Authentication dropdown */}
-        <div className="flex items-center justify-end gap-4 min-w-[300px]">
+        {/* Right Side: Mood (Theme) Switcher & Authentication dropdown (Desktop Only) */}
+        <div className="hidden md:flex items-center justify-end gap-4 min-w-[300px]">
           
           {/* Himalayan Dynamic Theme Switcher */}
           <div className="relative group">
             <button className="flex items-center gap-1.5 bg-slate-50 hover:bg-slate-100 text-slate-700 px-3 py-2 rounded-2xl transition-all cursor-pointer border border-slate-200/50 shadow-2xs">
               <Sparkles size={14} className="text-orange-500 animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-wider hidden md:inline">
+              <span className="text-[10px] font-black uppercase tracking-wider hidden lg:inline">
                 {mounted && activeMood ? activeMood.label : 'Classic Mountain'}
               </span>
               <ChevronDown size={12} className="text-slate-400" />
@@ -168,7 +171,184 @@ function Header() {
 
         </div>
 
+        {/* Mobile: Hamburger Button and Simple Avatar */}
+        <div className="flex md:hidden items-center gap-3">
+          {mounted && isAuthenticated && user && (
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-orange-400 to-rose-500 text-white flex items-center justify-center font-black text-[10px] shadow-xs">
+              {user.firstName ? user.firstName[0].toUpperCase() : 'U'}
+            </div>
+          )}
+          <button
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="p-2 text-slate-700 hover:text-orange-500 transition-colors bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200/50 cursor-pointer"
+          >
+            <Menu size={18} />
+          </button>
+        </div>
+
       </header>
+
+      {/* Mobile slide-out drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-slate-950/40 backdrop-blur-[4px] z-[100] md:hidden"
+            />
+
+            {/* Drawer Panel */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 220 }}
+              className="fixed inset-y-0 right-0 w-[280px] bg-white z-[110] md:hidden shadow-2xl flex flex-col border-l border-slate-100 font-sans"
+            >
+              {/* Drawer Header */}
+              <div className="p-5 border-b border-slate-50 flex items-center justify-between">
+                <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-2 text-orange-500 font-black text-lg cursor-pointer no-underline">
+                  <div className="bg-orange-500 text-white p-1 rounded-lg">
+                    <Plane className="rotate-45" size={14} />
+                  </div>
+                  <span className="text-slate-950 font-black tracking-tight">Mountain Monkey</span>
+                </Link>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 text-slate-400 hover:text-slate-700 rounded-xl hover:bg-slate-50 border-0 cursor-pointer bg-transparent"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Drawer Content */}
+              <div className="flex-1 overflow-y-auto p-5 space-y-6">
+                {/* Navigation Tabs */}
+                <div className="space-y-1">
+                  <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 mb-3">Expeditions</p>
+                  {tabs.map((tab) => {
+                    const Icon = tab.icon;
+                    const isActive = tab.id === '/' ? currentRoute === '/' : routeSegments?.[0] === tab.id;
+                    const href = tab.id === '/' ? '/' : `/${tab.id}`;
+                    return (
+                      <Link href={href} key={tab.id} className="no-underline" onClick={() => setIsMobileMenuOpen(false)}>
+                        <button
+                          className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all cursor-pointer border-0 text-left ${
+                            isActive
+                              ? 'bg-rose-50/50 text-rose-500 font-bold'
+                              : 'text-slate-600 hover:bg-slate-50 bg-transparent'
+                          }`}
+                        >
+                          <Icon size={16} />
+                          <span className="text-[10px] uppercase font-black tracking-wider">{tab.label}</span>
+                        </button>
+                      </Link>
+                    );
+                  })}
+                </div>
+
+                {/* Mood Switcher */}
+                <div className="space-y-1.5">
+                  <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 mb-3">Himalayan Moods</p>
+                  <button
+                    onClick={() => setIsMobileMoodsOpen(!isMobileMoodsOpen)}
+                    className="w-full flex items-center justify-between bg-slate-50 hover:bg-slate-100 text-slate-700 px-4 py-2.5 rounded-xl border border-slate-200/50 cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Sparkles size={13} className="text-orange-500" />
+                      <span className="text-[10px] font-black uppercase tracking-wider">
+                        {mounted && activeMood ? activeMood.label : 'Classic Mountain'}
+                      </span>
+                    </div>
+                    <ChevronDown size={12} className={`text-slate-400 transition-transform ${isMobileMoodsOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  <AnimatePresence>
+                    {isMobileMoodsOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="overflow-hidden border border-slate-100 rounded-xl divide-y divide-slate-50 mt-1"
+                      >
+                        {moods.map((mood) => {
+                          const isSelected = activeMood?.name === mood.name;
+                          return (
+                            <button
+                              key={mood.name}
+                              onClick={() => {
+                                changeMood(mood.name);
+                                setIsMobileMoodsOpen(false);
+                              }}
+                              className={`w-full text-left px-4 py-2 text-xs font-bold transition-all flex items-center justify-between cursor-pointer border-0 ${
+                                isSelected
+                                  ? 'text-orange-500 bg-orange-50/50'
+                                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 bg-transparent'
+                              }`}
+                            >
+                              <span>{mood.label}</span>
+                              <div
+                                className="w-3 h-3 rounded-full border border-slate-200 shadow-2xs"
+                                style={{ backgroundColor: mood.bgColor }}
+                              />
+                            </button>
+                          );
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              {/* Drawer Footer / Account Controls */}
+              <div className="p-5 border-t border-slate-50 bg-slate-50/30">
+                {mounted && isAuthenticated && user ? (
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-400 to-rose-500 text-white flex items-center justify-center font-black text-xs shadow-xs">
+                        {user.firstName ? user.firstName[0].toUpperCase() : 'U'}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs font-black text-slate-800 truncate leading-tight">
+                          {user.firstName} {user.lastName || ''}
+                        </p>
+                        <p className="text-[9px] text-slate-400 truncate mt-0.5">{user.email}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-2">
+                      <Link href="/profile" className="no-underline" onClick={() => setIsMobileMenuOpen(false)}>
+                        <button className="w-full py-2 bg-white border border-slate-200 rounded-lg text-[9px] font-black uppercase tracking-wider text-slate-600 hover:bg-slate-50 cursor-pointer flex items-center justify-center gap-1">
+                          <User size={10} /> Profile
+                        </button>
+                      </Link>
+                      <button
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          setIsLogoutModalOpen(true);
+                        }}
+                        className="w-full py-2 bg-white border border-rose-100 rounded-lg text-[9px] font-black uppercase tracking-wider text-rose-500 hover:bg-rose-50/50 cursor-pointer flex items-center justify-center gap-1"
+                      >
+                        <LogOut size={10} /> Log Out
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <Link href="/login" className="no-underline" onClick={() => setIsMobileMenuOpen(false)}>
+                    <button className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-black text-[10px] uppercase tracking-wider shadow-lg shadow-orange-100 transition-all cursor-pointer border-0">
+                      <span>Sign In</span>
+                    </button>
+                  </Link>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Logout Confirmation Modal Overlay */}
       {isLogoutModalOpen && (
@@ -219,3 +399,4 @@ function Header() {
 }
 
 export default Header;
+

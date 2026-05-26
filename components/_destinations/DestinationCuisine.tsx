@@ -10,7 +10,9 @@ export const DestinationCuisine = ({ localInfo }: DestinationCuisineProps) => {
 
   return (
     <section className="space-y-6">
-      <h2 className="text-2xl font-black text-slate-900">🍜 Local Cuisine</h2>
+      <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+        <Utensils className="text-orange-500 w-6 h-6 shrink-0" /> Local Cuisine
+      </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {localInfo.famousFood.map((food: any, index: any) => (

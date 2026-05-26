@@ -32,7 +32,7 @@ export const UniqueStaysSection = () => {
         ) : uniqueStays?.length > 0 ? (
           uniqueStays.map((stay: any) => (
             <Link href={`/stays/${stay._id}`} key={stay._id} className='cursor-pointer'>
-            <div  className="min-w-[400px] md:min-w-[600px] snap-start">
+            <div  className="min-w-[85vw] sm:min-w-[400px] md:min-w-[600px] snap-start">
               <StayCard 
                 id={stay._id}
                 title={stay.name} 
