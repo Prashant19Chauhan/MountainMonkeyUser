@@ -44,6 +44,7 @@ export const homePopularActivitiesContent = async() => {
 export const homeUniqueStaysContent = async() => {
     try {
         const response = await api.get("/home/unique-stays");
+        console.log(response.data)
         return response.data.data;
     } catch (error) {
         console.error(error);

@@ -1,7 +1,7 @@
 import api from "@/lib/api";
 export const getFeaturedPackages = async () => {
     try {
-        const response = await api.get('/user/packages/featured');
+        const response = await api.get('/packages/featured');
         return response.data;
     } catch (error) {
         console.error("Error fetching featured packages:", error);
@@ -11,7 +11,7 @@ export const getFeaturedPackages = async () => {
 
 export const getTropicalPackages = async () => {
     try {
-        const response = await api.get('/user/packages/tropical');
+        const response = await api.get('/packages/tropical');
         return response.data;
     } catch (error) {
         console.error("Error fetching tropical packages:", error);
@@ -21,7 +21,7 @@ export const getTropicalPackages = async () => {
 
 export const getPopularPackages = async () => {
     try {
-        const response = await api.get('/user/packages/popular');
+        const response = await api.get('/packages/popular');
         return response.data;
     } catch (error) {
         console.error("Error fetching popular packages:", error);
@@ -31,7 +31,7 @@ export const getPopularPackages = async () => {
 
 export const getPackageAdvertisements = async () => {
     try {
-        const response = await api.get('/user/packages/advertisements');
+        const response = await api.get('/packages/advertisements');
         return response.data;
     } catch (error) {
         console.error("Error fetching package advertisements:", error);
@@ -41,7 +41,7 @@ export const getPackageAdvertisements = async () => {
 
 export const getPackagesDetails = async (packageId: string) => {
     try {
-        const response = await api.get(`/user/packages/details/${packageId}`);
+        const response = await api.get(`/packages/details/${packageId}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching packages details:", error);
@@ -52,7 +52,7 @@ export const getPackagesDetails = async (packageId: string) => {
 
 export const getPackageLocalInfo = async (packageId: string, destinationId: string) => {
     try {
-        const response = await api.get(`/user/packages/details/${packageId}/destination-local-info/${destinationId}`);
+        const response = await api.get(`/packages/details/${packageId}/destination-local-info/${destinationId}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching package local info:", error);
@@ -62,7 +62,7 @@ export const getPackageLocalInfo = async (packageId: string, destinationId: stri
 
 export const getSimilarPackages = async (packageId: string, destinationId: string, category?: Array<string>) => {
     try {
-        const response = await api.get(`/user/packages/details/${packageId}/similar-packages?destinationId=${destinationId}&category=${category}`);
+        const response = await api.get(`/packages/details/${packageId}/similar-packages?destinationId=${destinationId}&category=${category}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching similar packages:", error);

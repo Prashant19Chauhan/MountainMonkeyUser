@@ -2,7 +2,7 @@ import api from "@/lib/api";
 
 export const getDestinations = async () => {
     try {
-        const response = await api.get('/user/destinations');
+        const response = await api.get('/destinations');
         console.log(response.data);
         return response.data;
     } catch (error) {
@@ -13,7 +13,7 @@ export const getDestinations = async () => {
 
 export const getTrendingDestinations = async () => {
     try {
-        const response = await api.get('/user/destinations/trending');
+        const response = await api.get('/destinations/trending');
         return response.data;
     } catch (error) {
         console.error("Error fetching trending destinations:", error);
@@ -23,7 +23,7 @@ export const getTrendingDestinations = async () => {
 
 export const getTropicalDestinations = async () => {
     try {
-        const response = await api.get('/user/destinations/tropical');
+        const response = await api.get('/destinations/tropical');
         return response.data;
     } catch (error) {
         console.error("Error fetching tropical destinations:", error);
@@ -33,7 +33,7 @@ export const getTropicalDestinations = async () => {
 
 export const getHistoryDestinations = async () => {
     try {
-        const response = await api.get('/user/destinations/history');
+        const response = await api.get('/destinations/history');
         return response.data;
     } catch (error) {
         console.error("Error fetching history destinations:", error);
@@ -43,7 +43,7 @@ export const getHistoryDestinations = async () => {
 
 export const getDestinationAdvertisements = async () => {
     try {
-        const response = await api.get('/user/destinations/advertisements');
+        const response = await api.get('/destinations/advertisements');
         return response.data;
     } catch (error) {
         console.error("Error fetching destination advertisements:", error);
@@ -53,7 +53,7 @@ export const getDestinationAdvertisements = async () => {
 
 export const getDestinationDetails = async (destinationId: string) => {
     try {
-        const response = await api.get(`/user/destinations/details/${destinationId}`);
+        const response = await api.get(`/destinations/details/${destinationId}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching destination details:", error);
@@ -63,7 +63,7 @@ export const getDestinationDetails = async (destinationId: string) => {
 
 export const getDestinationActivities = async (destinationId: string) => {
     try {
-        const response = await api.get(`/user/destinations/activities/${destinationId}`);
+        const response = await api.get(`/destinations/activities/${destinationId}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching destination activities:", error);
@@ -73,7 +73,7 @@ export const getDestinationActivities = async (destinationId: string) => {
 
 export const getDestinationStays = async (destinationId: string) => {
     try {
-        const response = await api.get(`/user/destinations/stays/${destinationId}`);
+        const response = await api.get(`/destinations/stays/${destinationId}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching destination stays:", error);
@@ -83,7 +83,7 @@ export const getDestinationStays = async (destinationId: string) => {
 
 export const getDestinationLocalInfo = async (destinationId: string) => {
     try {
-        const response = await api.get(`/user/destinations/local-info/${destinationId}`);
+        const response = await api.get(`/destinations/local-info/${destinationId}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching destination local info:", error);
@@ -93,7 +93,7 @@ export const getDestinationLocalInfo = async (destinationId: string) => {
 
 export const getDestinationPackages = async (destinationId: string) => {
     try {
-        const response = await api.get(`/user/destinations/packages/${destinationId}`);
+        const response = await api.get(`/destinations/packages/${destinationId}`);
         return response.data;
     } catch (error) {
         console.error("Error fetching destination packages:", error);
