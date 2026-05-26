@@ -3,7 +3,7 @@ import AuthRoutesProvider from '@/provider/UnProtectedRouteProvider'
 
 function AuthLayout({children}: {children: React.ReactNode}) {
   return (
-    <div className='flex items-center justify-center h-screen'>
+    <div className='w-full min-h-screen flex flex-col bg-white'>
       <AuthRoutesProvider>
         {children}
       </AuthRoutesProvider>
