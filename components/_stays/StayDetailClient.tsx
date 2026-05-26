@@ -20,7 +20,7 @@ export function StayDetailClient({ stayId }: { stayId: string }) {
 
   const [selectedRoomIndex, setSelectedRoomIndex] = useState(0);
 
-  const localInfo = localInfoRes?.success && localInfoRes.data?.length > 0 ? localInfoRes.data[0] : null;
+  const localInfo = localInfoRes?.success && (localInfoRes.data?.length ?? 0) > 0 ? localInfoRes.data[0] : null;
   const roomsList = stay?.rooms || [];
   const selectedRoom = roomsList[selectedRoomIndex] || null;
 

@@ -33,7 +33,7 @@ export const StayMapPreview = () => {
       {/* Price Radial Pin Highlights (Safe routing bound) */}
       {stays[0] && (
         <div 
-          onClick={() => router.push(`/stays/${stays[0]._id}`)}
+          onClick={() => router.push(`/stays/${stays[0].slug || stays[0]._id}`)}
           className="absolute top-1/4 left-1/3 animate-bounce cursor-pointer z-10"
         >
           <div className="bg-white px-3 py-1.5 rounded-full shadow-xl text-[10px] font-black border border-gray-100 hover:bg-black hover:text-white transition-all">
@@ -43,7 +43,7 @@ export const StayMapPreview = () => {
       )}
       {stays[1] && (
         <div 
-          onClick={() => router.push(`/stays/${stays[1]._id}`)}
+          onClick={() => router.push(`/stays/${stays[1].slug || stays[1]._id}`)}
           className="absolute top-1/2 right-1/4 cursor-pointer z-10"
         >
           <div className="bg-black text-white px-3 py-1.5 rounded-full shadow-xl text-[10px] font-black border border-black hover:bg-slate-800 transition-all">
@@ -53,7 +53,7 @@ export const StayMapPreview = () => {
       )}
       {stays[2] && (
         <div 
-          onClick={() => router.push(`/stays/${stays[2]._id}`)}
+          onClick={() => router.push(`/stays/${stays[2].slug || stays[2]._id}`)}
           className="absolute bottom-1/4 left-1/2 cursor-pointer z-10"
         >
           <div className="bg-white px-3 py-1.5 rounded-full shadow-xl text-[10px] font-black border border-gray-100 hover:bg-black hover:text-white transition-all">

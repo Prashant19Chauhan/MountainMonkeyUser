@@ -22,12 +22,12 @@ type ActivityDetailClientProps = {
 export const ActivityDetailClient = ({ activityId }: ActivityDetailClientProps) => {
   // 1. DYNAMIC API INTEGRATION VIA TANSTACK REACT QUERY HOOKS
   const { data: detailsRes, isLoading: detailsLoading, error: detailsError } = useActivityDetails(activityId);
-  const { data: localInfoRes, isLoading: localInfoLoading } = useActivityLocalInfo(detailsRes?.data);
+  const { data: localInfoRes, isLoading: localInfoLoading } = useActivityLocalInfo(detailsRes?.data?.destinationId);
 
   // Extract pure objects from custom API response envelopes
   const activity = detailsRes?.success ? detailsRes.data : null;
   // Your destination endpoint returns an array matching your .find() schema method
-  const localInfo = localInfoRes?.success && localInfoRes.data?.length > 0 ? localInfoRes.data[0] : null;
+  const localInfo = localInfoRes?.success && (localInfoRes.data?.length ?? 0) > 0 ? localInfoRes.data[0] : null;
 
   // Calculated properties linked directly to reactive pricing parameters
   const basePrice = activity?.pricing?.price || 0;

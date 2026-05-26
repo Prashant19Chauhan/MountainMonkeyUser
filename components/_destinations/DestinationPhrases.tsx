@@ -1,8 +1,9 @@
 import React from 'react';
 import { Languages } from 'lucide-react';
+import { LocalInfo, UsefulPhrase } from '@/types/type';
 
 type DestinationPhrasesProps = {
-  localInfo: any;
+  localInfo: LocalInfo;
 };
 
 export const DestinationPhrases = ({ localInfo }: DestinationPhrasesProps) => {
@@ -14,8 +15,8 @@ export const DestinationPhrases = ({ localInfo }: DestinationPhrasesProps) => {
         <Languages className="w-4 h-4 text-purple-500" /> Useful Phrases
       </h3>
       <div className="space-y-2">
-        {localInfo.phrases.slice(0, 4).map((phrase: any) => (
-          <div key={phrase._id} className="p-3 bg-slate-50/60 rounded-xl text-xs border border-slate-100/50">
+        {localInfo.phrases.slice(0, 4).map((phrase: UsefulPhrase, idx: number) => (
+          <div key={phrase.local || idx} className="p-3 bg-slate-50/60 rounded-xl text-xs border border-slate-100/50">
             <div className="font-bold text-slate-800">{phrase.local}</div>
             <div className="text-slate-500 text-[10px]">{phrase.english}</div>
           </div>

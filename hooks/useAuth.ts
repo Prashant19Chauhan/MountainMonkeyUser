@@ -40,7 +40,7 @@ export const useLogin = () => {
             toast.success("Login successful");
             router.push("/");
         },
-        onError: (error: any) => {
+        onError: (error: { message?: string }) => {
             toast.error(error.message || "Login failed");
         },
     });
@@ -92,7 +92,7 @@ export const useSignup = () => {
       dispatch(resetSignup());
       router.push("/");
     },
-    onError: (error: any) => {
+    onError: (error: { message?: string }) => {
       toast.error(error.message || "Registration failed");
     },
   });
@@ -155,7 +155,7 @@ export const useLogout = () => {
       toast.success("Logged out successfully");
       router.push("/login");
     },
-    onError: (error: any) => {
+    onError: (error: { message?: string }) => {
       console.error("Server logout failed:", error);
       dispatch(logoutAction());
       toast.success("Logged out");

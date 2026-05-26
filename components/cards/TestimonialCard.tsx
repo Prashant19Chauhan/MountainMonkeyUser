@@ -2,7 +2,13 @@
 import React from 'react';
 import { Star } from 'lucide-react';
 
-export const TestimonialCard = ({ name, text, rating }: any) => (
+interface TestimonialCardProps {
+  name?: string;
+  text?: string;
+  rating?: number;
+}
+
+export const TestimonialCard = ({ name, text, rating }: TestimonialCardProps) => (
   <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm h-full flex flex-col justify-between">
     <div>
       <div className="flex gap-1 mb-4">

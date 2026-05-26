@@ -1,8 +1,9 @@
 import React from 'react';
 import { Compass } from 'lucide-react';
+import { Destination } from '@/types/type';
 
 type DestinationOverviewProps = {
-  destination: any;
+  destination: Destination;
 };
 
 export const DestinationOverview = ({ destination }: DestinationOverviewProps) => {
@@ -16,7 +17,7 @@ export const DestinationOverview = ({ destination }: DestinationOverviewProps) =
       </p>
       {destination.categories && destination.categories.length > 0 && (
         <div className="flex flex-wrap gap-1.5 pt-2">
-          {destination.categories.map((cat: any, i: any) => (
+          {destination.categories.map((cat: string, i: number) => (
             <span key={i} className="bg-slate-100 text-slate-600 font-bold text-[11px] px-3 py-1.5 rounded-lg capitalize">
               #{cat}
             </span>

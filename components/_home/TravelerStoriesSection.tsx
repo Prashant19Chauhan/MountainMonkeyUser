@@ -6,6 +6,15 @@ import { useInView } from '@/hooks/useInView';
 import { useTravelerStories } from '@/hooks/useHome';
 import Link from 'next/link';
 
+interface TravelerStory {
+  _id: string;
+  title: string;
+  images?: string[];
+  author?: {
+    name?: string;
+  };
+}
+
 export const TravelerStoriesSection = () => {
   const [storiesRef, storiesInView] = useInView();
   
@@ -28,8 +37,8 @@ export const TravelerStoriesSection = () => {
              [1,2,3,4,5,6].map((i) => (
                <div key={i} className="min-w-[280px] aspect-[3/4] bg-slate-100 rounded-2xl animate-pulse" />
              ))
-        ) : travelerStories?.length > 0 ? (
-          travelerStories.map((story: any) => (
+        ) : (travelerStories?.length ?? 0) > 0 ? (
+          (travelerStories as TravelerStory[]).map((story: TravelerStory) => (
             <Link href={`/stories/${story._id}`} key={story._id} className='cursor-pointer'>
             <div 
               className="min-w-[280px] aspect-[3/4] bg-slate-200 rounded-2xl relative overflow-hidden group snap-start"

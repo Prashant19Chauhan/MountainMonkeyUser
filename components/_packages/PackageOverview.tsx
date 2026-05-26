@@ -1,8 +1,9 @@
 import React from 'react';
 import { Info } from 'lucide-react';
+import { TourPackage } from '@/types/type';
 
 type PackageOverviewProps = {
-  packageDetails: any;
+  packageDetails: TourPackage;
 };
 
 export const PackageOverview = ({ packageDetails }: PackageOverviewProps) => {

@@ -5,6 +5,7 @@ import { useInView } from '@/hooks/useInView';
 import { useUniqueStays } from '@/hooks/useHome';
 import { StayCard } from '@/components/cards/StayCard';
 import Link from 'next/link';
+import { Stay } from '@/types/type';
 
 export const UniqueStaysSection = () => {
   const [staysRef, staysInView] = useInView();
@@ -29,12 +30,11 @@ export const UniqueStaysSection = () => {
           <div className="min-w-full py-12 text-center bg-slate-50 rounded-[40px] border-2 border-dashed border-slate-200 animate-pulse">
             <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">Finding cozy nests...</p>
           </div>
-        ) : uniqueStays?.length > 0 ? (
-          uniqueStays.map((stay: any) => (
-            <Link href={`/stays/${stay._id}`} key={stay._id} className='cursor-pointer'>
+        ) : (uniqueStays?.length ?? 0) > 0 ? (
+          (uniqueStays as Stay[]).map((stay: Stay) => (
+            <Link href={`/stays/${stay.slug}`} key={stay._id} className='cursor-pointer'>
             <div  className="min-w-[85vw] sm:min-w-[400px] md:min-w-[600px] snap-start">
-              <StayCard 
-                id={stay._id}
+              <StayCard
                 title={stay.name} 
                 location={stay.location?.address || "Multiple Locations"} 
                 price={stay.priceRange?.min} 

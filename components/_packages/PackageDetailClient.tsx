@@ -26,7 +26,7 @@ export const PackageDetailClient = ({ packageId }: PackageDetailClientProps) => 
   // Fetch package data
   const { data: packageData, isLoading: isLoadingPackage } = usePackageDetails(packageId);
   const destinationId = packageData?.packageDetails?.destination?.id?._id || '';
-  const { data: localInfoData, isLoading: isLoadingLocalInfo } = usePackageLocalInfo(packageId, destinationId);
+  const { data: localInfoData, isLoading: isLoadingLocalInfo } = usePackageLocalInfo(packageId, destinationId, !!destinationId);
   const { data: similarPackagesData, isLoading: isLoadingSimilar } = useSimilarPackages(
     packageId,
     destinationId,
@@ -49,8 +49,10 @@ export const PackageDetailClient = ({ packageId }: PackageDetailClientProps) => 
       ];
 
   // Calculate discount percentage
-  const discountPercentage = packageDetails?.pricing?.basePrice && packageDetails?.pricing?.discountedPrice
-    ? Math.round(((packageDetails.pricing.basePrice - packageDetails.pricing.discountedPrice) / packageDetails.pricing.basePrice) * 100)
+  const pricingBasePrice = packageDetails?.pricing?.basePrice ?? 0;
+  const pricingDiscountedPrice = packageDetails?.pricing?.discountedPrice ?? 0;
+  const discountPercentage = pricingBasePrice > 0 && pricingDiscountedPrice > 0
+    ? Math.round(((pricingBasePrice - pricingDiscountedPrice) / pricingBasePrice) * 100)
     : 0;
 
   // Loading state
@@ -72,11 +74,11 @@ export const PackageDetailClient = ({ packageId }: PackageDetailClientProps) => 
   }
 
   // Calculate total price with taxes
-  const baseTotal = (packageDetails.pricing.discountedPrice || packageDetails.pricing.basePrice) * 2; // Assuming 2 adults
+  const baseTotal = (pricingDiscountedPrice || pricingBasePrice) * 2; // Assuming 2 adults
   const taxes = Math.round(baseTotal * 0.05); // 5% taxes
   const totalPrice = baseTotal + taxes;
-  const totalDiscount = packageDetails.pricing.basePrice && packageDetails.pricing.discountedPrice
-    ? (packageDetails.pricing.basePrice - packageDetails.pricing.discountedPrice) * 2
+  const totalDiscount = pricingBasePrice > 0 && pricingDiscountedPrice > 0
+    ? (pricingBasePrice - pricingDiscountedPrice) * 2
     : 0;
 
   return (

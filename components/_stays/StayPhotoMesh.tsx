@@ -1,7 +1,8 @@
 import React from 'react';
+import { Stay } from '@/types/type';
 
 type StayPhotoMeshProps = {
-  stay: any;
+  stay: Stay;
 };
 
 export const StayPhotoMesh = ({ stay }: StayPhotoMeshProps) => {

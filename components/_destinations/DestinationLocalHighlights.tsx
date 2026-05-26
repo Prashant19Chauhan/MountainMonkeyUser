@@ -1,8 +1,9 @@
 import React from 'react';
 import { Sun, Wallet, Languages, ShieldCheck } from 'lucide-react';
+import { LocalInfo } from '@/types/type';
 
 type DestinationLocalHighlightsProps = {
-  localInfo: any;
+  localInfo: LocalInfo;
 };
 
 export const DestinationLocalHighlights = ({ localInfo }: DestinationLocalHighlightsProps) => {

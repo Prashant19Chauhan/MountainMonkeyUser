@@ -1,7 +1,38 @@
 import { Metadata } from 'next';
 
+export interface NestedSEO {
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string[];
+  canonicalUrl?: string;
+  robots?: {
+    index?: boolean;
+    follow?: boolean;
+    noarchive?: boolean;
+    nosnippet?: boolean;
+    noimageindex?: boolean;
+  };
+  openGraph?: {
+    title?: string;
+    description?: string;
+    image?: string;
+    imageAlt?: string;
+    type?: string;
+    url?: string;
+    siteName?: string;
+    locale?: string;
+  };
+  twitter?: {
+    card?: string;
+    title?: string;
+    description?: string;
+    image?: string;
+    creator?: string;
+  };
+}
+
 export function mapBackendMetadata(
-  meta: any,
+  meta: NestedSEO | undefined | null,
   fallback: { title: string; description: string; image?: string }
 ): Metadata {
   if (!meta) {
@@ -43,13 +74,13 @@ export function mapBackendMetadata(
         : fallback.image
         ? [{ url: fallback.image }]
         : [],
-      type: (meta.openGraph?.type as any) || "website",
+      type: (meta.openGraph?.type as "website" | "article" | "book" | "profile" | "music.song" | "music.album" | "music.playlist" | "music.radio_station" | "video.movie" | "video.episode" | "video.tv_show" | "video.other") || "website",
       url: meta.openGraph?.url || undefined,
       siteName: meta.openGraph?.siteName || "MountainMonkey",
       locale: meta.openGraph?.locale || "en_US",
     },
     twitter: {
-      card: (meta.twitter?.card as any) || "summary_large_image",
+      card: (meta.twitter?.card as "summary" | "summary_large_image" | "app" | "player") || "summary_large_image",
       title: meta.twitter?.title || meta.metaTitle || fallback.title,
       description: meta.twitter?.description || meta.metaDescription || fallback.description,
       images: meta.twitter?.image

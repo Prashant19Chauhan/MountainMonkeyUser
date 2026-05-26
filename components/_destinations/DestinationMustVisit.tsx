@@ -1,8 +1,9 @@
 import React from 'react';
 import { Calendar, Clock, MapPin } from 'lucide-react';
+import { LocalInfo, FamousPlaceItem } from '@/types/type';
 
 type DestinationMustVisitProps = {
-  localInfo: any;
+  localInfo: LocalInfo;
 };
 
 export const DestinationMustVisit = ({ localInfo }: DestinationMustVisitProps) => {
@@ -15,7 +16,7 @@ export const DestinationMustVisit = ({ localInfo }: DestinationMustVisitProps) =
       </h2>
       
       <div className="relative border-l-2 border-slate-200 pl-6 ml-4 space-y-6">
-        {localInfo.famousPlaces.map((place: any, index: any) => (
+        {localInfo.famousPlaces.map((place: FamousPlaceItem, index: number) => (
           <div key={index} className="relative">
             <span className="absolute -left-[35px] top-0.5 bg-blue-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ring-4 ring-[#f8fafc]">
               {index + 1}

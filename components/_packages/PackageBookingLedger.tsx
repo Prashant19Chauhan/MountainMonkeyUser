@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { Calendar, Users, Car, Lock, MessageCircle } from 'lucide-react';
+import { TourPackage } from '@/types/type';
 
 type PackageBookingLedgerProps = {
-  packageDetails: any;
+  packageDetails: TourPackage;
   discountPercentage: number;
   baseTotal: number;
   taxes: number;
@@ -28,11 +29,11 @@ export const PackageBookingLedger = ({
           <p className="text-gray-500 text-sm mb-1">Price per person</p>
           <div className="flex items-end gap-2">
             <span className="text-3xl font-black text-gray-900">
-              ₹{packageDetails.pricing.discountedPrice?.toLocaleString('en-IN') || packageDetails.pricing.basePrice.toLocaleString('en-IN')}
+              ₹{packageDetails.pricing?.discountedPrice?.toLocaleString('en-IN') || packageDetails.pricing?.basePrice?.toLocaleString('en-IN') || '0'}
             </span>
-            {packageDetails.pricing.discountedPrice && (
+            {packageDetails.pricing?.discountedPrice && (
               <span className="text-sm text-gray-400 line-through mb-1">
-                ₹{packageDetails.pricing.basePrice.toLocaleString('en-IN')}
+                ₹{(packageDetails.pricing?.basePrice ?? 0).toLocaleString('en-IN')}
               </span>
             )}
           </div>
@@ -53,8 +54,8 @@ export const PackageBookingLedger = ({
             <div className="flex-1">
               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Dates</p>
               <p className="text-sm font-bold text-gray-900">
-                {new Date(packageDetails.availability.startDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} - 
-                {new Date(new Date(packageDetails.availability.startDate).getTime() + (packageDetails.duration.days * 24 * 60 * 60 * 1000)).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+                {packageDetails.availability?.startDate ? new Date(packageDetails.availability.startDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Soon'} - 
+                {packageDetails.availability?.startDate ? new Date(new Date(packageDetails.availability.startDate).getTime() + ((packageDetails.duration?.days || 0) * 24 * 60 * 60 * 1000)).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Soon'}
               </p>
             </div>
             <Calendar size={18} className="text-gray-400" />
@@ -69,14 +70,14 @@ export const PackageBookingLedger = ({
         </div>
 
         {/* Transport Option */}
-        {packageDetails.transport.included && (
+        {packageDetails.transport?.included && (
           <div className="border border-gray-200 rounded-2xl p-4 cursor-pointer hover:border-gray-300 transition-colors">
             <div className="flex justify-between items-center mb-2">
               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Transport</p>
               <span className="text-[10px] text-blue-600 font-bold">Included</span>
             </div>
             <p className="text-sm font-bold text-gray-900 flex items-center gap-1">
-              <Car size={14}/> {packageDetails.transport.modes.join(', ')}
+              <Car size={14}/> {packageDetails.transport.modes?.join(', ')}
             </p>
           </div>
         )}
@@ -87,7 +88,7 @@ export const PackageBookingLedger = ({
       <div className="space-y-3 mb-6">
         <div className="flex justify-between text-sm text-gray-600">
           <span className="underline decoration-dotted cursor-pointer hover:text-gray-900">
-            2x Adults (₹{(packageDetails.pricing.discountedPrice || packageDetails.pricing.basePrice).toLocaleString('en-IN')})
+            2x Adults (₹{(packageDetails.pricing?.discountedPrice || packageDetails.pricing?.basePrice || 0).toLocaleString('en-IN')})
           </span>
           <span className="font-medium">₹{baseTotal.toLocaleString('en-IN')}</span>
         </div>
@@ -109,7 +110,7 @@ export const PackageBookingLedger = ({
 
       {/* Actions */}
       <button type="button" className="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-sm shadow-xl shadow-blue-600/20 hover:bg-blue-700 hover:-translate-y-0.5 transition-all mb-4 cursor-pointer">
-        Check Availability ({packageDetails.availability.availableSeats} seats left)
+        Check Availability ({packageDetails.availability?.availableSeats || 0} seats left)
       </button>
       
       <p className="text-center text-xs text-gray-500 font-medium flex items-center justify-center gap-1">

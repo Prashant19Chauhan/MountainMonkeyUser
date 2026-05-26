@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { Compass } from 'lucide-react';
+import { Activity } from '@/types/type';
 
 type DestinationActivitiesProps = {
-  activities: any[];
+  activities: Activity[];
   destinationImages: string[];
 };
 
@@ -13,13 +15,13 @@ export const DestinationActivities = ({ activities, destinationImages }: Destina
 
   const activityCategories = useMemo<string[]>(() => {
     if (!activities.length) return ['All'];
-    const categories = Array.from(new Set(activities.map((act: any) => act.type))) as string[];
+    const categories = Array.from(new Set(activities.map((act: Activity) => act.type || ''))).filter(Boolean) as string[];
     return ['All', ...categories];
   }, [activities]);
 
   const filteredActivities = useMemo(() => {
     if (activityFilter === 'All') return activities;
-    return activities.filter((act: any) => act.type === activityFilter);
+    return activities.filter((act: Activity) => act.type === activityFilter);
   }, [activityFilter, activities]);
 
   if (activities.length === 0) return null;
@@ -55,8 +57,12 @@ export const DestinationActivities = ({ activities, destinationImages }: Destina
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-        {filteredActivities.map((act: any, idx: any) => (
-          <div key={act._id} className="group bg-white rounded-xl overflow-hidden border border-slate-100 shadow-2xs hover:shadow-md transition">
+        {filteredActivities.map((act: Activity, idx: number) => (
+          <Link 
+            href={`/activities/${act.slug}`}
+            key={act._id} 
+            className="group bg-white rounded-xl overflow-hidden border border-slate-100 shadow-2xs hover:shadow-md transition no-underline cursor-pointer flex flex-col justify-between"
+          >
             <div className="h-32 overflow-hidden relative">
               <img 
                 src={destinationImages[idx % destinationImages.length]} 
@@ -72,19 +78,19 @@ export const DestinationActivities = ({ activities, destinationImages }: Destina
                 {act.name}
               </h4>
               <div className="text-right flex-shrink-0">
-                {act.pricing.isFree ? (
+                {act.pricing?.isFree ? (
                   <span className="text-xs font-black text-emerald-600">Free</span>
                 ) : (
                   <>
                     <span className="text-[9px] text-slate-400 block">From</span>
                     <span className="text-xs font-black text-emerald-600">
-                      ₹{act.pricing.price.toLocaleString('en-IN')}
+                      ₹{(act.pricing?.price || 0).toLocaleString('en-IN')}
                     </span>
                   </>
                 )}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

@@ -1,8 +1,9 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
+import { TourPackage, ItineraryDay } from '@/types/type';
 
 type PackageItineraryProps = {
-  packageDetails: any;
+  packageDetails: TourPackage;
   heroImages: string[];
 };
 
@@ -19,8 +20,8 @@ export const PackageItinerary = ({ packageDetails, heroImages }: PackageItinerar
       </div>
 
       <div className="space-y-6">
-        {packageDetails.itinerary.slice(0, 3).map((day: any, index: any) => (
-          <div key={day._id} className="flex gap-6 relative">
+        {packageDetails.itinerary.slice(0, 3).map((day: ItineraryDay, index: number) => (
+          <div key={day.day || index} className="flex gap-6 relative">
             <div className="flex flex-col items-center relative z-10">
               <div className={`w-8 h-8 rounded-full ${index === 0 ? 'bg-blue-600 text-white' : 'bg-white border-2 border-blue-600 text-blue-600'} flex items-center justify-center font-bold text-xs shadow-md`}>
                 {day.day}
@@ -36,7 +37,7 @@ export const PackageItinerary = ({ packageDetails, heroImages }: PackageItinerar
                 </div>
                 {heroImages[index] && (
                   <div className="w-full md:w-32 h-32 rounded-2xl overflow-hidden shrink-0">
-                    <img src={heroImages[index]} className="w-full h-full object-cover" alt={day.title}/>
+                    <img src={heroImages[index]} className="w-full h-full object-cover" alt={day.title || 'Itinerary image'}/>
                   </div>
                 )}
               </div>
@@ -46,7 +47,7 @@ export const PackageItinerary = ({ packageDetails, heroImages }: PackageItinerar
       </div>
       {packageDetails.itinerary.length > 3 && (
         <button type="button" className="w-full py-4 mt-6 rounded-2xl border border-gray-200 text-gray-700 font-bold hover:bg-gray-50 transition-colors cursor-pointer">
-          View Full {packageDetails.duration.days}-Day Itinerary
+          View Full {packageDetails.duration?.days || 0}-Day Itinerary
         </button>
       )}
     </section>

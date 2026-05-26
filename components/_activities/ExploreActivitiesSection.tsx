@@ -5,13 +5,14 @@ import { Star, Heart, CheckCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useInView } from '@/hooks/useInView';
 import { useExploreActivities } from '@/hooks/useActivities';
+import { Activity } from '@/types/type';
 
 export const ExploreActivitiesSection = () => {
   const router = useRouter();
   const [exploreRef, isExploreVisible] = useInView();
   const { data: exploreData, isLoading: isLoadingExplore } = useExploreActivities(isExploreVisible);
 
-  const exploreActivities = exploreData?.data || [];
+  const exploreActivities: Activity[] = exploreData?.data || [];
 
   return (
     <div ref={exploreRef} className="space-y-4 font-sans">
@@ -26,10 +27,10 @@ export const ExploreActivitiesSection = () => {
             Loading more experiences...
           </div>
         ) : exploreActivities.length > 0 ? (
-          exploreActivities.map((item: any, i: number) => (
+          exploreActivities.map((item: Activity, i: number) => (
             <div 
               key={item._id || i} 
-              onClick={() => router.push(`/activities/${item._id}`)}
+              onClick={() => router.push(`/activities/${item.slug}`)}
               className="flex flex-col md:flex-row bg-white rounded-3xl border border-gray-100 overflow-hidden group hover:shadow-md transition-shadow cursor-pointer relative"
             >
               <div className="md:w-64 h-44 relative overflow-hidden flex-shrink-0 bg-slate-50">

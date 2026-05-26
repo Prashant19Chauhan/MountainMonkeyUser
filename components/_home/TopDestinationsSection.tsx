@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 type TTopDestination = {
   _id: string;
+  slug: string;
   name: string;
   images: string[];
 };
@@ -38,7 +39,7 @@ export const TopDestinationsSection = () => {
           </div>
         ) : topDestinations && topDestinations.length > 0 ? (
           topDestinations.map((dest: TTopDestination) => (
-            <Link href={`/destinations/${dest._id}`} key={dest._id} className='cursor-pointer no-underline'>
+            <Link href={`/destinations/${dest.slug}`} key={dest._id} className='cursor-pointer no-underline'>
               <div className="min-w-[280px] group snap-start">
                 <div className="relative aspect-[3/4] bg-slate-100 rounded-[32px] overflow-hidden mb-6 shadow-lg shadow-slate-200/50 transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
                   <div 

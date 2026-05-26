@@ -5,6 +5,7 @@ import { useInView } from '@/hooks/useInView';
 import { useUpcomingPackages } from '@/hooks/useHome';
 import { ComingSoonCard } from '@/components/cards/ComingSoonCard';
 import Link from 'next/link';
+import { TourPackage } from '@/types/type';
 
 export const UpcomingPackagesSection = () => {
   const [upcomingRef, upcomingInView] = useInView();
@@ -29,13 +30,13 @@ export const UpcomingPackagesSection = () => {
           <div className="min-w-full py-12 text-center bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 animate-pulse">
             <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">Preparing new adventures...</p>
           </div>
-        ) : upcomingPackages?.length > 0 ? (
-          upcomingPackages.map((pkg: any) => (
+        ) : (upcomingPackages?.length ?? 0) > 0 ? (
+          (upcomingPackages as TourPackage[]).map((pkg: TourPackage) => (
             <div key={pkg._id} className="min-w-[285px] sm:min-w-[320px] md:min-w-[400px] snap-start">
               <ComingSoonCard 
-                id={pkg._id}
+                slug={pkg.slug || ''}
                 title={pkg.title} 
-                date={new Date(pkg.availability?.startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })} 
+                date={pkg.availability?.startDate ? new Date(pkg.availability.startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : 'Soon'} 
                 image={pkg.images?.[0]}
               />
             </div>

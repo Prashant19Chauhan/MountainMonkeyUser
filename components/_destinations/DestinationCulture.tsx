@@ -1,8 +1,9 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
+import { LocalInfo } from '@/types/type';
 
 type DestinationCultureProps = {
-  localInfo: any;
+  localInfo: LocalInfo;
 };
 
 export const DestinationCulture = ({ localInfo }: DestinationCultureProps) => {
@@ -14,7 +15,7 @@ export const DestinationCulture = ({ localInfo }: DestinationCultureProps) => {
         <Sparkles className="w-4 h-4 text-amber-500" /> Culture & Festivals
       </h3>
       <div className="space-y-3">
-        {localInfo.culture.festivals?.slice(0, 3).map((festival: any, index: any) => (
+        {localInfo.culture.festivals?.slice(0, 3).map((festival: string, index: number) => (
           <div key={index} className="flex items-center gap-2 text-sm">
             <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
             <span className="text-slate-700">{festival}</span>

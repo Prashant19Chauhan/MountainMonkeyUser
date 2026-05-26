@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { DollarSign, Calendar } from 'lucide-react';
+import { Destination } from '@/types/type';
 
 type DestinationBudgetEstimateProps = {
-  destination: any;
+  destination: Destination;
 };
 
 export const DestinationBudgetEstimate = ({ destination }: DestinationBudgetEstimateProps) => {

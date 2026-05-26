@@ -1,8 +1,9 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
+import { Activity } from '@/types/type';
 
 type DetailOverviewProps = {
-  activity: any;
+  activity: Activity;
 };
 
 export const DetailOverview = ({ activity }: DetailOverviewProps) => {

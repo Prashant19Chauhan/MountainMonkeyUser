@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { Compass, MapPin, Share2, Heart, Grid } from 'lucide-react';
+import { Destination } from '@/types/type';
 
 type DestinationHeroProps = {
-  destination: any;
+  destination: Destination;
   destinationImages: string[];
 };
 
@@ -25,7 +26,7 @@ export const DestinationHero = ({ destination, destinationImages }: DestinationH
           </h1>
           <div className="flex items-center gap-3 text-xs font-bold text-slate-500">
             <span className="flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-slate-400" /> {destination.location.address}
+              <MapPin className="w-3.5 h-3.5 text-slate-400" /> {destination.location?.address}
             </span>
             {destination.categories && destination.categories.length > 0 && (
               <>

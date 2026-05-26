@@ -3,10 +3,18 @@ import React from 'react';
 import { Heart } from 'lucide-react'; 
 import Link from 'next/link';
 
-export const HorizontalCard = ({ title, location, price, image, id }: any) => {
+interface HorizontalCardProps {
+  title?: string;
+  location?: string;
+  price?: number;
+  image?: string;
+  slug?: string;
+}
+
+export const HorizontalCard = ({ title, location, price, image, slug }: HorizontalCardProps) => {
   return (
     <Link 
-      href={`/activities/${id}`}
+      href={`/activities/${slug}`}
       className="group cursor-pointer"
     >
       <div className="relative aspect-[16/10] bg-gray-100 rounded-[32px] mb-4 overflow-hidden">

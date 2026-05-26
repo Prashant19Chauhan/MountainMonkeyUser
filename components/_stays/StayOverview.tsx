@@ -1,8 +1,9 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
+import { Stay } from '@/types/type';
 
 type StayOverviewProps = {
-  stay: any;
+  stay: Stay;
 };
 
 export const StayOverview = ({ stay }: StayOverviewProps) => {

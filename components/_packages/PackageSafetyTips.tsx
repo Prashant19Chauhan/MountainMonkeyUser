@@ -1,9 +1,10 @@
 import React from 'react';
 import { Info, ShieldCheck, Check, X, CheckCircle2, XCircle } from 'lucide-react';
+import { TourPackage, LocalInfo, EmergencyContact } from '@/types/type';
 
 type PackageSafetyTipsProps = {
-  packageDetails: any;
-  localInfo: any;
+  packageDetails: TourPackage;
+  localInfo: LocalInfo;
 };
 
 export const PackageSafetyTips = ({ packageDetails, localInfo }: PackageSafetyTipsProps) => {
@@ -19,12 +20,12 @@ export const PackageSafetyTips = ({ packageDetails, localInfo }: PackageSafetyTi
             </div>
             <h3 className="font-bold text-gray-900 mb-4">Local Tips & Safety</h3>
             <ul className="space-y-3 text-sm text-gray-600">
-              {localInfo.dos?.slice(0, 3).map((doItem: any, index: any) => (
+              {localInfo.dos?.slice(0, 3).map((doItem: string, index: number) => (
                 <li key={index} className="flex items-start gap-2">
                   <Check size={16} className="text-blue-500 shrink-0 mt-0.5"/> {doItem}
                 </li>
               ))}
-              {localInfo.donts?.slice(0, 2).map((dontItem: any, index: any) => (
+              {localInfo.donts?.slice(0, 2).map((dontItem: string, index: number) => (
                 <li key={index} className="flex items-start gap-2">
                   <X size={16} className="text-red-500 shrink-0 mt-0.5"/> {dontItem}
                 </li>
@@ -33,8 +34,8 @@ export const PackageSafetyTips = ({ packageDetails, localInfo }: PackageSafetyTi
             {localInfo.safety?.emergencyContacts && localInfo.safety.emergencyContacts.length > 0 && (
               <div className="mt-4 pt-4 border-t border-blue-200">
                 <p className="text-xs font-bold text-gray-700 mb-2">Emergency Contacts:</p>
-                {localInfo.safety.emergencyContacts.map((contact: any) => (
-                  <p key={contact._id} className="text-xs text-slate-600">
+                {localInfo.safety?.emergencyContacts?.map((contact: EmergencyContact) => (
+                  <p key={contact.number} className="text-xs text-slate-600">
                     {contact.authority}: {contact.number}
                   </p>
                 ))}
@@ -84,7 +85,7 @@ export const PackageSafetyTips = ({ packageDetails, localInfo }: PackageSafetyTi
               <CheckCircle2 size={18} /> Included
             </h3>
             <ul className="space-y-3 text-sm text-gray-700">
-              {packageDetails.inclusions.map((inclusion: any, index: any) => (
+              {packageDetails.inclusions?.map((inclusion: string, index: number) => (
                 <li key={index} className="flex items-center gap-2">
                   <Check size={16} className="text-green-500"/> {inclusion}
                 </li>
@@ -96,7 +97,7 @@ export const PackageSafetyTips = ({ packageDetails, localInfo }: PackageSafetyTi
               <XCircle size={18} /> Excluded
             </h3>
             <ul className="space-y-3 text-sm text-gray-700">
-              {packageDetails.exclusions.map((exclusion: any, index: any) => (
+              {packageDetails.exclusions?.map((exclusion: string, index: number) => (
                 <li key={index} className="flex items-center gap-2">
                   <X size={16} className="text-red-400"/> {exclusion}
                 </li>

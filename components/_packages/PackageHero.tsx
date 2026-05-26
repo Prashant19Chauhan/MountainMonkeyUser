@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Share, Heart, Star, MapPin } from 'lucide-react';
+import { TourPackage, Destination } from '@/types/type';
 
 type PackageHeroProps = {
-  packageDetails: any;
+  packageDetails: TourPackage;
   heroImages: string[];
 };
 
@@ -48,7 +49,7 @@ export const PackageHero = ({ packageDetails, heroImages }: PackageHeroProps) =>
           
           {/* Carousel Indicators */}
           <div className="absolute bottom-32 right-12 z-10 flex gap-2">
-            {heroImages.map((_: any, idx: any) => (
+            {heroImages.map((_: string, idx: number) => (
               <div key={idx} className={`w-2 h-2 rounded-full transition-all ${idx === currentHeroImage ? 'bg-white w-6' : 'bg-white/50'}`} />
             ))}
           </div>
@@ -73,9 +74,9 @@ export const PackageHero = ({ packageDetails, heroImages }: PackageHeroProps) =>
               {packageDetails.isFeatured && (
                 <span className="bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider">Best Seller</span>
               )}
-              {packageDetails.ratings.count > 0 && (
+              {packageDetails.ratings?.count && packageDetails.ratings.count > 0 && (
                 <span className="bg-white/20 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider flex items-center gap-1">
-                  <Star size={12} className="fill-yellow-400 text-yellow-400"/> {packageDetails.ratings.average.toFixed(1)} ({packageDetails.ratings.count} Reviews)
+                  <Star size={12} className="fill-yellow-400 text-yellow-400"/> {(packageDetails.ratings?.average || 0).toFixed(1)} ({packageDetails.ratings?.count} Reviews)
                 </span>
               )}
             </div>
@@ -83,7 +84,7 @@ export const PackageHero = ({ packageDetails, heroImages }: PackageHeroProps) =>
               {packageDetails.title}
             </h1>
             <p className="text-white/80 text-lg flex items-center gap-2">
-              <MapPin size={18} /> {packageDetails.destination.id.name} • {packageDetails.duration.days} Days
+              <MapPin size={18} /> {(packageDetails.destination?.id as Destination | undefined)?.name || 'Location'} • {packageDetails.duration?.days || 0} Days
             </p>
           </div>
         </div>

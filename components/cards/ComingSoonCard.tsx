@@ -1,11 +1,18 @@
 import { Calendar } from 'lucide-react';
 import Link from 'next/link';
 
-export const ComingSoonCard = ({ title, date, image,id }: any) => {
+interface ComingSoonCardProps {
+  title?: string;
+  date?: string;
+  image?: string;
+  slug?: string;
+}
+
+export const ComingSoonCard = ({ title, date, image, slug }: ComingSoonCardProps) => {
 
   return (
     <Link 
-      href={`/packages/${id}`}
+      href={`/packages/${slug}`}
       className="group cursor-pointer"
     >
       <div className="relative aspect-[16/10] bg-gray-100 rounded-[32px] mb-4 overflow-hidden">

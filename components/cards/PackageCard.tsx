@@ -2,10 +2,20 @@ import React from 'react';
 import { Heart } from 'lucide-react';
 import Link from 'next/link';
 
-export const PackageCard = ({ title, location, price, duration, tag, image, id }: any) => {
+interface PackageCardProps {
+  title?: string;
+  location?: string;
+  price?: number;
+  duration?: string;
+  tag?: string;
+  image?: string;
+  slug?: string;
+}
+
+export const PackageCard = ({ title, location, price, duration, tag, image, slug }: PackageCardProps) => {
   return (
     <Link 
-      href={`/packages/${id}`}
+      href={`/packages/${slug}`}
       className="min-w-[285px] sm:min-w-[380px] group cursor-pointer snap-start"
     >
       <div className="relative aspect-[4/5] bg-slate-100 rounded-[40px] overflow-hidden mb-6 shadow-xl shadow-slate-200/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-rose-500/20 group-hover:-translate-y-2">

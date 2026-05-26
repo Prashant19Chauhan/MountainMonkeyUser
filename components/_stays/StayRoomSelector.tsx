@@ -1,7 +1,8 @@
 import React from 'react';
+import { StayRoom } from '@/types/type';
 
 type StayRoomSelectorProps = {
-  roomsList: any[];
+  roomsList: StayRoom[];
   selectedRoomIndex: number;
   setSelectedRoomIndex: (index: number) => void;
 };
@@ -21,7 +22,7 @@ export const StayRoomSelector = ({
       </div>
       
       <div className="space-y-3">
-        {roomsList.map((room: any, idx: number) => (
+        {roomsList.map((room: StayRoom, idx: number) => (
           <div 
             key={idx}
             onClick={() => setSelectedRoomIndex(idx)}

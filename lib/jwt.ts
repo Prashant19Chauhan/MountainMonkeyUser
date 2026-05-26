@@ -3,7 +3,7 @@
  * Safe to execute inside Next.js edge Middleware or browser clients.
  */
 
-export function parseJwt(token: string): any {
+export function parseJwt(token: string): Record<string, any> | null {
   if (!token) return null;
   try {
     const parts = token.split('.');

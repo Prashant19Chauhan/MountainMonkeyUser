@@ -5,13 +5,14 @@ import { Sun, ChevronLeft, ChevronRight, MapPin, Heart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useInView } from '@/hooks/useInView';
 import { useTropicalDestinations } from '@/hooks/useDestinations';
+import { Destination } from '@/types/type';
 
 export const TropicalDestinationsSection = () => {
   const router = useRouter();
   const [tropicalRef, isTropicalVisible] = useInView();
   const { data: tropicalData, isLoading: isLoadingTropical } = useTropicalDestinations(isTropicalVisible);
 
-  const tropicalDestinations = tropicalData?.data || [];
+  const tropicalDestinations: Destination[] = tropicalData?.data || [];
 
   return (
     <section ref={tropicalRef}>
@@ -39,10 +40,10 @@ export const TropicalDestinationsSection = () => {
             Loading tropical destinations...
           </div>
         ) : tropicalDestinations.length > 0 ? (
-          tropicalDestinations.map((dest: any, i: number) => (
+          tropicalDestinations.map((dest: Destination, i: number) => (
             <div 
               key={dest._id || i} 
-              onClick={() => router.push(`/destinations/${dest._id}`)}
+              onClick={() => router.push(`/destinations/${dest.slug}`)}
               className="group bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
             >
               <div className="relative h-64 overflow-hidden bg-slate-100">

@@ -78,39 +78,39 @@ function renderVisualElement(el: VisualElement, index: number): React.ReactNode 
   const isImg = el.type === "img";
 
   // Build spread-safe props (key must NOT be inside the spread object)
-  const spreadProps: Record<string, any> = {
+  const spreadProps: Record<string, unknown> = {
     className: el.className || "",
     style: {
       position: "absolute",
       pointerEvents: "none",
       fill: isSvg ? "currentColor" : undefined,
       ...el.style,
-    },
+    } as React.CSSProperties,
     ...el.props,
   };
 
   if (isSvg) {
     spreadProps.viewBox = el.viewBox || "0 0 100 100";
     return (
-      <svg key={index} {...spreadProps}>
+      <svg key={index} {...(spreadProps as React.SVGProps<SVGSVGElement>)}>
         {el.paths && el.paths.map((p, idx) => (
           <path key={idx} d={p} />
         ))}
-        {el.children && el.children.map((child: any, idx: number) => (
-          renderVisualElement(child as VisualElement, idx)
+        {el.children && el.children.map((child: VisualElement, idx: number) => (
+          renderVisualElement(child, idx)
         ))}
       </svg>
     );
   }
 
   if (isImg) {
-    return <img key={index} {...spreadProps} alt="" />;
+    return <img key={index} {...(spreadProps as React.ImgHTMLAttributes<HTMLImageElement>)} alt="" />;
   }
 
   return (
-    <div key={index} {...spreadProps}>
-      {el.children && el.children.map((child: any, idx: number) => (
-        renderVisualElement(child as VisualElement, idx)
+    <div key={index} {...(spreadProps as React.HTMLAttributes<HTMLDivElement>)}>
+      {el.children && el.children.map((child: VisualElement, idx: number) => (
+        renderVisualElement(child, idx)
       ))}
     </div>
   );

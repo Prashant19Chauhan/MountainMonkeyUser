@@ -26,7 +26,7 @@ export const PopularActivitiesSection = () => {
         <>
           {/* Popular Card Option 1 */}
           <div 
-            onClick={() => router.push(`/activities/${popularActivities[0]?._id}`)}
+            onClick={() => router.push(`/activities/${popularActivities[0]?.slug}`)}
             className="bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm cursor-pointer group flex flex-col"
           >
             <div className="relative h-48 bg-slate-100">
@@ -82,7 +82,7 @@ export const PopularActivitiesSection = () => {
           {/* Popular Card Option 2 */}
           {popularActivities.length > 1 && (
             <div 
-              onClick={() => router.push(`/activities/${popularActivities[1]?._id}`)}
+              onClick={() => router.push(`/activities/${popularActivities[1]?.slug}`)}
               className="lg:col-span-1 bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm flex flex-col cursor-pointer group"
             >
               <div className="relative h-64 overflow-hidden bg-slate-100">

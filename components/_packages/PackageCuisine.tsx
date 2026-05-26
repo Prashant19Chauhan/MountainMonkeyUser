@@ -1,8 +1,9 @@
 import React from 'react';
 import { Utensils } from 'lucide-react';
+import { LocalInfo, LocalFoodItem } from '@/types/type';
 
 type PackageCuisineProps = {
-  localInfo: any;
+  localInfo: LocalInfo;
 };
 
 export const PackageCuisine = ({ localInfo }: PackageCuisineProps) => {
@@ -12,7 +13,7 @@ export const PackageCuisine = ({ localInfo }: PackageCuisineProps) => {
     <section>
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Local Cuisine to Try</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {localInfo.famousFood.map((food: any, index: any) => (
+        {localInfo.famousFood.map((food: LocalFoodItem, index: number) => (
           <div key={index} className="bg-white border border-gray-100 rounded-2xl p-4">
             <div className="flex items-start gap-3">
               <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center shrink-0">

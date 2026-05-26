@@ -1,8 +1,9 @@
 import React from 'react';
 import { Calendar, Clock } from 'lucide-react';
+import { LocalInfo, FamousPlaceItem } from '@/types/type';
 
 type PackageMustVisitProps = {
-  localInfo: any;
+  localInfo: LocalInfo;
 };
 
 export const PackageMustVisit = ({ localInfo }: PackageMustVisitProps) => {
@@ -12,7 +13,7 @@ export const PackageMustVisit = ({ localInfo }: PackageMustVisitProps) => {
     <section>
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Must-Visit Places</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {localInfo.famousPlaces.map((place: any, index: any) => (
+        {localInfo.famousPlaces.map((place: FamousPlaceItem, index: number) => (
           <div key={index} className="bg-white border border-gray-100 rounded-2xl p-5">
             <span className="text-[10px] text-blue-600 font-bold uppercase tracking-wider mb-2 block">{place.type}</span>
             <h4 className="font-bold text-gray-900 mb-2">{place.name}</h4>

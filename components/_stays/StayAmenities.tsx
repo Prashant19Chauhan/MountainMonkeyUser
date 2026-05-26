@@ -1,8 +1,9 @@
 import React from 'react';
 import { Wifi } from 'lucide-react';
+import { Stay } from '@/types/type';
 
 type StayAmenitiesProps = {
-  stay: any;
+  stay: Stay;
 };
 
 export const StayAmenities = ({ stay }: StayAmenitiesProps) => {

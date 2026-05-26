@@ -3,13 +3,13 @@ import api from "../lib/api";
 export interface VisualElement {
   type: string;
   className?: string;
-  style?: any;
-  animate?: any;
-  transition?: any;
+  style?: React.CSSProperties | Record<string, string | number>;
+  animate?: Record<string, unknown>;
+  transition?: Record<string, unknown>;
   viewBox?: string;
   paths?: string[];
-  props?: any;
-  children?: any[];
+  props?: Record<string, unknown>;
+  children?: VisualElement[];
 }
 
 export interface Mood {

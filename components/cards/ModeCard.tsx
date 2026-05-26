@@ -1,7 +1,14 @@
 import Link from 'next/link';
 import React from 'react';
 
-export const ModeCard = ({ icon, label, sub, type }: any) => {
+interface ModeCardProps {
+  icon: React.ReactElement<{ size?: number }>;
+  label?: string;
+  sub?: string;
+  type?: string;
+}
+
+export const ModeCard = ({ icon, label, sub, type }: ModeCardProps) => {
   return (
     <Link 
       href={`/transport/${type}`}

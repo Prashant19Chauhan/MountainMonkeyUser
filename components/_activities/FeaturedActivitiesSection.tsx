@@ -5,13 +5,14 @@ import { Heart, Star, Clock, RotateCcw, Users, MapPin } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useInView } from '@/hooks/useInView';
 import { useFeaturedActivities } from '@/hooks/useActivities';
+import { Activity } from '@/types/type';
 
 export const FeaturedActivitiesSection = () => {
   const router = useRouter();
   const [featuredRef, isFeaturedVisible] = useInView();
   const { data: featuredData, isLoading: isLoadingFeatured } = useFeaturedActivities(isFeaturedVisible);
 
-  const featuredActivities = featuredData?.data || [];
+  const featuredActivities: Activity[] = featuredData?.data || [];
 
   return (
     <div ref={featuredRef} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -23,7 +24,7 @@ export const FeaturedActivitiesSection = () => {
         <>
           {/* Large Featured Activity Card Panel */}
           <div 
-            onClick={() => router.push(`/activities/${featuredActivities[0]?._id}`)}
+            onClick={() => router.push(`/activities/${featuredActivities[0]?.slug}`)}
             className="lg:col-span-2 bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm group cursor-pointer"
           >
             <div className="relative h-[500px]">
@@ -70,10 +71,10 @@ export const FeaturedActivitiesSection = () => {
 
           {/* Vertical Multi-Card Column Stack */}
           <div className="space-y-6">
-            {featuredActivities.slice(1, 3).map((activity: any, idx: number) => (
+            {featuredActivities.slice(1, 3).map((activity: Activity, idx: number) => (
               <div 
                 key={activity._id || idx} 
-                onClick={() => router.push(`/activities/${activity._id}`)}
+                onClick={() => router.push(`/activities/${activity.slug}`)}
                 className="bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm group cursor-pointer"
               >
                 <div className="relative h-56 bg-slate-100">

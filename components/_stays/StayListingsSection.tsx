@@ -5,10 +5,11 @@ import { Heart, Star } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useInView } from '@/hooks/useInView';
 import { useAllStays } from '@/hooks/useStays';
+import { Stay } from '@/types/type';
 
-const StayCard = ({ stay }: { stay: any }) => {
+const StayCard = ({ stay }: { stay: Stay }) => {
   const router = useRouter();
-  const isFavorite = stay.popularityScore > 90 || stay.aiScore?.overall >= 4.8;
+  const isFavorite = (stay.popularityScore ?? 0) > 90 || (stay.aiScore?.overall ?? 0) >= 4.8;
   const image = stay.images?.[0] || "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&q=80";
   const location = stay.destinationId?.name || stay.location?.address?.split(',').pop()?.trim() || "Destination";
   const host = stay.name || "Hosted Professionally";
@@ -17,7 +18,7 @@ const StayCard = ({ stay }: { stay: any }) => {
 
   return (
     <div 
-      onClick={() => router.push(`/stays/${stay._id}`)}
+      onClick={() => router.push(`/stays/${stay.slug || stay._id}`)}
       className="flex flex-col group cursor-pointer"
     >
       <div className="relative aspect-square rounded-[2rem] overflow-hidden mb-3 bg-slate-100">
@@ -54,7 +55,7 @@ export const StayListingsSection = () => {
   const [staysRef, isStaysVisible] = useInView();
   const { data: staysData, isLoading: isLoadingStays } = useAllStays(isStaysVisible);
 
-  const stays = staysData?.data || [];
+  const stays: Stay[] = staysData?.data || [];
 
   return (
     <div className="font-sans">
@@ -72,7 +73,7 @@ export const StayListingsSection = () => {
           </div>
         ) : stays.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 mb-20">
-            {stays.map((stay: any) => (
+            {stays.map((stay: Stay) => (
               <StayCard key={stay._id} stay={stay} />
             ))}
           </div>

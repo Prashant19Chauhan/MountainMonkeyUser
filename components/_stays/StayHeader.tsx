@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 import { Star, Building2, MapPin, Share2, Heart } from 'lucide-react';
 
+import { Stay } from '@/types/type';
+
 type StayHeaderProps = {
-  stay: any;
+  stay: Stay;
 };
 
 export const StayHeader = ({ stay }: StayHeaderProps) => {

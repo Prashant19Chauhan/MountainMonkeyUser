@@ -37,7 +37,7 @@ export const PopularPackagesSection = () => {
           <>
             {/* Popular Card 1 */}
             <div 
-              onClick={() => router.push(`/packages/${popularPackages[0]?._id}`)}
+              onClick={() => router.push(`/packages/${popularPackages[0]?.slug}`)}
               className="bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm cursor-pointer group flex flex-col"
             >
               <div className="relative h-56 bg-slate-100">
@@ -76,7 +76,7 @@ export const PopularPackagesSection = () => {
             {/* Popular Card 2 */}
             {popularPackages.length > 1 && (
               <div 
-                onClick={() => router.push(`/packages/${popularPackages[1]?._id}`)}
+                onClick={() => router.push(`/packages/${popularPackages[1]?.slug}`)}
                 className="bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm cursor-pointer group flex flex-col"
               >
                 <div className="relative h-56 bg-slate-100">
@@ -142,7 +142,7 @@ export const PopularPackagesSection = () => {
             {/* Popular Card 3 (Asymmetrical Horizontal Element) */}
             {popularPackages.length > 2 && (
               <div 
-                onClick={() => router.push(`/packages/${popularPackages[2]?._id}`)}
+                onClick={() => router.push(`/packages/${popularPackages[2]?.slug}`)}
                 className="lg:col-span-2 bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm flex flex-col md:flex-row cursor-pointer group"
               >
                 <div className="md:w-1/2 relative h-64 md:h-auto overflow-hidden bg-slate-100">

@@ -5,6 +5,7 @@ import { Landmark, ArrowRight, Info } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useInView } from '@/hooks/useInView';
 import { useHistoryDestinations, useDestinationAdvertisements } from '@/hooks/useDestinations';
+import { Destination } from '@/types/type';
 
 export const HistoricalDestinationsSection = () => {
   const router = useRouter();
@@ -12,7 +13,7 @@ export const HistoricalDestinationsSection = () => {
   const { data: historyData, isLoading: isLoadingHistory } = useHistoryDestinations(isHistoryVisible);
   const { data: adData } = useDestinationAdvertisements();
 
-  const historyDestinations = historyData?.data || [];
+  const historyDestinations: Destination[] = historyData?.data || [];
   const advertisements = adData?.data || [];
   const bottomAd = advertisements.length > 1 ? advertisements[1] : (advertisements[0] || null);
 
@@ -36,10 +37,10 @@ export const HistoricalDestinationsSection = () => {
                 Loading historical destinations...
               </div>
             ) : historyDestinations.length > 0 ? (
-              historyDestinations.map((item: any, index: number) => (
+              historyDestinations.map((item: Destination, index: number) => (
                 <div 
                   key={item._id || index} 
-                  onClick={() => router.push(`/destinations/${item._id}`)}
+                  onClick={() => router.push(`/destinations/${item.slug}`)}
                   className="flex flex-col md:flex-row overflow-hidden rounded-[2rem] border border-gray-100 bg-white hover:shadow-lg transition-shadow duration-300 cursor-pointer"
                 >
                   <div className="md:w-2/5 h-48 md:h-auto overflow-hidden bg-slate-100">

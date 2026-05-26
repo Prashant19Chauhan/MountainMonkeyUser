@@ -1,8 +1,10 @@
 import React from 'react';
+import Link from 'next/link';
 import { Star, Hotel } from 'lucide-react';
+import { Stay } from '@/types/type';
 
 type DestinationStaysProps = {
-  stays: any[];
+  stays: Stay[];
   destinationImages: string[];
 };
 
@@ -19,8 +21,12 @@ export const DestinationStays = ({ stays, destinationImages }: DestinationStaysP
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {stays.map((stay: any, idx: any) => (
-          <div key={stay._id} className="bg-white rounded-xl overflow-hidden border border-slate-100 shadow-2xs hover:shadow-md transition p-3 flex gap-4 items-center">
+        {stays.map((stay: Stay, idx: number) => (
+          <Link 
+            href={`/stays/${stay.slug}`}
+            key={stay._id} 
+            className="bg-white rounded-xl overflow-hidden border border-slate-100 shadow-2xs hover:shadow-md transition p-3 flex gap-4 items-center no-underline cursor-pointer group"
+          >
             <img 
               src={stay.images?.[0] || destinationImages[idx % destinationImages.length]} 
               alt={stay.name} 
@@ -31,7 +37,7 @@ export const DestinationStays = ({ stays, destinationImages }: DestinationStaysP
                 <span className="text-[9px] font-black uppercase tracking-wider text-blue-500">
                   {stay.type}
                 </span>
-                <h4 className="font-bold text-slate-800 text-sm truncate mt-0.5">{stay.name}</h4>
+                <h4 className="font-bold text-slate-800 text-sm truncate mt-0.5 group-hover:text-blue-600 transition">{stay.name}</h4>
                 {stay.starRating && (
                   <div className="flex items-center gap-1 text-xs text-amber-500 font-bold">
                     <Star className="w-3 h-3 fill-amber-500 text-amber-500" /> {stay.starRating} Star
@@ -45,7 +51,7 @@ export const DestinationStays = ({ stays, destinationImages }: DestinationStaysP
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

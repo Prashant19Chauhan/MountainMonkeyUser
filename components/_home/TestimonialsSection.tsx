@@ -30,7 +30,7 @@ export const TestimonialsSection = () => {
             [1,2,3,4].map((i) => (
               <div key={i} className="min-w-[300px] aspect-video bg-slate-100 rounded-3xl animate-pulse" />
             ))
-          ) : testimonials?.length > 0 ? (
+          ) : (testimonials?.length ?? 0) > 0 ? (
             testimonials.map((t: TestimonialType) => (
               <div key={t._id} className="min-w-[300px] snap-start">
                 <TestimonialCard name={t.name} text={t.message} rating={t.rating} />

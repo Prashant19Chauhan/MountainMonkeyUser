@@ -1,7 +1,14 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
 
-export const StayCard = ({ title, location, price, image, id }: any) => {
+interface StayCardProps {
+  title?: string;
+  location?: string;
+  price?: number;
+  image?: string;
+}
+
+export const StayCard = ({ title, location, price, image }: StayCardProps) => {
   return (
     <div className="group">
       <div className="relative aspect-[16/9] bg-gray-100 rounded-[40px] mb-4 overflow-hidden">

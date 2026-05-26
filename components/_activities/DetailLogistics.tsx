@@ -1,8 +1,9 @@
 import React from 'react';
 import { Clock, Zap, Smartphone, MessageSquare } from 'lucide-react';
+import { Activity } from '@/types/type';
 
 type DetailLogisticsProps = {
-  activity: any;
+  activity: Activity;
 };
 
 export const DetailLogistics = ({ activity }: DetailLogisticsProps) => {

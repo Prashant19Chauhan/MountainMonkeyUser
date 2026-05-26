@@ -8,6 +8,7 @@ import Link from 'next/link';
 type ActivityType = {
   _id: string,
   name: string,
+  slug: string,
   location: { address: string },
   pricing: { price: number },
   images: string[],
@@ -36,11 +37,11 @@ export const PopularActivitiesSection = () => {
           <div className="min-w-full py-12 text-center bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 animate-pulse">
             <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">Loading experiences...</p>
           </div>
-        ) : popularActivities?.length > 0 ? (
+        ) : (popularActivities?.length ?? 0) > 0 ? (
           popularActivities.map((activity:ActivityType) => (
             <div key={activity._id} className="min-w-[285px] sm:min-w-[320px] md:min-w-[400px] snap-start">
               <HorizontalCard 
-                id={activity._id}
+                slug={activity.slug}
                 title={activity.name} 
                 location={activity.location?.address || "Multiple Locations"} 
                 price={activity.pricing?.price} 

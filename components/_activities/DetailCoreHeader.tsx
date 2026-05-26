@@ -1,8 +1,9 @@
 import React from 'react';
 import { Compass, Star, MapPin } from 'lucide-react';
+import { Activity } from '@/types/type';
 
 type DetailCoreHeaderProps = {
-  activity: any;
+  activity: Activity;
 };
 
 export const DetailCoreHeader = ({ activity }: DetailCoreHeaderProps) => {

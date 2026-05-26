@@ -7,6 +7,7 @@ import { useCuratedPackages } from '@/hooks/useHome';
 type PackageType = {
   _id: string;
   title: string;
+  slug: string;
   destination?: {
     id?: {
       name?: string;
@@ -30,6 +31,7 @@ export const CuratedPackagesSection = () => {
     isLoading: packagesLoading,
     isFetching: packagesFetching,
   } = useCuratedPackages();
+
 
   const hasPackages =
     curatedPackages && curatedPackages.length > 0;
@@ -83,7 +85,7 @@ export const CuratedPackagesSection = () => {
             {curatedPackages.map((pkg: PackageType) => (
               <PackageCard
                 key={pkg._id}
-                id={pkg._id}
+                slug={pkg.slug}
                 title={pkg.title}
                 location={
                   pkg.destination?.id?.name ||

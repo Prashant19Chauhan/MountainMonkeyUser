@@ -5,13 +5,14 @@ import { TrendingUp, MapPin, Star, Heart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useInView } from '@/hooks/useInView';
 import { useTrendingDestinations } from '@/hooks/useDestinations';
+import { Destination } from '@/types/type';
 
 export const TrendingDestinationsSection = () => {
   const router = useRouter();
   const [trendingRef, isTrendingVisible] = useInView();
   const { data: trendingData, isLoading: isLoadingTrending } = useTrendingDestinations(isTrendingVisible);
 
-  const trendingDestinations = trendingData?.data || [];
+  const trendingDestinations: Destination[] = trendingData?.data || [];
 
   return (
     <section ref={trendingRef}>
@@ -73,7 +74,7 @@ export const TrendingDestinationsSection = () => {
                 </div>
               </div>
               <button 
-                onClick={() => router.push(`/destinations/${trendingDestinations[0]?._id}`)}
+                onClick={() => router.push(`/destinations/${trendingDestinations[0]?.slug || trendingDestinations[0]?._id}`)}
                 className="absolute bottom-8 right-8 bg-white text-gray-900 px-6 py-2 rounded-full text-sm font-bold hover:bg-gray-100 transition-colors"
               >
                 Explore City
@@ -82,10 +83,10 @@ export const TrendingDestinationsSection = () => {
 
             {/* Right Sided Dual Grid Stack */}
             <div className="flex flex-col gap-4">
-              {trendingDestinations.slice(1, 3).map((dest: any, index: number) => (
+              {trendingDestinations.slice(1, 3).map((dest: Destination, index: number) => (
                 <div 
                   key={dest._id || index} 
-                  onClick={() => router.push(`/destinations/${dest._id}`)}
+                  onClick={() => router.push(`/destinations/${dest.slug}`)}
                   className="relative flex-1 rounded-3xl overflow-hidden group cursor-pointer"
                 >
                   <img 

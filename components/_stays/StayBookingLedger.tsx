@@ -3,9 +3,11 @@
 import React, { useState } from 'react';
 import { Star, BedDouble } from 'lucide-react';
 
+import { Stay, StayRoom } from '@/types/type';
+
 type StayBookingLedgerProps = {
-  stay: any;
-  selectedRoom: any;
+  stay: Stay;
+  selectedRoom: StayRoom;
 };
 
 export const StayBookingLedger = ({ stay, selectedRoom }: StayBookingLedgerProps) => {

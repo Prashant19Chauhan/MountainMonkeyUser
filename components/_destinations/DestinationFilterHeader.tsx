@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Settings2, ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useAllDestinations } from '@/hooks/useDestinations';
+import { Destination } from '@/types/type';
 
 const categories = [
   'All', 'Beaches', 'Mountains', 'Cities', 'Historic', 
@@ -15,7 +16,7 @@ export const DestinationFilterHeader = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const { data: allDestinationsData, isLoading: isLoadingAll } = useAllDestinations();
 
-  const destinations = allDestinationsData?.data || [];
+  const destinations: Destination[] = allDestinationsData?.data || [];
 
   return (
     <div className="w-full mx-auto px-8 py-8 font-sans">
@@ -32,10 +33,10 @@ export const DestinationFilterHeader = () => {
               </div>
             ))}
           </div>
-        ) : destinations.map((dest: any) => (
+        ) : destinations.map((dest: Destination) => (
           <div 
             key={dest._id} 
-            onClick={() => router.push(`/destinations/${dest._id}`)}
+            onClick={() => router.push(`/destinations/${dest.slug || dest._id}`)}
             className="flex flex-col items-center gap-3 flex-shrink-0 cursor-pointer group"
           >
             <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-transparent group-hover:border-gray-200 transition-all">
