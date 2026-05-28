@@ -2,7 +2,7 @@
 
 import Image from "@/components/ui/Image";
 import React from 'react';
-import { Sun, ChevronLeft, ChevronRight, MapPin, Heart, Clock } from 'lucide-react';
+import { Sun, MapPin, Heart, Clock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useInView } from '@/hooks/useInView';
 import { useTropicalPackages } from '@/hooks/usePackages';
@@ -17,25 +17,17 @@ export const TropicalPackagesSection = () => {
 
   return (
     <section ref={tropicalRef}>
-      <div className="flex justify-between items-end mb-8">
+      <div className="flex justify-between items-end mb-5 sm:mb-8">
         <div>
           <div className="flex items-center gap-2 text-cyan-500 mb-1">
             <Sun size={20} />
-            <h2 className="text-2xl font-bold text-gray-900">Tropical Paradises</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Tropical Paradises</h2>
           </div>
-          <p className="text-gray-500 text-sm">Escape to white sand beaches and crystal clear waters.</p>
-        </div>
-        <div className="flex gap-2">
-          <button className="p-2 border border-gray-200 rounded-full hover:bg-gray-50">
-            <ChevronLeft size={20} />
-          </button>
-          <button className="p-2 border border-gray-200 rounded-full hover:bg-gray-50">
-            <ChevronRight size={20} />
-          </button>
+          <p className="text-gray-500 text-xs sm:text-sm">Escape to white sand beaches and crystal clear waters.</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         {isLoadingTropical ? (
           <div className="col-span-full h-32 flex justify-center items-center text-gray-400">
             Loading tropical packages...

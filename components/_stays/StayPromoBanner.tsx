@@ -19,15 +19,15 @@ export const StayPromoBanner = () => {
         <Info size={12} />
         {ad ? ad.placement : "Sponsorship"}
       </div>
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between border border-blue-100/50 overflow-hidden relative group">
-        <div className="relative z-10 max-w-md text-center md:text-left">
-          <div className="bg-blue-600 text-white text-[9px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-widest mb-5 inline-block">
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-[1.75rem] sm:rounded-[2.5rem] p-5 sm:p-8 md:p-12 flex flex-col md:flex-row items-center justify-between border border-blue-100/50 overflow-hidden relative group">
+        <div className="relative z-10 max-w-md text-center md:text-left mb-5 md:mb-0">
+          <div className="bg-blue-600 text-white text-[9px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-widest mb-3 sm:mb-5 inline-block">
             Loyalty Points
           </div>
-          <h2 className="text-3xl font-black text-gray-900 mb-3">
+          <h2 className="text-xl sm:text-3xl font-black text-gray-900 mb-2 sm:mb-3">
             {ad ? ad.title : "Join Wanderlust Rewards"}
           </h2>
-          <p className="text-gray-500 text-sm leading-relaxed font-medium">
+          <p className="text-gray-500 text-xs sm:text-sm leading-relaxed font-medium">
             {ad ? ad.description : "Sign up for free and unlock member-only discounts, late check-out, and exclusive room upgrades."}
           </p>
         </div>

@@ -60,8 +60,8 @@ export const StayListingsSection = () => {
 
   return (
     <div className="font-sans">
-      <div className="flex justify-between items-center mb-8">
-        <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">
+      <div className="flex justify-between items-center mb-5 sm:mb-8">
+        <p className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-wider">
           Over 1,000 architectural properties inside database maps
         </p>
       </div>
@@ -73,7 +73,7 @@ export const StayListingsSection = () => {
             Loading amazing stays...
           </div>
         ) : stays.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 mb-20">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 sm:gap-x-8 gap-y-8 sm:gap-y-12 mb-12 sm:mb-20">
             {stays.map((stay: Stay) => (
               <StayCard key={stay._id} stay={stay} />
             ))}

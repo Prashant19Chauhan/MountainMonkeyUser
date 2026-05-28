@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 import { PackageFilterHeader } from '@/components/_packages/PackageFilterHeader';
 import { FeaturedPackagesSection } from '@/components/_packages/FeaturedPackagesSection';
 import { PackagePromoBanner } from '@/components/_packages/PackagePromoBanner';
-import { TropicalPackagesSection } from '@/components/_packages/TropicalPackagesSection';
+import { DynamicPackagesCategories } from '@/components/_packages/DynamicPackagesCategories';
 import { PopularPackagesSection } from '@/components/_packages/PopularPackagesSection';
 
 export default function PackagesPage() {
@@ -23,7 +23,11 @@ export default function PackagesPage() {
       <div className="max-w-7xl mx-auto px-4 py-12 space-y-12 font-sans text-gray-900">
         <FeaturedPackagesSection />
         <PackagePromoBanner />
-        <TropicalPackagesSection />
+        
+        {/* 3. Themed Category-specific package scrolls */}
+        <DynamicPackagesCategories />
+
+        {/* 4. Popular custom packages showcase grid */}
         <PopularPackagesSection />
       </div>
     </div>

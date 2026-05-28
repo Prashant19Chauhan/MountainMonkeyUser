@@ -1,4 +1,15 @@
 import api from "@/lib/api";
+
+export const getAllPackages = async () => {
+    try {
+        const response = await api.get('/packages');
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching all packages:", error);
+        throw error;
+    }
+};
+
 export const getFeaturedPackages = async () => {
     try {
         const response = await api.get('/packages/featured');

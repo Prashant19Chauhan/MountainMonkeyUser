@@ -20,9 +20,9 @@ const themes = [
 
 export const PackageFilterHeader = () => {
   return (
-    <div className="w-full mx-auto px-10 pt-20 font-sans">
+    <div className="w-full mx-auto px-4 sm:px-6 md:px-10 pt-8 sm:pt-14 md:pt-20 font-sans">
       {/* Top Filter Row */}
-      <div className="flex flex-wrap items-center gap-3 mb-8">
+      <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-5 sm:mb-8 overflow-x-auto no-scrollbar">
         {dropdownFilters.map((filter) => (
           <button
             key={filter.label}

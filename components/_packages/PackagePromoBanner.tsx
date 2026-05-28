@@ -15,13 +15,13 @@ export const PackagePromoBanner = () => {
   return (
     <div 
       ref={adsRef} 
-      className="relative rounded-3xl overflow-hidden bg-blue-50 border border-blue-100 p-8 flex flex-col md:flex-row items-center justify-between"
+      className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-blue-50 border border-blue-100 p-5 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-4"
     >
-      <div className="relative z-10 mb-4 md:mb-0">
-        <h2 className="text-2xl font-black text-blue-600 mb-2">
+      <div className="relative z-10">
+        <h2 className="text-xl sm:text-2xl font-black text-blue-600 mb-1 sm:mb-2">
           {topAd ? topAd.title : "Summer Flash Sale"}
         </h2>
-        <p className="text-blue-400 text-sm font-medium">
+        <p className="text-blue-400 text-xs sm:text-sm font-medium">
           {topAd ? topAd.description : "Get up to 30% off on all Mediterranean yacht tours if you book before Friday."}
         </p>
       </div>

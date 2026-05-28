@@ -16,7 +16,7 @@ export const StayMapPreview = () => {
   return (
     <div 
       ref={staysRef} 
-      className="mb-12 relative h-[400px] w-full rounded-[2.5rem] overflow-hidden border border-emerald-100 bg-emerald-50/30 font-sans"
+      className="mb-8 sm:mb-12 relative h-[240px] sm:h-[320px] md:h-[400px] w-full rounded-[1.75rem] sm:rounded-[2.5rem] overflow-hidden border border-emerald-100 bg-emerald-50/30 font-sans"
     >
       <div className="absolute inset-0 opacity-40 bg-[url('https://www.transparenttextures.com/patterns/world-map.png')] bg-center bg-no-repeat bg-contain pointer-events-none" />
       

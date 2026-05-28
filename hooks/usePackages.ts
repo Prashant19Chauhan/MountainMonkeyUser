@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { 
+    getAllPackages,
     getFeaturedPackages, 
     getTropicalPackages, 
     getPopularPackages, 
@@ -8,6 +9,14 @@ import {
     getPackageLocalInfo,
     getSimilarPackages
 } from "../services/packages.services";
+
+export const useAllPackages = (enabled: boolean = true) => {
+    return useQuery({
+        queryKey: ['packages', 'all'],
+        queryFn: getAllPackages,
+        enabled,
+    });
+};
 
 export const useFeaturedPackages = (enabled: boolean = true) => {
     return useQuery({
