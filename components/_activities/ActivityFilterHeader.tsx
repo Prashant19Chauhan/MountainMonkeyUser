@@ -21,11 +21,11 @@ const subFilters = [
 export const ActivityFilterHeader = () => {
 
   return (
-    <div className="w-full mx-auto px-10 pt-20 font-sans">
-      <h2 className="text-xl font-bold mb-6 text-gray-900">Top Categories</h2>
+    <div className="w-full mx-auto px-4 sm:px-6 md:px-10 pt-8 sm:pt-14 md:pt-20 font-sans">
+      <h2 className="text-base sm:text-lg md:text-xl font-bold mb-4 sm:mb-6 text-gray-900">Top Categories</h2>
       
       {/* Category Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-8 sm:mb-10">
         {categories.slice(0, 5).map((cat) => (
           <div 
             key={cat.name} 
@@ -40,7 +40,7 @@ export const ActivityFilterHeader = () => {
       </div>
 
       {/* Filter Bar Section */}
-      <div className="flex flex-col lg:flex-row items-center gap-4 border-t border-gray-50 pt-8">
+      <div className="flex flex-col lg:flex-row items-center gap-3 sm:gap-4 border-t border-gray-50 pt-5 sm:pt-8">
         
         {/* Scrollable Sub-filters */}
         <div className="relative flex-1 w-full overflow-hidden">

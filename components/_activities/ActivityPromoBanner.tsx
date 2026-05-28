@@ -15,7 +15,7 @@ export const ActivityPromoBanner = () => {
   return (
     <div 
       ref={adsRef} 
-      className="relative rounded-3xl overflow-hidden h-32 flex items-center px-12 border border-blue-100 shadow-2xs font-sans"
+      className="relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-[120px] flex items-center px-5 sm:px-8 md:px-12 py-5 sm:py-0 border border-blue-100 shadow-2xs font-sans"
     >
       <div className="absolute inset-0 bg-gradient-to-r from-blue-50/90 to-transparent z-10" />
       <Image 

@@ -7,10 +7,8 @@ export const metadata: Metadata = {
 };
 
 import { DestinationFilterHeader } from '@/components/_destinations/DestinationFilterHeader';
-import { TrendingDestinationsSection } from '@/components/_destinations/TrendingDestinationsSection';
 import { DestinationPromoBanner } from '@/components/_destinations/DestinationPromoBanner';
-import { TropicalDestinationsSection } from '@/components/_destinations/TropicalDestinationsSection';
-import { HistoricalDestinationsSection } from '@/components/_destinations/HistoricalDestinationsSection';
+import { DynamicDestinationsCategories } from '@/components/_destinations/DynamicDestinationsCategories';
 
 export default function DestinationPage() {
   return (
@@ -20,10 +18,8 @@ export default function DestinationPage() {
       
       {/* 2. Main Content Experiential Layout Container */}
       <div className="max-w-7xl mx-auto px-4 py-12 space-y-16 font-sans text-gray-900">
-        <TrendingDestinationsSection />
+        <DynamicDestinationsCategories />
         <DestinationPromoBanner />
-        <TropicalDestinationsSection />
-        <HistoricalDestinationsSection />
       </div>
     </div>
   );

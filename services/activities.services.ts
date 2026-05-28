@@ -1,5 +1,15 @@
 import api from "@/lib/api";
 
+export const getAllActivities = async () => {
+    try {
+        const response = await api.get('/activities/all');
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching all activities:", error);
+        throw error;
+    }
+};
+
 export const getFeaturedActivities = async () => {
     try {
         const response = await api.get('/activities/featured');

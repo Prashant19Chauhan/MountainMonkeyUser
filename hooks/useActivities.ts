@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { 
+    getAllActivities,
     getFeaturedActivities, 
     getPopularActivities, 
     getExploreActivities, 
@@ -7,6 +8,14 @@ import {
     getActivityDetails,
     getActivityLocalInfo
 } from "../services/activities.services";
+
+export const useAllActivities = (enabled: boolean = true) => {
+    return useQuery({
+        queryKey: ['activities', 'all'],
+        queryFn: getAllActivities,
+        enabled,
+    });
+};
 
 export const useFeaturedActivities = (enabled: boolean = true) => {
     return useQuery({

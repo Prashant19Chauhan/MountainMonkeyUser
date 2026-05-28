@@ -14,5 +14,3 @@ export interface City {
   images?: string[];
   status?: string;
 }
-
-

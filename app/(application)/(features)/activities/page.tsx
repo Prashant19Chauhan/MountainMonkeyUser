@@ -9,8 +9,7 @@ export const metadata: Metadata = {
 import { ActivityFilterHeader } from '@/components/_activities/ActivityFilterHeader';
 import { FeaturedActivitiesSection } from '@/components/_activities/FeaturedActivitiesSection';
 import { ActivityPromoBanner } from '@/components/_activities/ActivityPromoBanner';
-import { PopularActivitiesSection } from '@/components/_activities/PopularActivitiesSection';
-import { ExploreActivitiesSection } from '@/components/_activities/ExploreActivitiesSection';
+import { DynamicActivitiesCategories } from '@/components/_activities/DynamicActivitiesCategories';
 
 export default function ActivitiesPage() {
   return (
@@ -19,11 +18,12 @@ export default function ActivitiesPage() {
       <ActivityFilterHeader />
       
       {/* 2. Main Content Experiential Layout Container */}
-      <div className="max-w-7xl mx-auto px-4 py-12 space-y-16 font-sans text-gray-900">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-10 md:py-12 space-y-10 sm:space-y-14 md:space-y-16 font-sans text-gray-900">
         <FeaturedActivitiesSection />
         <ActivityPromoBanner />
-        <PopularActivitiesSection />
-        <ExploreActivitiesSection />
+
+        {/* 3. Dynamic Category Panels — conditionally renders categories with data */}
+        <DynamicActivitiesCategories />
       </div>
     </div>
   );
