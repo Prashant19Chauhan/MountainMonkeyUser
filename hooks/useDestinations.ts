@@ -9,7 +9,9 @@ import {
     getDestinationLocalInfo,
     getDestinationStays,
     getDestinationActivities,
-    getDestinationDetails
+    getDestinationDetails,
+    getDestinationsPageSections,
+    getDestinationDetailSections
 } from "../services/destinations.services";
 
 export const useAllDestinations = (enabled: boolean = true) => {
@@ -91,5 +93,21 @@ export const useDestinationPackages = (destinationId: string, enabled: boolean =
         enabled,
     });
 };  
+
+export const useDestinationsPageSections = (enabled: boolean = true) => {
+    return useQuery({
+        queryKey: ['destinations-page-sections'],
+        queryFn: getDestinationsPageSections,
+        enabled,
+    });
+};
+
+export const useDestinationDetailSections = (destinationSlug: string, enabled: boolean = true) => {
+    return useQuery({
+        queryKey: ['destination-detail-sections', destinationSlug],
+        queryFn: () => getDestinationDetailSections(destinationSlug),
+        enabled: enabled && !!destinationSlug,
+    });
+};
 
 

@@ -11,6 +11,7 @@ import { StayMapPreview } from '@/components/_stays/StayMapPreview';
 import { DynamicStaysCategories } from '@/components/_stays/DynamicStaysCategories';
 import { StayListingsSection } from '@/components/_stays/StayListingsSection';
 import { StayPromoBanner } from '@/components/_stays/StayPromoBanner';
+import { StayCustomSections } from '@/components/_stays/StayCustomSections';
 
 export default function StayPage() {
   return (
@@ -37,6 +38,7 @@ export default function StayPage() {
           {/* Map and Promo Banner moved below dynamic listings */}
           <StayMapPreview />
           <StayPromoBanner />
+          <StayCustomSections />
         </div>
       </div>
     </Suspense>

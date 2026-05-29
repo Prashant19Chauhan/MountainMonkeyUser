@@ -80,3 +80,13 @@ export const getSimilarPackages = async (packageId: string, destinationId: strin
         throw error;
     }
 };
+
+export const getPackagesPageSections = async () => {
+    try {
+        const response = await api.get('/packages/page/sections');
+        return response.data.data;
+    } catch (error) {
+        console.error("Error fetching packages page sections:", error);
+        throw error;
+    }
+};

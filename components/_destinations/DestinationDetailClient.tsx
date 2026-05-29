@@ -26,6 +26,7 @@ import { DestinationBudgetEstimate } from './DestinationBudgetEstimate';
 import { DestinationPhrases } from './DestinationPhrases';
 import { DestinationCulture } from './DestinationCulture';
 import { DestinationVerifiedFooter } from './DestinationVerifiedFooter';
+import { DestinationDetailCustomSections } from './DestinationDetailCustomSections';
 
 type DestinationDetailClientProps = {
   destinationId: string;
@@ -179,6 +180,9 @@ export const DestinationDetailClient = ({ destinationId }: DestinationDetailClie
       </div>
 
       {/* 5. BRAND INCLUSIONS / DEEP FOOTER */}
+      {/* Custom CMS sections before footer */}
+      <DestinationDetailCustomSections destinationSlug={destinationId} />
+
       <DestinationVerifiedFooter />
 
       <EnquiryModal

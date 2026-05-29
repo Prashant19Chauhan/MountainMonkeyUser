@@ -101,3 +101,22 @@ export const getDestinationPackages = async (destinationId: string) => {
     }
 };
 
+export const getDestinationsPageSections = async () => {
+    try {
+        const response = await api.get('/destinations/page/sections');
+        return response.data.data;
+    } catch (error) {
+        console.error("Error fetching destinations page sections:", error);
+        throw error;
+    }
+};
+
+export const getDestinationDetailSections = async (destinationSlug: string) => {
+    try {
+        const response = await api.get(`/destinations/detail-sections/${destinationSlug}`);
+        return response.data.data;
+    } catch (error) {
+        console.error("Error fetching destination detail sections:", error);
+        throw error;
+    }
+};

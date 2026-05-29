@@ -11,6 +11,7 @@ import { FeaturedPackagesSection } from '@/components/_packages/FeaturedPackages
 import { PackagePromoBanner } from '@/components/_packages/PackagePromoBanner';
 import { DynamicPackagesCategories } from '@/components/_packages/DynamicPackagesCategories';
 import { PopularPackagesSection } from '@/components/_packages/PopularPackagesSection';
+import { PackageCustomSections } from '@/components/_packages/PackageCustomSections';
 
 export default function PackagesPage() {
   return (
@@ -35,6 +36,7 @@ export default function PackagesPage() {
           <FeaturedPackagesSection />
           <PopularPackagesSection />
           <PackagePromoBanner />
+          <PackageCustomSections />
         </div>
       </div>
     </Suspense>

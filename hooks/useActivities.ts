@@ -6,7 +6,8 @@ import {
     getExploreActivities, 
     getActivityAdvertisements, 
     getActivityDetails,
-    getActivityLocalInfo
+    getActivityLocalInfo,
+    getActivitiesPageSections
 } from "../services/activities.services";
 
 export const useAllActivities = (enabled: boolean = true) => {
@@ -62,5 +63,13 @@ export const useActivityLocalInfo = (destinationId: string | undefined, enabled:
         queryKey: ['activities', 'local-info', destinationId],
         queryFn: () => getActivityLocalInfo({destinationId: destinationId || ""}),
         enabled: enabled && !!destinationId,
+    });
+};
+
+export const useActivitiesPageSections = (enabled: boolean = true) => {
+    return useQuery({
+        queryKey: ['activities-page-sections'],
+        queryFn: getActivitiesPageSections,
+        enabled,
     });
 };

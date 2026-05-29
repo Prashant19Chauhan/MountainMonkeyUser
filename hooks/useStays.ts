@@ -3,7 +3,8 @@ import {
     getAllStays, 
     getStayAdvertisements, 
     getStayDetails,
-    getStayLocalInfo
+    getStayLocalInfo,
+    getStaysPageSections
 } from "../services/stays.services";
 
 export const useAllStays = (enabled: boolean = true) => {
@@ -36,5 +37,13 @@ export const useStayLocalInfo = (destinationId: string) => {
         queryKey: ['stays', 'local-info', destinationId],
         queryFn: () => getStayLocalInfo({destinationId}),
         enabled: !!destinationId
+    });
+};
+
+export const useStaysPageSections = (enabled: boolean = true) => {
+    return useQuery({
+        queryKey: ['stays-page-sections'],
+        queryFn: getStaysPageSections,
+        enabled,
     });
 };

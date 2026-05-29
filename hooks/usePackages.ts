@@ -7,7 +7,8 @@ import {
     getPackageAdvertisements, 
     getPackagesDetails,
     getPackageLocalInfo,
-    getSimilarPackages
+    getSimilarPackages,
+    getPackagesPageSections
 } from "../services/packages.services";
 
 export const useAllPackages = (enabled: boolean = true) => {
@@ -75,3 +76,10 @@ export const useSimilarPackages = (packageId: string, destinationId: string, cat
     });
 };
 
+export const usePackagesPageSections = (enabled: boolean = true) => {
+    return useQuery({
+        queryKey: ['packages-page-sections'],
+        queryFn: getPackagesPageSections,
+        enabled,
+    });
+};

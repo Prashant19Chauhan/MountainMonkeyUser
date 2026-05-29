@@ -69,3 +69,13 @@ export const getActivityLocalInfo = async ({destinationId}: {destinationId: stri
         throw error;
     }
 };
+
+export const getActivitiesPageSections = async () => {
+    try {
+        const response = await api.get('/activities/page/sections');
+        return response.data.data;
+    } catch (error) {
+        console.error("Error fetching activities page sections:", error);
+        throw error;
+    }
+};

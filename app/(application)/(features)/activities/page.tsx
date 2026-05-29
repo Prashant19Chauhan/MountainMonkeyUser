@@ -10,6 +10,7 @@ import { ActivityFilterHeader } from '@/components/_activities/ActivityFilterHea
 import { FeaturedActivitiesSection } from '@/components/_activities/FeaturedActivitiesSection';
 import { ActivityPromoBanner } from '@/components/_activities/ActivityPromoBanner';
 import { DynamicActivitiesCategories } from '@/components/_activities/DynamicActivitiesCategories';
+import { ActivityCustomSections } from '@/components/_activities/ActivityCustomSections';
 
 export default function ActivitiesPage() {
   return (
@@ -33,6 +34,7 @@ export default function ActivitiesPage() {
           {/* Featured experiences and banners moved below dynamic grid */}
           <FeaturedActivitiesSection />
           <ActivityPromoBanner />
+          <ActivityCustomSections />
         </div>
       </div>
     </Suspense>

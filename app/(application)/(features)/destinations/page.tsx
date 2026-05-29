@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 import { DestinationFilterHeader } from '@/components/_destinations/DestinationFilterHeader';
 import { DestinationPromoBanner } from '@/components/_destinations/DestinationPromoBanner';
 import { DynamicDestinationsCategories } from '@/components/_destinations/DynamicDestinationsCategories';
+import { DestinationCustomSections } from '@/components/_destinations/DestinationCustomSections';
 
 export default function DestinationPage() {
   return (
@@ -28,6 +29,7 @@ export default function DestinationPage() {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-10 md:py-12 space-y-10 sm:space-y-14 md:space-y-16 font-sans text-gray-900">
           <DynamicDestinationsCategories />
           <DestinationPromoBanner />
+          <DestinationCustomSections />
         </div>
       </div>
     </Suspense>

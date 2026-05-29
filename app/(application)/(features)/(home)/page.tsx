@@ -16,6 +16,7 @@ import { PopularActivitiesSection } from '@/components/_home/PopularActivitiesSe
 import { UpcomingPackagesSection } from '@/components/_home/UpcomingPackagesSection';
 import { UniqueStaysSection } from '@/components/_home/UniqueStaysSection';
 import { TravelModesSection } from '@/components/_home/TravelModesSection';
+import { CustomContentSections } from '@/components/_home/CustomContentSections';
 
 const HomePage = () => {
   return (
@@ -35,6 +36,9 @@ const HomePage = () => {
 
         {/* Static Navigation Section */}
         <TravelModesSection />
+
+        {/* Dynamic CMS Sections from Backend */}
+        <CustomContentSections />
       </div>
     </div>
   );
