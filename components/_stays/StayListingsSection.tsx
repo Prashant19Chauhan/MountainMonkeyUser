@@ -18,7 +18,7 @@ const StayCard = ({ stay }: { stay: Stay }) => {
   const price = stay.priceRange?.min || 890;
 
   return (
-    <div 
+    <div
       onClick={() => router.push(`/stays/${stay.slug || stay._id}`)}
       className="flex flex-col group cursor-pointer"
     >
@@ -29,7 +29,7 @@ const StayCard = ({ stay }: { stay: Stay }) => {
             Guest favorite
           </div>
         )}
-        <div 
+        <div
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -65,7 +65,7 @@ export const StayListingsSection = () => {
           Over 1,000 architectural properties inside database maps
         </p>
       </div>
-      
+
       {/* Grid Listings Layer */}
       <div ref={staysRef}>
         {isLoadingStays ? (

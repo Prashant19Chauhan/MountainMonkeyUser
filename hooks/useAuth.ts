@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser, registerUser, logoutUser } from "../services/auth.service";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { loginSchema, LoginType, SignupFormSchema, SignupFormType } from "../lib/validations/auth.validation";
 import { useAppDispatch, useAppSelector } from "../store/store";
@@ -20,6 +20,8 @@ import {
 export const useLogin = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectUrl = searchParams.get("redirect") || "/";
 
     const [formData, setFormData] = useState<LoginType>({
         email:"",
@@ -38,7 +40,7 @@ export const useLogin = () => {
         onSuccess: (data) => {
             dispatch(setAuth({ token: data?.data?.accessToken || data?.accessToken, user: data?.data?.user || data?.user }));
             toast.success("Login successful");
-            router.push("/");
+            router.push(redirectUrl);
         },
         onError: (error: { message?: string }) => {
             toast.error(error.message || "Login failed");
@@ -71,6 +73,8 @@ export const useLogin = () => {
 export const useSignup = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "/";
   
   const currentStep = useAppSelector(state => state.signup.currentStep);
   const signupData = useAppSelector(state => state.signup.signupData);
@@ -90,7 +94,7 @@ export const useSignup = () => {
       toast.success("Account created successfully! Redirecting...");
       dispatch(setAuth({ token: data?.data?.accessToken || data?.accessToken, user: data?.data?.user || data?.user }));
       dispatch(resetSignup());
-      router.push("/");
+      router.push(redirectUrl);
     },
     onError: (error: { message?: string }) => {
       toast.error(error.message || "Registration failed");

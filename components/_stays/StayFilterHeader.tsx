@@ -1,7 +1,7 @@
 import React from 'react';
-import { 
-  Waves, Umbrella, Castle, Tent, Home, Palmtree, Trees, Snowflake, Anchor, 
-  SlidersHorizontal 
+import {
+  Waves, Umbrella, Castle, Tent, Home, Palmtree, Trees, Snowflake, Anchor,
+  SlidersHorizontal
 } from 'lucide-react';
 
 const categories = [
@@ -21,7 +21,7 @@ export const StayFilterHeader = () => {
   return (
     <div className="pt-8 sm:pt-14 md:pt-20 px-3 sm:px-4 md:px-20 font-sans">
       <div className="w-full mx-auto px-2 sm:px-4 flex items-center justify-between gap-4 sm:gap-8">
-        
+
         {/* Category Icons List Selector */}
         <div className="flex items-center gap-5 sm:gap-8 overflow-x-auto no-scrollbar flex-1">
           {categories.map((cat) => (

@@ -23,16 +23,15 @@ export const DestinationBudgetEstimate = ({ destination }: DestinationBudgetEsti
           Per Person
         </span>
       </div>
-      
+
       <div className="grid grid-cols-3 gap-1 bg-slate-100 p-1 rounded-xl text-xs font-bold text-slate-500">
         {(['budget', 'dailyAvg', 'luxury'] as const).map((tier) => (
-          <button 
+          <button
             key={tier}
             type="button"
             onClick={() => setBudgetTier(tier)}
-            className={`py-1.5 text-center capitalize rounded-lg transition cursor-pointer ${
-              budgetTier === tier ? 'bg-white text-slate-900 shadow-2xs' : 'hover:text-slate-800'
-            }`}
+            className={`py-1.5 text-center capitalize rounded-lg transition cursor-pointer ${budgetTier === tier ? 'bg-white text-slate-900 shadow-2xs' : 'hover:text-slate-800'
+              }`}
           >
             {tier === 'dailyAvg' ? 'Moderate' : tier}
           </button>
@@ -50,7 +49,7 @@ export const DestinationBudgetEstimate = ({ destination }: DestinationBudgetEsti
           </span>
         </span>
       </div>
-      
+
       <button type="button" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-md shadow-blue-100 cursor-pointer">
         <Calendar className="w-4 h-4" /> Plan Your Trip
       </button>

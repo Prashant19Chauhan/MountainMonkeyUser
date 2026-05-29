@@ -24,43 +24,43 @@ const CATEGORY_PANELS: {
   subtitle: string;
   icon: React.ReactNode;
 }[] = [
-  {
-    id: 'luxury',
-    title: "Premium Luxury",
-    subtitle: "All-inclusive premium custom tour itineraries curated for maximum comfort and style.",
-    icon: <Sparkles size={22} />,
-  },
-  {
-    id: 'adventure',
-    title: "Epic Adventures & Treks",
-    subtitle: "Conquer massive mountain passes, high altitude rivers, and rugged forest trails.",
-    icon: <Compass size={22} />,
-  },
-  {
-    id: 'romantic',
-    title: "Romantic Honeymoons",
-    subtitle: "Quiet misty valleys, premium cozy candlelit villas, and serene visual escapes.",
-    icon: <Heart size={22} />,
-  },
-  {
-    id: 'family',
-    title: "Family Getaways",
-    subtitle: "Perfectly paced weekend packages designed for multi-generational comfort and joy.",
-    icon: <Trees size={22} />,
-  },
-  {
-    id: 'spiritual',
-    title: "Spiritual & Wellness",
-    subtitle: "Find mindfulness, meditation retreats, and sacred temple trails across the Himalayas.",
-    icon: <Flower2 size={22} />,
-  },
-  {
-    id: 'cultural',
-    title: "Heritage & Living Culture",
-    subtitle: "Explore ancient kingdom archives, local arts, standard folklore, and ancient architectures.",
-    icon: <Landmark size={22} />,
-  },
-];
+    {
+      id: 'luxury',
+      title: "Premium Luxury",
+      subtitle: "All-inclusive premium custom tour itineraries curated for maximum comfort and style.",
+      icon: <Sparkles size={22} />,
+    },
+    {
+      id: 'adventure',
+      title: "Epic Adventures & Treks",
+      subtitle: "Conquer massive mountain passes, high altitude rivers, and rugged forest trails.",
+      icon: <Compass size={22} />,
+    },
+    {
+      id: 'romantic',
+      title: "Romantic Honeymoons",
+      subtitle: "Quiet misty valleys, premium cozy candlelit villas, and serene visual escapes.",
+      icon: <Heart size={22} />,
+    },
+    {
+      id: 'family',
+      title: "Family Getaways",
+      subtitle: "Perfectly paced weekend packages designed for multi-generational comfort and joy.",
+      icon: <Trees size={22} />,
+    },
+    {
+      id: 'spiritual',
+      title: "Spiritual & Wellness",
+      subtitle: "Find mindfulness, meditation retreats, and sacred temple trails across the Himalayas.",
+      icon: <Flower2 size={22} />,
+    },
+    {
+      id: 'cultural',
+      title: "Heritage & Living Culture",
+      subtitle: "Explore ancient kingdom archives, local arts, standard folklore, and ancient architectures.",
+      icon: <Landmark size={22} />,
+    },
+  ];
 
 // ─── Card Renderers ────────────────────────────────────────────────────────────
 
@@ -76,10 +76,10 @@ const LuxuryCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void })
       onClick={onClick}
       className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-blue-500/20 bg-slate-900 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-400/50 transition-all duration-500"
     >
-      <Image 
-        src={image} 
-        alt={pkg.title} 
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+      <Image
+        src={image}
+        alt={pkg.title}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/10 to-transparent" />
       <div className="absolute top-4 left-4 bg-blue-600/90 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg border border-blue-400/30">
@@ -118,10 +118,10 @@ const AdventureCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void
       style={{ transformStyle: 'preserve-3d' }}
       className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-orange-500/20 bg-zinc-950 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300"
     >
-      <Image 
-        src={image} 
-        alt={pkg.title} 
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+      <Image
+        src={image}
+        alt={pkg.title}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-slate-900/10 to-transparent" />
       <div className="absolute top-4 left-4 bg-orange-600/90 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg border border-orange-400/20">
@@ -158,10 +158,10 @@ const RomanticCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void 
       onClick={onClick}
       className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-rose-200 bg-rose-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-rose-500/10 transition-all duration-500"
     >
-      <Image 
-        src={image} 
-        alt={pkg.title} 
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+      <Image
+        src={image}
+        alt={pkg.title}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-rose-950 via-transparent to-transparent" />
       <div className="absolute top-4 left-4 bg-rose-600 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg">
@@ -198,10 +198,10 @@ const FamilyCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void })
       onClick={onClick}
       className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-emerald-200 bg-emerald-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-500"
     >
-      <Image 
-        src={image} 
-        alt={pkg.title} 
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+      <Image
+        src={image}
+        alt={pkg.title}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-transparent to-transparent" />
       <div className="absolute top-4 left-4 bg-emerald-600 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg">
@@ -238,10 +238,10 @@ const SpiritualCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void
       onClick={onClick}
       className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-indigo-200/50 bg-indigo-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500"
     >
-      <Image 
-        src={image} 
-        alt={pkg.title} 
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+      <Image
+        src={image}
+        alt={pkg.title}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-indigo-950 via-transparent to-transparent" />
       <div className="absolute top-4 left-4 bg-indigo-600 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg">
@@ -279,10 +279,10 @@ const CulturalCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void 
       whileHover={{ y: -6, rotateY: 2 }}
       className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-amber-200/50 bg-amber-50/20 font-serif group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-amber-900/10 transition-all duration-300"
     >
-      <Image 
-        src={image} 
-        alt={pkg.title} 
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+      <Image
+        src={image}
+        alt={pkg.title}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-amber-950/95 via-transparent to-transparent" />
       <div className="absolute top-4 left-4 bg-amber-800 text-white text-[8px] font-black uppercase font-sans tracking-widest px-2.5 py-1 rounded-lg">
@@ -312,12 +312,12 @@ const CulturalCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void 
 const renderPackageCard = (categoryId: PackageCategoryId, pkg: TourPackage, onClick: () => void, index: number) => {
   const key = pkg._id || index;
   switch (categoryId) {
-    case 'luxury':    return <LuxuryCard key={key} pkg={pkg} onClick={onClick} />;
+    case 'luxury': return <LuxuryCard key={key} pkg={pkg} onClick={onClick} />;
     case 'adventure': return <AdventureCard key={key} pkg={pkg} onClick={onClick} />;
-    case 'romantic':  return <RomanticCard key={key} pkg={pkg} onClick={onClick} />;
-    case 'family':    return <FamilyCard key={key} pkg={pkg} onClick={onClick} />;
+    case 'romantic': return <RomanticCard key={key} pkg={pkg} onClick={onClick} />;
+    case 'family': return <FamilyCard key={key} pkg={pkg} onClick={onClick} />;
     case 'spiritual': return <SpiritualCard key={key} pkg={pkg} onClick={onClick} />;
-    case 'cultural':  return <CulturalCard key={key} pkg={pkg} onClick={onClick} />;
+    case 'cultural': return <CulturalCard key={key} pkg={pkg} onClick={onClick} />;
     default: return null;
   }
 };
@@ -382,12 +382,12 @@ export const DynamicPackagesCategories = () => {
 
   // ── Scroll refs (one per category) ──
   const scrollRefs = {
-    luxury:    useRef<HTMLDivElement>(null),
+    luxury: useRef<HTMLDivElement>(null),
     adventure: useRef<HTMLDivElement>(null),
-    romantic:  useRef<HTMLDivElement>(null),
-    family:    useRef<HTMLDivElement>(null),
+    romantic: useRef<HTMLDivElement>(null),
+    family: useRef<HTMLDivElement>(null),
     spiritual: useRef<HTMLDivElement>(null),
-    cultural:  useRef<HTMLDivElement>(null),
+    cultural: useRef<HTMLDivElement>(null),
   };
 
   const handleScroll = (id: PackageCategoryId, direction: 'left' | 'right') => {

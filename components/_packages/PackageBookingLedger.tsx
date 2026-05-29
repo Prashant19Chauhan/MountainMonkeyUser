@@ -1,7 +1,10 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, Users, Car, Lock, MessageCircle } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useAppSelector } from '@/store/store';
+import { EnquiryModal } from '../cards/EnquiryModal';
 import { TourPackage } from '@/types/type';
 
 type PackageBookingLedgerProps = {
@@ -21,9 +24,24 @@ export const PackageBookingLedger = ({
   totalDiscount,
   totalPrice
 }: PackageBookingLedgerProps) => {
+  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { isAuthenticated, user } = useAppSelector(state => state.user);
+
+  useEffect(() => {
+    if (searchParams.get("openEnquiry") === "true") {
+      setIsEnquiryModalOpen(true);
+      // Clean query params
+      const newUrl = window.location.pathname;
+      window.history.replaceState({}, '', newUrl);
+    }
+  }, [searchParams]);
+
   return (
     <div className="sticky top-28 bg-white border border-gray-100 rounded-[2.5rem] p-6 shadow-xl shadow-gray-200/50">
-      
+
       <div className="flex justify-between items-start mb-6 border-b border-gray-100 pb-6">
         <div>
           <p className="text-gray-500 text-sm mb-1">Price per person</p>
@@ -47,14 +65,14 @@ export const PackageBookingLedger = ({
 
       {/* Booking Form Inputs */}
       <div className="space-y-4 mb-6">
-        
+
         {/* Dates */}
         <div className="border border-gray-200 rounded-2xl p-1 relative">
           <div className="flex items-center px-4 py-2 border-b border-gray-100 cursor-pointer hover:bg-gray-50 rounded-t-xl transition-colors">
             <div className="flex-1">
               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Dates</p>
               <p className="text-sm font-bold text-gray-900">
-                {packageDetails.availability?.startDate ? new Date(packageDetails.availability.startDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Soon'} - 
+                {packageDetails.availability?.startDate ? new Date(packageDetails.availability.startDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Soon'} -
                 {packageDetails.availability?.startDate ? new Date(new Date(packageDetails.availability.startDate).getTime() + ((packageDetails.duration?.days || 0) * 24 * 60 * 60 * 1000)).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Soon'}
               </p>
             </div>
@@ -77,7 +95,7 @@ export const PackageBookingLedger = ({
               <span className="text-[10px] text-blue-600 font-bold">Included</span>
             </div>
             <p className="text-sm font-bold text-gray-900 flex items-center gap-1">
-              <Car size={14}/> {packageDetails.transport.modes?.join(', ')}
+              <Car size={14} /> {packageDetails.transport.modes?.join(', ')}
             </p>
           </div>
         )}
@@ -109,10 +127,21 @@ export const PackageBookingLedger = ({
       </div>
 
       {/* Actions */}
-      <button type="button" className="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-sm shadow-xl shadow-blue-600/20 hover:bg-blue-700 hover:-translate-y-0.5 transition-all mb-4 cursor-pointer">
+      <button
+        type="button"
+        onClick={() => {
+          if (!isAuthenticated) {
+            const redirectPath = encodeURIComponent(window.location.pathname + window.location.search);
+            router.push(`/login?redirect=${redirectPath}&openEnquiry=true`);
+          } else {
+            setIsEnquiryModalOpen(true);
+          }
+        }}
+        className="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-sm shadow-xl shadow-blue-600/20 hover:bg-blue-700 hover:-translate-y-0.5 transition-all mb-4 cursor-pointer"
+      >
         Check Availability ({packageDetails.availability?.availableSeats || 0} seats left)
       </button>
-      
+
       <p className="text-center text-xs text-gray-500 font-medium flex items-center justify-center gap-1">
         <Lock size={12} className="text-gray-400" /> No payment needed today
       </p>
@@ -129,6 +158,21 @@ export const PackageBookingLedger = ({
           </div>
         </div>
       </div>
+
+      <EnquiryModal
+        isOpen={isEnquiryModalOpen}
+        onClose={() => setIsEnquiryModalOpen(false)}
+        user={user}
+        enquiryData={{
+          enquiryType: 'package',
+          itemId: packageDetails._id || '',
+          itemTitle: packageDetails.title || '',
+          checkInDate: packageDetails.availability?.startDate,
+          checkOutDate: undefined,
+          numberOfGuests: 2 // default from UI
+        }}
+      />
+
     </div>
   );
 };

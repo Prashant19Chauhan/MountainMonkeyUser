@@ -66,15 +66,6 @@ export function StayDetailClient({ stayId }: { stayId: string }) {
 
           <hr className="border-slate-100" />
 
-          {/* ROOM CARD MATRIX SELECTOR */}
-          <StayRoomSelector 
-            roomsList={roomsList} 
-            selectedRoomIndex={selectedRoomIndex} 
-            setSelectedRoomIndex={setSelectedRoomIndex} 
-          />
-
-          <hr className="border-slate-100" />
-
           {/* RESORT WIDE AMENITIES */}
           <StayAmenities stay={stay} />
 
@@ -89,11 +80,18 @@ export function StayDetailClient({ stayId }: { stayId: string }) {
         </div>
 
         {/* RIGHT COLUMN STICKY LEDGER */}
-        {selectedRoom && (
-          <div className="lg:col-span-5 lg:sticky lg:top-8">
+        <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
+          {/* ROOM CARD MATRIX SELECTOR */}
+          <StayRoomSelector 
+            roomsList={roomsList} 
+            selectedRoomIndex={selectedRoomIndex} 
+            setSelectedRoomIndex={setSelectedRoomIndex} 
+          />
+
+          {selectedRoom && (
             <StayBookingLedger stay={stay} selectedRoom={selectedRoom} />
-          </div>
-        )}
+          )}
+        </div>
 
       </div>
     </div>

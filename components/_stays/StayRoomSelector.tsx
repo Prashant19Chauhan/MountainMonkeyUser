@@ -45,6 +45,7 @@ export const StayRoomSelector = ({
             </div>
             <div className="sm:col-span-5 text-left sm:text-right flex sm:flex-col justify-between items-center sm:items-end gap-1">
               <div>
+                <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block">Starting from</span>
                 <span className="text-base font-black text-slate-900">₹{room.pricePerNight?.min}</span>
                 <span className="text-[10px] text-slate-400">/night</span>
               </div>

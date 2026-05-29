@@ -8,7 +8,7 @@ import { useAllDestinations } from '@/hooks/useDestinations';
 import { Destination } from '@/types/type';
 
 const categories = [
-  'All', 'Beaches', 'Mountains', 'Cities', 'Historic', 
+  'All', 'Beaches', 'Mountains', 'Cities', 'Historic',
   'Romantic', 'Adventure', 'Foodie'
 ];
 
@@ -27,7 +27,7 @@ export const DestinationFilterHeader = () => {
       <div className="flex items-center gap-8 overflow-x-auto pb-8 no-scrollbar scroll-smooth">
         {isLoadingAll ? (
           <div className="flex gap-8 animate-pulse">
-            {[1,2,3,4,5,6,7,8].map(i => (
+            {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
               <div key={i} className="flex flex-col items-center gap-3">
                 <div className="w-20 h-20 bg-gray-200 rounded-full"></div>
                 <div className="w-16 h-4 bg-gray-200 rounded"></div>
@@ -35,15 +35,15 @@ export const DestinationFilterHeader = () => {
             ))}
           </div>
         ) : destinations.map((dest: Destination) => (
-          <div 
-            key={dest._id} 
+          <div
+            key={dest._id}
             onClick={() => router.push(`/destinations/${dest.slug || dest._id}`)}
             className="flex flex-col items-center gap-3 flex-shrink-0 cursor-pointer group"
           >
             <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-transparent group-hover:border-gray-200 transition-all">
-              <Image 
-                src={dest.images?.[0] || 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=150&h=150&fit=crop'} 
-                alt={dest.name} 
+              <Image
+                src={dest.images?.[0] || 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=150&h=150&fit=crop'}
+                alt={dest.name}
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
               />
             </div>
@@ -60,8 +60,8 @@ export const DestinationFilterHeader = () => {
               key={category}
               onClick={() => setActiveCategory(category)}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all border whitespace-nowrap
-                ${activeCategory === category 
-                  ? 'bg-black text-white border-black shadow-md' 
+                ${activeCategory === category
+                  ? 'bg-black text-white border-black shadow-md'
                   : 'bg-white text-gray-400 border-gray-100 hover:border-gray-300 hover:text-gray-600'
                 }`}
             >

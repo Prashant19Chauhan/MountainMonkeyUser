@@ -5,70 +5,70 @@ import { useHeroContent, useSearchState } from '@/hooks/useHome';
 
 function HeroSearch() {
   const pathname = usePathname();
-  const { 
-    data:heroContent, 
+  const {
+    data: heroContent,
   } = useHeroContent();
 
-  const { 
-    searchData, 
-    handleSearchChange, 
-    handleSearchSubmit 
+  const {
+    searchData,
+    handleSearchChange,
+    handleSearchSubmit
   } = useSearchState();
 
   // Find the specific hero section for the current mood
-  const currentHero =  heroContent?.heroSection?.[0];
+  const currentHero = heroContent?.heroSection?.[0];
 
   // AI Search Bar for home page
   const AISearchBar = () => (
-  <div className="max-w-4xl mx-auto p-4 sm:p-8">
-    <div className="text-center mb-6 sm:mb-8">
-      <h1 className="text-2xl sm:text-3xl md:text-5xl font-black text-foreground mb-3 sm:mb-4">
-        {currentHero?.title || "Where would you like to go?"}
-      </h1>
-      <p className="text-sm sm:text-base md:text-lg text-foreground/70">
-        {currentHero?.tagline || "Ask anything - we'll help you plan the perfect trip"}
-      </p>
-    </div>
-    
-    <div className="relative">
-      <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 bg-white border border-gray-200 sm:border-2 rounded-3xl sm:rounded-full p-3 sm:p-4 shadow-2xl hover:border-rose-500 transition-all">
-        <div className="flex items-center gap-2 flex-1 min-w-0">
-          <Sparkles className="text-rose-500 ml-1 shrink-0 hidden sm:block" size={20} />
-          <input
-            type="text"
-            name="query"
-            value={searchData.query}
-            onChange={handleSearchChange}
-            placeholder={currentHero?.searchBarPrompt || "Try: 'Beach destinations in Thailand under $1000' or 'Weekend getaway from Delhi'"}
-            className="flex-1 text-base sm:text-lg outline-none text-slate-700 placeholder:text-slate-400 min-w-0"
-          />
-        </div>
-        <button 
-          type="submit"
-          className="bg-linear-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white px-6 sm:px-8 py-3 rounded-full font-bold shadow-lg transition-all active:scale-95 text-sm sm:text-base cursor-pointer shrink-0 border-0"
-        >
-          Ask AI
-        </button>
-      </form>
-    </div>
+    <div className="max-w-4xl mx-auto p-4 sm:p-8">
+      <div className="text-center mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl md:text-5xl font-black text-foreground mb-3 sm:mb-4">
+          {currentHero?.title || "Where would you like to go?"}
+        </h1>
+        <p className="text-sm sm:text-base md:text-lg text-foreground/70">
+          {currentHero?.tagline || "Ask anything - we'll help you plan the perfect trip"}
+        </p>
+      </div>
 
-    {/* Quick suggestions */}
-    <div className="mt-6 flex flex-wrap justify-center gap-3">
-      <span className="text-xs font-bold text-slate-400 uppercase">Popular:</span>
-      {(currentHero?.categories || ['Beaches', 'Mountains', 'Adventure', 'Romantic', 'Family Trip']).map((tag: string) => (
-        <button
-          key={tag}
-          onClick={() => {
-            handleSearchChange({ target: { name: 'query', value: tag } } as React.ChangeEvent<HTMLInputElement>);
-          }}
-          className="px-4 py-2 bg-slate-100 hover:bg-rose-50 hover:text-rose-600 rounded-full text-sm font-semibold text-slate-600 transition-all"
-        >
-          {tag}
-        </button>
-      ))}
+      <div className="relative">
+        <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 bg-white border border-gray-200 sm:border-2 rounded-3xl sm:rounded-full p-3 sm:p-4 shadow-2xl hover:border-rose-500 transition-all">
+          <div className="flex items-center gap-2 flex-1 min-w-0">
+            <Sparkles className="text-rose-500 ml-1 shrink-0 hidden sm:block" size={20} />
+            <input
+              type="text"
+              name="query"
+              value={searchData.query}
+              onChange={handleSearchChange}
+              placeholder={currentHero?.searchBarPrompt || "Try: 'Beach destinations in Thailand under $1000' or 'Weekend getaway from Delhi'"}
+              className="flex-1 text-base sm:text-lg outline-none text-slate-700 placeholder:text-slate-400 min-w-0"
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-linear-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white px-6 sm:px-8 py-3 rounded-full font-bold shadow-lg transition-all active:scale-95 text-sm sm:text-base cursor-pointer shrink-0 border-0"
+          >
+            Ask AI
+          </button>
+        </form>
+      </div>
+
+      {/* Quick suggestions */}
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <span className="text-xs font-bold text-slate-400 uppercase">Popular:</span>
+        {(currentHero?.categories || ['Beaches', 'Mountains', 'Adventure', 'Romantic', 'Family Trip']).map((tag: string) => (
+          <button
+            key={tag}
+            onClick={() => {
+              handleSearchChange({ target: { name: 'query', value: tag } } as React.ChangeEvent<HTMLInputElement>);
+            }}
+            className="px-4 py-2 bg-slate-100 hover:bg-rose-50 hover:text-rose-600 rounded-full text-sm font-semibold text-slate-600 transition-all"
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
 
   // Destinations Search
   const DestinationsSearch = () => (
@@ -76,7 +76,7 @@ function HeroSearch() {
       <h2 className="text-2xl sm:text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
         <MapPin className="text-rose-500 shrink-0" size={24} /> Explore Destinations
       </h2>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-4 border border-gray-200 rounded-2xl mb-6">
         {/* DESTINATION */}
         <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 hover:bg-slate-50 transition-colors cursor-pointer">
@@ -87,7 +87,7 @@ function HeroSearch() {
 
         {/* TRAVEL DATES */}
         <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 hover:bg-slate-50 transition-colors cursor-pointer">
-          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">When <Calendar size={12}/></p>
+          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">When <Calendar size={12} /></p>
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-black text-slate-800">Flexible</span>
           </div>
@@ -106,7 +106,7 @@ function HeroSearch() {
 
         {/* TRAVELERS */}
         <div className="p-4 hover:bg-slate-50 transition-colors cursor-pointer">
-          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Travelers <UserCircle size={12}/></p>
+          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Travelers <UserCircle size={12} /></p>
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-black text-slate-800">2</span>
             <span className="text-lg font-bold text-slate-800">Adults</span>
@@ -139,7 +139,7 @@ function HeroSearch() {
       <h2 className="text-2xl sm:text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
         <Activity className="text-rose-500 shrink-0" size={24} /> Find Activities
       </h2>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-4 border border-gray-200 rounded-2xl mb-6">
         {/* LOCATION */}
         <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 hover:bg-slate-50 transition-colors cursor-pointer">
@@ -157,7 +157,7 @@ function HeroSearch() {
 
         {/* DATE */}
         <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 hover:bg-slate-50 transition-colors cursor-pointer">
-          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Date <Calendar size={12}/></p>
+          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Date <Calendar size={12} /></p>
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-black text-slate-800">Any</span>
           </div>
@@ -166,7 +166,7 @@ function HeroSearch() {
 
         {/* GUESTS */}
         <div className="p-4 hover:bg-slate-50 transition-colors cursor-pointer">
-          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Guests <UserCircle size={12}/></p>
+          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Guests <UserCircle size={12} /></p>
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-black text-slate-800">1</span>
             <span className="text-lg font-bold text-slate-800">Person</span>
@@ -199,7 +199,7 @@ function HeroSearch() {
       <h2 className="text-2xl sm:text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
         <Package className="text-rose-500 shrink-0" size={24} /> Browse Packages
       </h2>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-5 border border-gray-200 rounded-2xl mb-6">
         {/* FROM */}
         <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 hover:bg-slate-50 transition-colors cursor-pointer">
@@ -217,7 +217,7 @@ function HeroSearch() {
 
         {/* DEPARTURE DATE */}
         <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 hover:bg-slate-50 transition-colors cursor-pointer">
-          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Travel Date <Calendar size={12}/></p>
+          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Travel Date <Calendar size={12} /></p>
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-black text-slate-800">Flexible</span>
           </div>
@@ -236,7 +236,7 @@ function HeroSearch() {
 
         {/* TRAVELERS */}
         <div className="p-4 hover:bg-slate-50 transition-colors cursor-pointer">
-          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Travelers <UserCircle size={12}/></p>
+          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Travelers <UserCircle size={12} /></p>
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-black text-slate-800">2</span>
             <span className="text-lg font-bold text-slate-800">People</span>
@@ -269,7 +269,7 @@ function HeroSearch() {
       <h2 className="text-2xl sm:text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
         <Hotel className="text-rose-500 shrink-0" size={24} /> Book Stays
       </h2>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-5 border border-gray-200 rounded-2xl mb-6">
         {/* DESTINATION */}
         <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 hover:bg-slate-50 transition-colors cursor-pointer">
@@ -280,7 +280,7 @@ function HeroSearch() {
 
         {/* CHECK IN */}
         <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 hover:bg-slate-50 transition-colors cursor-pointer">
-          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Check In <Calendar size={12}/></p>
+          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Check In <Calendar size={12} /></p>
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-black text-slate-800">15</span>
             <span className="text-lg font-bold text-slate-800">May</span>
@@ -290,7 +290,7 @@ function HeroSearch() {
 
         {/* CHECK OUT */}
         <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 hover:bg-slate-50 transition-colors cursor-pointer">
-          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Check Out <Calendar size={12}/></p>
+          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Check Out <Calendar size={12} /></p>
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-black text-slate-800">18</span>
             <span className="text-lg font-bold text-slate-800">May</span>
@@ -310,7 +310,7 @@ function HeroSearch() {
 
         {/* GUESTS */}
         <div className="p-4 hover:bg-slate-50 transition-colors cursor-pointer">
-          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Guests <UserCircle size={12}/></p>
+          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Guests <UserCircle size={12} /></p>
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-black text-slate-800">2</span>
             <span className="text-lg font-bold text-slate-800">Adults</span>
@@ -371,7 +371,7 @@ function HeroSearch() {
 
         {/* DEPARTURE */}
         <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 hover:bg-slate-50 transition-colors cursor-pointer">
-          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Departure <Calendar size={12}/> </p>
+          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Departure <Calendar size={12} /> </p>
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-black text-slate-800">11</span>
             <span className="text-lg font-bold text-slate-800">May&apos;26</span>
@@ -387,7 +387,7 @@ function HeroSearch() {
 
         {/* TRAVELLERS */}
         <div className="p-4 hover:bg-slate-50 transition-colors cursor-pointer">
-          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Travellers <UserCircle size={12}/> </p>
+          <p className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1">Travellers <UserCircle size={12} /> </p>
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-black text-slate-800">1</span>
             <span className="text-lg font-bold text-slate-800">Traveller</span>

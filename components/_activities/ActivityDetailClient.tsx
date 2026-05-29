@@ -87,7 +87,7 @@ export const ActivityDetailClient = ({ activityId }: ActivityDetailClientProps) 
 
         {/* RIGHT LEDGER SIDEBAR TRANSACT ENGINE */}
         <div className="lg:col-span-4 lg:sticky lg:top-8">
-          <DetailBookingLedger basePrice={basePrice} />
+          <DetailBookingLedger basePrice={basePrice} activity={activity} />
         </div>
       </div>
 

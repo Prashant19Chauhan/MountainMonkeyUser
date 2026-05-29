@@ -58,55 +58,55 @@ const CATEGORY_PANELS: {
   subtitle: string;
   icon: React.ReactNode;
 }[] = [
-  {
-    id: 'adventure',
-    title: "Adrenaline & Peaks",
-    subtitle: "Push your limits with high-altitude treks, paragliding, rafting and extreme sports.",
-    icon: <Zap size={22} />,
-  },
-  {
-    id: 'cultural',
-    title: "Heritage & History",
-    subtitle: "Explore ancient palaces, sacred monuments, and living heritage walks.",
-    icon: <Landmark size={22} />,
-  },
-  {
-    id: 'nature',
-    title: "Wild Nature",
-    subtitle: "Immerse in wildlife safaris, stargazing nights, and misty waterfall treks.",
-    icon: <Trees size={22} />,
-  },
-  {
-    id: 'spiritual',
-    title: "Spiritual & Inner Peace",
-    subtitle: "Find serenity in ancient temples, mountain monasteries, and meditation retreats.",
-    icon: <Flower2 size={22} />,
-  },
-  {
-    id: 'food',
-    title: "Flavours & Markets",
-    subtitle: "Devour street food trails, cooking classes, winery tours, and local market strolls.",
-    icon: <UtensilsCrossed size={22} />,
-  },
-  {
-    id: 'water',
-    title: "Water & Waves",
-    subtitle: "Dive deep or ride wild — scuba diving, rafting, kayaking and coastal adventures.",
-    icon: <Waves size={22} />,
-  },
-  {
-    id: 'wellness',
-    title: "Wellness & Rejuvenation",
-    subtitle: "Restore your soul with spa retreats, sunrise yoga, and guided meditation sessions.",
-    icon: <Heart size={22} />,
-  },
-  {
-    id: 'urban',
-    title: "Urban Explorer",
-    subtitle: "Discover cable cars, theme parks, boutique shopping and city skyline experiences.",
-    icon: <Building2 size={22} />,
-  },
-];
+    {
+      id: 'adventure',
+      title: "Adrenaline & Peaks",
+      subtitle: "Push your limits with high-altitude treks, paragliding, rafting and extreme sports.",
+      icon: <Zap size={22} />,
+    },
+    {
+      id: 'cultural',
+      title: "Heritage & History",
+      subtitle: "Explore ancient palaces, sacred monuments, and living heritage walks.",
+      icon: <Landmark size={22} />,
+    },
+    {
+      id: 'nature',
+      title: "Wild Nature",
+      subtitle: "Immerse in wildlife safaris, stargazing nights, and misty waterfall treks.",
+      icon: <Trees size={22} />,
+    },
+    {
+      id: 'spiritual',
+      title: "Spiritual & Inner Peace",
+      subtitle: "Find serenity in ancient temples, mountain monasteries, and meditation retreats.",
+      icon: <Flower2 size={22} />,
+    },
+    {
+      id: 'food',
+      title: "Flavours & Markets",
+      subtitle: "Devour street food trails, cooking classes, winery tours, and local market strolls.",
+      icon: <UtensilsCrossed size={22} />,
+    },
+    {
+      id: 'water',
+      title: "Water & Waves",
+      subtitle: "Dive deep or ride wild — scuba diving, rafting, kayaking and coastal adventures.",
+      icon: <Waves size={22} />,
+    },
+    {
+      id: 'wellness',
+      title: "Wellness & Rejuvenation",
+      subtitle: "Restore your soul with spa retreats, sunrise yoga, and guided meditation sessions.",
+      icon: <Heart size={22} />,
+    },
+    {
+      id: 'urban',
+      title: "Urban Explorer",
+      subtitle: "Discover cable cars, theme parks, boutique shopping and city skyline experiences.",
+      icon: <Building2 size={22} />,
+    },
+  ];
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -383,13 +383,13 @@ const renderActivityCard = (categoryId: ActivityCategoryId, activity: Activity, 
   const key = activity._id || index;
   switch (categoryId) {
     case 'adventure': return <AdventureCard key={key} activity={activity} onClick={onClick} />;
-    case 'cultural':  return <CulturalCard  key={key} activity={activity} onClick={onClick} />;
-    case 'nature':    return <NatureCard    key={key} activity={activity} onClick={onClick} />;
+    case 'cultural': return <CulturalCard key={key} activity={activity} onClick={onClick} />;
+    case 'nature': return <NatureCard key={key} activity={activity} onClick={onClick} />;
     case 'spiritual': return <SpiritualCard key={key} activity={activity} onClick={onClick} />;
-    case 'food':      return <FoodCard      key={key} activity={activity} onClick={onClick} />;
-    case 'water':     return <WaterCard     key={key} activity={activity} onClick={onClick} />;
-    case 'wellness':  return <WellnessCard  key={key} activity={activity} onClick={onClick} />;
-    case 'urban':     return <UrbanCard     key={key} activity={activity} onClick={onClick} />;
+    case 'food': return <FoodCard key={key} activity={activity} onClick={onClick} />;
+    case 'water': return <WaterCard key={key} activity={activity} onClick={onClick} />;
+    case 'wellness': return <WellnessCard key={key} activity={activity} onClick={onClick} />;
+    case 'urban': return <UrbanCard key={key} activity={activity} onClick={onClick} />;
     default: return null;
   }
 };
@@ -434,13 +434,13 @@ export const DynamicActivitiesCategories = () => {
   // ── Scroll refs (one per category) ──
   const scrollRefs = {
     adventure: useRef<HTMLDivElement>(null),
-    cultural:  useRef<HTMLDivElement>(null),
-    nature:    useRef<HTMLDivElement>(null),
+    cultural: useRef<HTMLDivElement>(null),
+    nature: useRef<HTMLDivElement>(null),
     spiritual: useRef<HTMLDivElement>(null),
-    food:      useRef<HTMLDivElement>(null),
-    water:     useRef<HTMLDivElement>(null),
-    wellness:  useRef<HTMLDivElement>(null),
-    urban:     useRef<HTMLDivElement>(null),
+    food: useRef<HTMLDivElement>(null),
+    water: useRef<HTMLDivElement>(null),
+    wellness: useRef<HTMLDivElement>(null),
+    urban: useRef<HTMLDivElement>(null),
   };
 
   const handleScroll = (id: ActivityCategoryId, direction: 'left' | 'right') => {

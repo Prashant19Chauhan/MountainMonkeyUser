@@ -3,18 +3,18 @@
 import React, { useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { 
-  TrendingUp, Sun, Landmark, Compass, Trees, Flower, 
+import {
+  TrendingUp, Sun, Landmark, Compass, Trees, Flower,
   MapPin, Star, Heart
 } from 'lucide-react';
 import Image from "@/components/ui/Image";
 
 // Hooks
-import { 
-  useTrendingDestinations, 
-  useTropicalDestinations, 
-  useHistoryDestinations, 
-  useAllDestinations 
+import {
+  useTrendingDestinations,
+  useTropicalDestinations,
+  useHistoryDestinations,
+  useAllDestinations
 } from '@/hooks/useDestinations';
 
 // Components
@@ -38,24 +38,24 @@ export const DynamicDestinationsCategories = () => {
 
   // 2. Client Side Filtering for Enriched Categories (Nature, Adventure, Spiritual)
   const adventureList = useMemo(() => {
-    return allDestinations.filter((dest: any) => 
-      dest.categories?.some((c: string) => 
+    return allDestinations.filter((dest: any) =>
+      dest.categories?.some((c: string) =>
         ['Adventure', 'Trekking', 'Backpacking', 'Road_Trip'].includes(c)
       )
     ).slice(0, 10); // Limit to 10 for scroll list
   }, [allDestinations]);
 
   const natureList = useMemo(() => {
-    return allDestinations.filter((dest: any) => 
-      dest.categories?.some((c: string) => 
+    return allDestinations.filter((dest: any) =>
+      dest.categories?.some((c: string) =>
         ['Nature', 'Wildlife', 'Offbeat', 'Riverside', 'Snow_Destination', 'Hill_Station'].includes(c)
       )
     ).slice(0, 10);
   }, [allDestinations]);
 
   const spiritualList = useMemo(() => {
-    return allDestinations.filter((dest: any) => 
-      dest.categories?.some((c: string) => 
+    return allDestinations.filter((dest: any) =>
+      dest.categories?.some((c: string) =>
         ['Spiritual', 'Wellness', 'Pilgrimage', 'Cultural', 'Heritage'].includes(c)
       )
     ).slice(0, 10);
@@ -88,47 +88,47 @@ export const DynamicDestinationsCategories = () => {
 
   // Fixed Category Panel Listing Order for current phase
   const categoriesList: { id: CategoryId; title: string; subtitle: string; icon: React.ReactNode; list: Destination[] }[] = [
-    { 
-      id: 'trending', 
-      title: "Trending Spotlight", 
-      subtitle: "The most popular Himalayan hubs travelers are booking right now.", 
-      icon: <TrendingUp size={22} />, 
-      list: trendingList 
+    {
+      id: 'trending',
+      title: "Trending Spotlight",
+      subtitle: "The most popular Himalayan hubs travelers are booking right now.",
+      icon: <TrendingUp size={22} />,
+      list: trendingList
     },
-    { 
-      id: 'adventure', 
-      title: "Adventure & Peaks", 
-      subtitle: "Conquer dramatic passes, high altitude trails, and snowy peaks.", 
-      icon: <Compass size={22} />, 
-      list: adventureList 
+    {
+      id: 'adventure',
+      title: "Adventure & Peaks",
+      subtitle: "Conquer dramatic passes, high altitude trails, and snowy peaks.",
+      icon: <Compass size={22} />,
+      list: adventureList
     },
-    { 
-      id: 'history', 
-      title: "Historical Kingdoms", 
-      subtitle: "Wander down ancient stone alleyways, sacred temples, and heritage sites.", 
-      icon: <Landmark size={22} />, 
-      list: historyList 
+    {
+      id: 'history',
+      title: "Historical Kingdoms",
+      subtitle: "Wander down ancient stone alleyways, sacred temples, and heritage sites.",
+      icon: <Landmark size={22} />,
+      list: historyList
     },
-    { 
-      id: 'tropical', 
-      title: "Tropical Paradises", 
-      subtitle: "Escape to majestic lakeside retreats, warm riversides, and hidden valleys.", 
-      icon: <Sun size={22} />, 
-      list: tropicalList 
+    {
+      id: 'tropical',
+      title: "Tropical Paradises",
+      subtitle: "Escape to majestic lakeside retreats, warm riversides, and hidden valleys.",
+      icon: <Sun size={22} />,
+      list: tropicalList
     },
-    { 
-      id: 'nature', 
-      title: "Nature & Wilderness", 
-      subtitle: "Lose yourself in mossy forests, pine valleys, and raw wildlife parks.", 
-      icon: <Trees size={22} />, 
-      list: natureList 
+    {
+      id: 'nature',
+      title: "Nature & Wilderness",
+      subtitle: "Lose yourself in mossy forests, pine valleys, and raw wildlife parks.",
+      icon: <Trees size={22} />,
+      list: natureList
     },
-    { 
-      id: 'spiritual', 
-      title: "Spiritual & Zen Retreats", 
-      subtitle: "Find serenity, wellness, and reflection in monasteries and valleys.", 
-      icon: <Flower size={22} />, 
-      list: spiritualList 
+    {
+      id: 'spiritual',
+      title: "Spiritual & Zen Retreats",
+      subtitle: "Find serenity, wellness, and reflection in monasteries and valleys.",
+      icon: <Flower size={22} />,
+      list: spiritualList
     }
   ];
 
@@ -172,7 +172,7 @@ export const DynamicDestinationsCategories = () => {
             onScrollRight={() => handleScroll(cat.id, 'right')}
           >
             {/* Horizontal scrollable flex row */}
-            <div 
+            <div
               ref={scrollRefs[cat.id]}
               className="flex items-center gap-6 overflow-x-auto pb-4 pt-1 no-scrollbar scroll-smooth flex-nowrap"
             >
@@ -190,13 +190,13 @@ export const DynamicDestinationsCategories = () => {
                         onClick={() => handleDestinationClick(dest.slug)}
                         className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-blue-500/20 bg-slate-900 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-400/50 transition-all duration-500"
                       >
-                        <Image 
-                          src={dest.images?.[0] || "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80"} 
-                          alt={dest.name} 
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                        <Image
+                          src={dest.images?.[0] || "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80"}
+                          alt={dest.name}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/10 to-transparent" />
-                        
+
                         <div className="absolute top-4 left-4 bg-blue-600/90 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg border border-blue-400/30">
                           Spotlight
                         </div>
@@ -229,13 +229,13 @@ export const DynamicDestinationsCategories = () => {
                         style={{ transformStyle: 'preserve-3d' }}
                         className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-orange-500/20 bg-zinc-950 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300"
                       >
-                        <Image 
-                          src={dest.images?.[0] || "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80"} 
-                          alt={dest.name} 
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                        <Image
+                          src={dest.images?.[0] || "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80"}
+                          alt={dest.name}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-slate-900/10 to-transparent" />
-                        
+
                         <div className="absolute top-4 left-4 bg-orange-600/90 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg border border-orange-400/20">
                           Pass Guide
                         </div>
@@ -262,13 +262,13 @@ export const DynamicDestinationsCategories = () => {
                         whileHover={{ y: -6, rotateY: 2 }}
                         className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-amber-200/50 bg-amber-50/20 font-serif group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-amber-900/10 transition-all duration-300"
                       >
-                        <Image 
-                          src={dest.images?.[0] || "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=80"} 
-                          alt={dest.name} 
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                        <Image
+                          src={dest.images?.[0] || "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=80"}
+                          alt={dest.name}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-amber-950/95 via-transparent to-transparent" />
-                        
+
                         <div className="absolute top-4 left-4 bg-amber-800 text-white text-[8px] font-black uppercase font-sans tracking-widest px-2.5 py-1 rounded-lg">
                           Heritage
                         </div>
@@ -294,13 +294,13 @@ export const DynamicDestinationsCategories = () => {
                         onClick={() => handleDestinationClick(dest.slug)}
                         className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-cyan-200 bg-cyan-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500"
                       >
-                        <Image 
-                          src={dest.images?.[0] || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80'} 
-                          alt={dest.name} 
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                        <Image
+                          src={dest.images?.[0] || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80'}
+                          alt={dest.name}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-cyan-950 via-transparent to-transparent" />
-                        
+
                         <div className="absolute top-4 left-4 bg-cyan-600/90 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg">
                           Sunny Spot
                         </div>
@@ -326,13 +326,13 @@ export const DynamicDestinationsCategories = () => {
                         onClick={() => handleDestinationClick(dest.slug)}
                         className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-emerald-200 bg-emerald-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-500"
                       >
-                        <Image 
-                          src={dest.images?.[0] || 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&q=80'} 
-                          alt={dest.name} 
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                        <Image
+                          src={dest.images?.[0] || 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&q=80'}
+                          alt={dest.name}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-transparent to-transparent" />
-                        
+
                         <div className="absolute top-4 left-4 bg-emerald-600 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg">
                           Eco-Reserve
                         </div>
@@ -358,13 +358,13 @@ export const DynamicDestinationsCategories = () => {
                         onClick={() => handleDestinationClick(dest.slug)}
                         className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-indigo-200/50 bg-indigo-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500"
                       >
-                        <Image 
-                          src={dest.images?.[0] || 'https://images.unsplash.com/photo-1486915309851-b0cc1f8a0084?auto=format&fit=crop&q=80'} 
-                          alt={dest.name} 
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                        <Image
+                          src={dest.images?.[0] || 'https://images.unsplash.com/photo-1486915309851-b0cc1f8a0084?auto=format&fit=crop&q=80'}
+                          alt={dest.name}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-indigo-950 via-transparent to-transparent" />
-                        
+
                         <div className="absolute top-4 left-4 bg-indigo-600 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg">
                           Zen Sanctuary
                         </div>

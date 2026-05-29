@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 import { Loader2 } from 'lucide-react';
-import { 
-  useDestinationDetails, 
-  useDestinationActivities, 
+import {
+  useDestinationDetails,
+  useDestinationActivities,
   useDestinationStays,
   useDestinationLocalInfo,
-  useDestinationPackages 
+  useDestinationPackages
 } from '@/hooks/useDestinations';
 
 import { DestinationHero } from './DestinationHero';
@@ -52,8 +52,8 @@ export const DestinationDetailClient = ({ destinationId }: DestinationDetailClie
     "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=600&q=80"
   ];
 
-  const destinationImages = destination?.images && destination.images.length > 0 
-    ? destination.images 
+  const destinationImages = destination?.images && destination.images.length > 0
+    ? destination.images
     : fallbackImages;
 
   // Loading state
@@ -76,7 +76,7 @@ export const DestinationDetailClient = ({ destinationId }: DestinationDetailClie
 
   return (
     <div className="min-h-screen text-slate-800 antialiased font-sans pt-20">
-      
+
       {/* 1. MEDIA CANVAS & DETAILS HEADER */}
       <DestinationHero destination={destination} destinationImages={destinationImages} />
 
@@ -91,11 +91,10 @@ export const DestinationDetailClient = ({ destinationId }: DestinationDetailClie
               key={tab}
               type="button"
               onClick={() => setActiveTab(tab)}
-              className={`pb-4 text-sm font-black uppercase tracking-wider transition-all border-b-2 whitespace-nowrap cursor-pointer ${
-                activeTab === tab 
-                  ? 'border-blue-600 text-blue-600' 
+              className={`pb-4 text-sm font-black uppercase tracking-wider transition-all border-b-2 whitespace-nowrap cursor-pointer ${activeTab === tab
+                  ? 'border-blue-600 text-blue-600'
                   : 'border-transparent text-slate-400 hover:text-slate-600'
-              }`}
+                }`}
             >
               {tab === 'all' ? 'Destination Hub' : tab}
             </button>
@@ -105,10 +104,10 @@ export const DestinationDetailClient = ({ destinationId }: DestinationDetailClie
 
       {/* 4. BALANCED SPLIT GRID ARCHITECTURE */}
       <div className="max-w-8xl mx-auto px-4 md:px-8 lg:px-16 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
+
         {/* LEFT COLUMN CONTENT */}
         <div className="lg:col-span-8 space-y-12">
-          
+
           {/* GENERAL HUB INSIGHT OVERVIEW */}
           {activeTab === 'all' && <DestinationOverview destination={destination} />}
 
@@ -140,7 +139,7 @@ export const DestinationDetailClient = ({ destinationId }: DestinationDetailClie
 
         {/* RIGHT TRANSACT BLOCK SIDEBAR */}
         <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-6">
-          
+
           {/* Dynamic AI Expense Calculator */}
           <DestinationBudgetEstimate destination={destination} />
 

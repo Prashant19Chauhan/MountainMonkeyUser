@@ -1,3 +1,4 @@
+import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -13,22 +14,31 @@ import { StayPromoBanner } from '@/components/_stays/StayPromoBanner';
 
 export default function StayPage() {
   return (
-    <div>
-      {/* 1. Category Icons & Sort Filter Bar Header */}
-      <StayFilterHeader />
-      
-      {/* 2. Main Content Experiential Layout Container */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-8 font-sans space-y-12">
-        <StayMapPreview />
-        
-        {/* 3. Dynamic Category themed panels */}
-        <DynamicStaysCategories />
-
-        {/* 4. Complete Stays Listings */}
-        <StayListingsSection />
-        
-        <StayPromoBanner />
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
+        <div className="text-center space-y-3">
+          <div className="w-10 h-10 border-4 border-slate-900 border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-xs font-bold text-slate-500 tracking-wider uppercase">Loading Eco-Stays...</p>
+        </div>
       </div>
-    </div>
+    }>
+      <div>
+        {/* 1. Category Icons & Sort Filter Bar Header */}
+        <StayFilterHeader />
+        
+        {/* 2. Main Content Experiential Layout Container */}
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-8 font-sans space-y-12">
+          {/* Dynamic themed categorised panels on top for direct filter feedback */}
+          <DynamicStaysCategories />
+
+          {/* Complete Stays Listings */}
+          <StayListingsSection />
+          
+          {/* Map and Promo Banner moved below dynamic listings */}
+          <StayMapPreview />
+          <StayPromoBanner />
+        </div>
+      </div>
+    </Suspense>
   );
 }

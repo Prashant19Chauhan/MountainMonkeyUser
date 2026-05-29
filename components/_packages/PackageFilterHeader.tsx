@@ -1,7 +1,7 @@
 import React from 'react';
-import { 
-  Clock, Plane, Star, ChevronDown, SlidersHorizontal, 
-  Wallet, Mountain, Palmtree, Church, Users, Heart 
+import {
+  Clock, Plane, Star, ChevronDown, SlidersHorizontal,
+  Wallet, Mountain, Palmtree, Church, Users, Heart
 } from 'lucide-react';
 
 const dropdownFilters = [

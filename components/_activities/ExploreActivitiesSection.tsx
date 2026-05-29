@@ -21,7 +21,7 @@ export const ExploreActivitiesSection = () => {
         <h2 className="text-xl font-bold mb-1">More to Explore</h2>
         <p className="text-gray-400 text-xs font-medium">Discover additional highly-rated experiences.</p>
       </div>
-      
+
       <div className="space-y-4">
         {isLoadingExplore ? (
           <div className="h-44 flex justify-center items-center text-gray-400">
@@ -29,16 +29,16 @@ export const ExploreActivitiesSection = () => {
           </div>
         ) : exploreActivities.length > 0 ? (
           exploreActivities.map((item: Activity, i: number) => (
-            <div 
-              key={item._id || i} 
+            <div
+              key={item._id || i}
               onClick={() => router.push(`/activities/${item.slug}`)}
               className="flex flex-col md:flex-row bg-white rounded-3xl border border-gray-100 overflow-hidden group hover:shadow-md transition-shadow cursor-pointer relative"
             >
               <div className="md:w-64 h-44 relative overflow-hidden flex-shrink-0 bg-slate-50">
-                <Image 
-                  src={item.images?.[0] || "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80"} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                  alt={item.name} 
+                <Image
+                  src={item.images?.[0] || "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80"}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  alt={item.name}
                 />
                 <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[8px] font-bold px-2 py-0.5 rounded uppercase">
                   {item.tags?.[0] || "Popular"}
@@ -76,7 +76,7 @@ export const ExploreActivitiesSection = () => {
                   </div>
                 </div>
               </div>
-              <div 
+              <div
                 onClick={(e) => {
                   e.stopPropagation();
                 }}

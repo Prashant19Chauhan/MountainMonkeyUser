@@ -27,7 +27,7 @@ export const DetailChecklists = ({ activity }: DetailChecklistsProps) => {
           </ul>
         </div>
       )}
-      
+
       {precautions.length > 0 && (
         <div className="p-5 bg-amber-50/50 rounded-2xl border border-amber-100 space-y-3">
           <h4 className="text-xs font-black uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
