@@ -74,7 +74,7 @@ const LuxuryCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void })
   return (
     <div
       onClick={onClick}
-      className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-blue-500/20 bg-slate-900 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-400/50 transition-all duration-500"
+      className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-blue-500/20 bg-slate-900 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-400/50 transition-all duration-500"
     >
       <Image 
         src={image} 
@@ -116,7 +116,7 @@ const AdventureCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void
       onClick={onClick}
       whileHover={{ y: -6, rotateX: 1, rotateY: -1 }}
       style={{ transformStyle: 'preserve-3d' }}
-      className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-orange-500/20 bg-zinc-950 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300"
+      className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-orange-500/20 bg-zinc-950 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300"
     >
       <Image 
         src={image} 
@@ -156,7 +156,7 @@ const RomanticCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void 
   return (
     <div
       onClick={onClick}
-      className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-rose-200 bg-rose-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-rose-500/10 transition-all duration-500"
+      className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-rose-200 bg-rose-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-rose-500/10 transition-all duration-500"
     >
       <Image 
         src={image} 
@@ -196,7 +196,7 @@ const FamilyCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void })
   return (
     <div
       onClick={onClick}
-      className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-emerald-200 bg-emerald-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-500"
+      className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-emerald-200 bg-emerald-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-500"
     >
       <Image 
         src={image} 
@@ -236,7 +236,7 @@ const SpiritualCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void
   return (
     <div
       onClick={onClick}
-      className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-indigo-200/50 bg-indigo-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500"
+      className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-indigo-200/50 bg-indigo-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500"
     >
       <Image 
         src={image} 
@@ -277,7 +277,7 @@ const CulturalCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void 
     <motion.div
       onClick={onClick}
       whileHover={{ y: -6, rotateY: 2 }}
-      className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-amber-200/50 bg-amber-50/20 font-serif group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-amber-900/10 transition-all duration-300"
+      className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-amber-200/50 bg-amber-50/20 font-serif group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-amber-900/10 transition-all duration-300"
     >
       <Image 
         src={image} 

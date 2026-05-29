@@ -142,7 +142,7 @@ const AdventureCard = ({ activity, onClick }: { activity: Activity; onClick: () 
     onClick={onClick}
     whileHover={{ y: -6, rotateX: 1, rotateY: -1 }}
     style={{ transformStyle: 'preserve-3d' }}
-    className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-orange-500/20 bg-zinc-950 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-orange-500/15 transition-all duration-300"
+    className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-orange-500/20 bg-zinc-950 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-orange-500/15 transition-all duration-300"
   >
     <Image
       src={activity.images?.[0] || "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80"}
@@ -183,7 +183,7 @@ const CulturalCard = ({ activity, onClick }: { activity: Activity; onClick: () =
   <motion.div
     onClick={onClick}
     whileHover={{ y: -6, rotateY: 2 }}
-    className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-amber-200/50 bg-amber-50/20 font-serif group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-amber-900/10 transition-all duration-300"
+    className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-amber-200/50 bg-amber-50/20 font-serif group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-amber-900/10 transition-all duration-300"
   >
     <Image
       src={activity.images?.[0] || "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=80"}
@@ -212,7 +212,7 @@ const CulturalCard = ({ activity, onClick }: { activity: Activity; onClick: () =
 const NatureCard = ({ activity, onClick }: { activity: Activity; onClick: () => void }) => (
   <div
     onClick={onClick}
-    className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-emerald-200 bg-emerald-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-500"
+    className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-emerald-200 bg-emerald-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-500"
   >
     <Image
       src={activity.images?.[0] || 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&q=80'}
@@ -241,7 +241,7 @@ const NatureCard = ({ activity, onClick }: { activity: Activity; onClick: () => 
 const SpiritualCard = ({ activity, onClick }: { activity: Activity; onClick: () => void }) => (
   <div
     onClick={onClick}
-    className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-indigo-200/50 bg-indigo-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500"
+    className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-indigo-200/50 bg-indigo-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500"
   >
     <Image
       src={activity.images?.[0] || 'https://images.unsplash.com/photo-1486915309851-b0cc1f8a0084?auto=format&fit=crop&q=80'}
@@ -265,7 +265,7 @@ const SpiritualCard = ({ activity, onClick }: { activity: Activity; onClick: () 
 const FoodCard = ({ activity, onClick }: { activity: Activity; onClick: () => void }) => (
   <div
     onClick={onClick}
-    className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-yellow-200 bg-yellow-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-500"
+    className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-yellow-200 bg-yellow-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-500"
   >
     <Image
       src={activity.images?.[0] || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80'}
@@ -298,7 +298,7 @@ const FoodCard = ({ activity, onClick }: { activity: Activity; onClick: () => vo
 const WaterCard = ({ activity, onClick }: { activity: Activity; onClick: () => void }) => (
   <div
     onClick={onClick}
-    className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-teal-500/20 bg-slate-900 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-teal-500/10 transition-all duration-500"
+    className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-teal-500/20 bg-slate-900 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-teal-500/10 transition-all duration-500"
   >
     <Image
       src={activity.images?.[0] || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80'}
@@ -327,7 +327,7 @@ const WaterCard = ({ activity, onClick }: { activity: Activity; onClick: () => v
 const WellnessCard = ({ activity, onClick }: { activity: Activity; onClick: () => void }) => (
   <div
     onClick={onClick}
-    className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-rose-200 bg-rose-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-rose-500/10 transition-all duration-500"
+    className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-rose-200 bg-rose-50/30 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-rose-500/10 transition-all duration-500"
   >
     <Image
       src={activity.images?.[0] || 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80'}
@@ -351,7 +351,7 @@ const WellnessCard = ({ activity, onClick }: { activity: Activity; onClick: () =
 const UrbanCard = ({ activity, onClick }: { activity: Activity; onClick: () => void }) => (
   <div
     onClick={onClick}
-    className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[320px] h-[300px] sm:h-[330px] md:h-[360px] shrink-0 relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-blue-500/20 bg-slate-900 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-400/40 transition-all duration-500"
+    className="w-[280px] md:w-[320px] h-[360px] shrink-0 relative overflow-hidden rounded-[2rem] border border-blue-500/20 bg-slate-900 group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-400/40 transition-all duration-500"
   >
     <Image
       src={activity.images?.[0] || "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&q=80"}
