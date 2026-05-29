@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useMemo, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   Palmtree, Castle, Home, Backpack, Hotel,
-  Star, Heart, MapPin
+  Star, Heart, MapPin, Sparkles
 } from 'lucide-react';
 import Image from "@/components/ui/Image";
 
@@ -255,15 +255,120 @@ const renderStayCard = (categoryId: StayCategoryId, stay: Stay, onClick: () => v
   }
 };
 
+const getCardType = (stay: Stay): StayCategoryId => {
+  const type = stay.type?.toLowerCase();
+  if (type === 'resort') return 'resort';
+  if (type === 'villa') return 'villa';
+  if (type === 'homestay') return 'homestay';
+  if (type === 'hostel') return 'hostel';
+  if (type === 'hotel') return 'hotel';
+  return 'hotel';
+};
+
 // ─── Main Component ────────────────────────────────────────────────────────────
 
 export const DynamicStaysCategories = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const { data: staysData, isLoading } = useAllStays();
   const allStays: Stay[] = staysData?.data || [];
 
-  // ── Client-side category filtering ──
+  // Read URL Search Parameters for Active Filtering
+  const query = searchParams.get('query') || '';
+  const category = searchParams.get('category') || '';
+  const rooms = searchParams.get('rooms') || '';
+  const travelers = searchParams.get('travelers') || '';
+
+  const isFilterActive = !!(query || category || rooms || travelers);
+
+  // ── Unified Stays Filter Pipeline ──
+  const filteredStays = useMemo(() => {
+    let result = [...allStays];
+
+    // 1. Text Query (name or location)
+    if (query) {
+      const q = query.toLowerCase();
+      result = result.filter(stay => 
+        stay.name?.toLowerCase().includes(q) ||
+        stay.destinationId?.name?.toLowerCase().includes(q) ||
+        stay.location?.address?.toLowerCase().includes(q)
+      );
+    }
+
+    // 2. Category (supports standard types & custom Airbnb classification tabs)
+    if (category) {
+      const cat = category.toLowerCase();
+      const standardTypes = ['resort', 'villa', 'homestay', 'hostel', 'hotel'];
+
+      if (standardTypes.includes(cat)) {
+        result = result.filter(stay => stay.type?.toLowerCase() === cat);
+      } else {
+        // Theme classification filters
+        result = result.filter(stay => {
+          const name = stay.name?.toLowerCase() || '';
+          const type = stay.type?.toLowerCase() || '';
+          const amenities = stay.amenities?.map(a => a.toLowerCase()) || [];
+
+          if (cat === 'pools') {
+            return amenities.some(a => a.includes('pool')) || name.includes('pool');
+          }
+          if (cat === 'beach') {
+            return name.includes('beach') || name.includes('beachfront') || name.includes('shore');
+          }
+          if (cat === 'castles') {
+            return name.includes('castle') || name.includes('fort') || name.includes('estate') || type === 'villa';
+          }
+          if (cat === 'cabins') {
+            return name.includes('cabin') || name.includes('cottage') || name.includes('wood') || type === 'homestay';
+          }
+          if (cat === 'mansions') {
+            return name.includes('mansion') || name.includes('estate') || name.includes('villa') || type === 'villa';
+          }
+          if (cat === 'islands') {
+            return name.includes('island') || name.includes('isle');
+          }
+          if (cat === 'treehouses') {
+            return name.includes('treehouse') || name.includes('tree');
+          }
+          if (cat === 'skiing') {
+            return name.includes('ski') || name.includes('snow') || name.includes('winter') || name.includes('alp');
+          }
+          if (cat === 'lake') {
+            return name.includes('lake') || name.includes('lakefront') || name.includes('river') || name.includes('waterfront');
+          }
+          return true;
+        });
+      }
+    }
+
+    // 3. Rooms
+    if (rooms) {
+      const r = parseInt(rooms, 10);
+      if (!isNaN(r)) {
+        result = result.filter(stay => {
+          const capRooms = stay.rooms?.length || 1;
+          return capRooms >= r;
+        });
+      }
+    }
+
+    // 4. Travelers / Guests limit
+    if (travelers) {
+      const g = parseInt(travelers, 10);
+      if (!isNaN(g)) {
+        result = result.filter(stay => {
+          const maxGuests = stay.rooms?.reduce((acc, room) => acc + (room.capacity || 2), 0) || 2;
+          return maxGuests >= g;
+        });
+      }
+    }
+
+    return result;
+  }, [allStays, query, category, rooms, travelers]);
+
+  // ── Client-side default category filtering (for scrollable sliders layout) ──
   const categorisedStays = useMemo(() => {
     const result: Record<StayCategoryId, Stay[]> = {
       resort: [], villa: [], homestay: [], hostel: [], hotel: [],
@@ -330,6 +435,57 @@ export const DynamicStaysCategories = () => {
     );
   }
 
+  // ── Active Filters Dynamic Grid View ──
+  if (isFilterActive) {
+    return (
+      <div className="space-y-8 min-h-[400px]">
+        {/* Results Info Panel */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50 border border-slate-100 rounded-3xl p-6 sm:px-8">
+          <div>
+            <h3 className="text-xl font-bold text-slate-800">Matching Eco-Stays</h3>
+            <p className="text-sm text-slate-500 mt-1">
+              Found <span className="font-extrabold text-rose-500">{filteredStays.length}</span> luxury properties
+            </p>
+          </div>
+          <button
+            onClick={() => router.push(pathname)}
+            className="self-start sm:self-auto px-5 py-2.5 bg-white border border-rose-200 hover:bg-rose-50 text-rose-600 rounded-full text-xs font-bold transition-all cursor-pointer"
+          >
+            Clear All Filters
+          </button>
+        </div>
+
+        {filteredStays.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4 justify-items-center">
+            {filteredStays.map((stay, index) =>
+              renderStayCard(
+                getCardType(stay),
+                stay,
+                () => handleStayClick(stay.slug || stay._id),
+                index
+              )
+            )}
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-slate-50 rounded-[2.5rem] border border-slate-100 border-dashed max-w-2xl mx-auto px-4 mt-6">
+            <Sparkles className="text-rose-500 mx-auto mb-4 animate-bounce" size={40} />
+            <h4 className="text-xl font-black text-slate-800">No matching stays found</h4>
+            <p className="text-slate-500 mt-2 text-sm max-w-md mx-auto">
+              We couldn&apos;t find any eco-stays matching your active search filters or guests count. Try modifying your criteria.
+            </p>
+            <button
+              onClick={() => router.push(pathname)}
+              className="mt-6 px-6 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-full text-sm font-bold shadow-lg shadow-rose-200 transition-all cursor-pointer border-0"
+            >
+              Reset All Filters
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // ── Standard Categorized Scrolls Layout (Default View) ──
   return (
     <div className="space-y-10 sm:space-y-14 md:space-y-16 mb-16 sm:mb-24">
       {CATEGORY_PANELS.map((panel) => {

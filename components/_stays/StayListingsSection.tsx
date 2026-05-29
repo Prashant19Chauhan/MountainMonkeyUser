@@ -3,7 +3,7 @@
 import Image from "@/components/ui/Image";
 import React from 'react';
 import { Heart, Star } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useInView } from '@/hooks/useInView';
 import { useAllStays } from '@/hooks/useStays';
 import { Stay } from '@/types/type';
@@ -53,10 +53,20 @@ const StayCard = ({ stay }: { stay: Stay }) => {
 };
 
 export const StayListingsSection = () => {
+  const searchParams = useSearchParams();
+  const query = searchParams.get('query') || '';
+  const category = searchParams.get('category') || '';
+  const rooms = searchParams.get('rooms') || '';
+  const travelers = searchParams.get('travelers') || '';
+
+  const isFilterActive = !!(query || category || rooms || travelers);
+
   const [staysRef, isStaysVisible] = useInView();
-  const { data: staysData, isLoading: isLoadingStays } = useAllStays(isStaysVisible);
+  const { data: staysData, isLoading: isLoadingStays } = useAllStays(isStaysVisible && !isFilterActive);
 
   const stays: Stay[] = staysData?.data || [];
+
+  if (isFilterActive) return null;
 
   return (
     <div className="font-sans">

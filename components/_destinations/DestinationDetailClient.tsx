@@ -1,7 +1,10 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useAppSelector } from '@/store/store';
+import { EnquiryModal } from '../cards/EnquiryModal';
 import {
   useDestinationDetails,
   useDestinationActivities,
@@ -29,6 +32,10 @@ type DestinationDetailClientProps = {
 };
 
 export const DestinationDetailClient = ({ destinationId }: DestinationDetailClientProps) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { isAuthenticated, user } = useAppSelector(state => state.user);
+
   // Fetch all destination data
   const { data: destinationData, isLoading: isLoadingDestination } = useDestinationDetails(destinationId);
   const { data: activitiesData, isLoading: isLoadingActivities } = useDestinationActivities(destinationId);
@@ -37,6 +44,25 @@ export const DestinationDetailClient = ({ destinationId }: DestinationDetailClie
   const { data: packagesData, isLoading: isLoadingPackages } = useDestinationPackages(destinationId);
 
   const [activeTab, setActiveTab] = useState<'all' | 'packages' | 'stays' | 'activities'>('all');
+  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.get("openEnquiry") === "true") {
+      setIsEnquiryModalOpen(true);
+      // Clean query params
+      const newUrl = window.location.pathname;
+      window.history.replaceState({}, '', newUrl);
+    }
+  }, [searchParams]);
+
+  const handlePlanTrip = () => {
+    if (!isAuthenticated) {
+      const redirectPath = encodeURIComponent(window.location.pathname + window.location.search);
+      router.push(`/login?redirect=${redirectPath}&openEnquiry=true`);
+    } else {
+      setIsEnquiryModalOpen(true);
+    }
+  };
 
   // Extract data
   const destination = destinationData;
@@ -141,7 +167,7 @@ export const DestinationDetailClient = ({ destinationId }: DestinationDetailClie
         <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-6">
 
           {/* Dynamic AI Expense Calculator */}
-          <DestinationBudgetEstimate destination={destination} />
+          <DestinationBudgetEstimate destination={destination} onPlanTrip={handlePlanTrip} />
 
           {/* Local Phrases */}
           <DestinationPhrases localInfo={localInfo} />
@@ -154,6 +180,18 @@ export const DestinationDetailClient = ({ destinationId }: DestinationDetailClie
 
       {/* 5. BRAND INCLUSIONS / DEEP FOOTER */}
       <DestinationVerifiedFooter />
+
+      <EnquiryModal
+        isOpen={isEnquiryModalOpen}
+        onClose={() => setIsEnquiryModalOpen(false)}
+        user={user}
+        enquiryData={{
+          enquiryType: 'destination',
+          itemId: destination._id || '',
+          itemTitle: destination.name || '',
+          numberOfGuests: 1
+        }}
+      />
 
     </div>
   );

@@ -6,9 +6,10 @@ import { Destination } from '@/types/type';
 
 type DestinationBudgetEstimateProps = {
   destination: Destination;
+  onPlanTrip: () => void;
 };
 
-export const DestinationBudgetEstimate = ({ destination }: DestinationBudgetEstimateProps) => {
+export const DestinationBudgetEstimate = ({ destination, onPlanTrip }: DestinationBudgetEstimateProps) => {
   const [budgetTier, setBudgetTier] = useState<'dailyAvg' | 'budget' | 'luxury'>('dailyAvg');
 
   if (!destination.budgetEstimate) return null;
@@ -50,7 +51,11 @@ export const DestinationBudgetEstimate = ({ destination }: DestinationBudgetEsti
         </span>
       </div>
 
-      <button type="button" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-md shadow-blue-100 cursor-pointer">
+      <button 
+        type="button" 
+        onClick={onPlanTrip}
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-md shadow-blue-100 cursor-pointer"
+      >
         <Calendar className="w-4 h-4" /> Plan Your Trip
       </button>
     </div>

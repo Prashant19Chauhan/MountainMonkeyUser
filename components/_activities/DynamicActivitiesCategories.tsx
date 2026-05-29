@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useMemo, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   Zap, Landmark, Trees, Flower2, UtensilsCrossed,
-  Waves, Heart, Building2, Star, Timer, IndianRupee
+  Waves, Heart, Building2, Star, Timer, Sparkles
 } from 'lucide-react';
 import Image from "@/components/ui/Image";
 
@@ -343,7 +343,7 @@ const WellnessCard = ({ activity, onClick }: { activity: Activity; onClick: () =
         🧘 {activity.destinationId?.name || "Retreat"}
       </span>
       <h4 className="text-lg font-extrabold mb-2 leading-tight line-clamp-2">{activity.name}</h4>
-      <span className="text-[9px] bg-rose-500/20 text-rose-300 px-2 py-1 rounded-lg border border-rose-500/20 uppercase font-black">Soul Retreat</span>
+      <span className="text-[9px] bg-rose-500/20 text-rose-300 px-2 py-1 rounded-lg border border-rose-500/20 uppercase font-black font-sans">Soul Retreat</span>
     </div>
   </div>
 );
@@ -394,13 +394,120 @@ const renderActivityCard = (categoryId: ActivityCategoryId, activity: Activity, 
   }
 };
 
+const getCardType = (activity: Activity): ActivityCategoryId => {
+  const cats = activity.category || [];
+  for (const [panelId, filterCats] of Object.entries(CATEGORY_FILTER_MAP)) {
+    if (cats.some(c => filterCats.includes(c.toLowerCase()))) {
+      return panelId as ActivityCategoryId;
+    }
+  }
+  return 'adventure'; // default fallback
+};
+
 // ─── Main Component ────────────────────────────────────────────────────────────
 
 export const DynamicActivitiesCategories = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const { data: allData, isLoading } = useAllActivities();
   const allActivities: Activity[] = allData?.data || [];
+
+  // Read URL Search Parameters for Active Filtering
+  const query = searchParams.get('query') || '';
+  const category = searchParams.get('category') || '';
+  const subFilter = searchParams.get('subFilter') || '';
+  const travelers = searchParams.get('travelers') || '';
+  const sort = searchParams.get('sort') || 'rating';
+
+  const isFilterActive = !!(query || category || subFilter || travelers);
+
+  // ── Unified Activities Filter & Sort Pipeline ──
+  const filteredActivities = useMemo(() => {
+    let result = [...allActivities];
+
+    // 1. Text Query (name, description, or location address match)
+    if (query) {
+      const q = query.toLowerCase();
+      result = result.filter(act => 
+        act.name?.toLowerCase().includes(q) ||
+        act.shortDescription?.toLowerCase().includes(q) ||
+        act.longDescription?.toLowerCase().includes(q) ||
+        act.destinationId?.name?.toLowerCase().includes(q) ||
+        act.tags?.some(t => t.toLowerCase().includes(q))
+      );
+    }
+
+    // 2. Category
+    if (category) {
+      const cat = category.toLowerCase().replace(/ & /g, '_').replace(/ /g, '_');
+      result = result.filter(act => 
+        act.category?.some(c => 
+          c.toLowerCase() === cat || 
+          c.toLowerCase() === category.toLowerCase() ||
+          c.toLowerCase().includes(cat)
+        )
+      );
+    }
+
+    // 3. Sub Filters
+    if (subFilter) {
+      const sf = subFilter.toLowerCase();
+      if (sf === 'family friendly') {
+        result = result.filter(act => 
+          act.recommendedFor?.some(s => s.toLowerCase().includes('family') || s.toLowerCase().includes('kids')) ||
+          act.tags?.some(t => t.toLowerCase().includes('family'))
+        );
+      } else if (sf === 'under $50') {
+        result = result.filter(act => {
+          const price = act.pricing?.price || 0;
+          const isFree = act.pricing?.isFree;
+          return isFree || price < 50 || price < 4000;
+        });
+      } else if (sf === 'half day') {
+        result = result.filter(act => {
+          const dur = act.timing?.duration || 0;
+          return dur > 0 && dur <= 240; // 4 hours or less
+        });
+      } else if (sf === 'full day') {
+        result = result.filter(act => {
+          const dur = act.timing?.duration || 0;
+          return dur > 240; // More than 4 hours
+        });
+      } else if (sf === 'instant confirmation') {
+        result = result.filter(act => 
+          (act as any).bookingPolicy?.instantConfirmation !== false
+        );
+      } else if (sf === 'free cancellation') {
+        result = result.filter(act => 
+          (act as any).bookingPolicy?.freeCancellation !== false
+        );
+      }
+    }
+
+    // 4. Travelers / Group capacity
+    if (travelers) {
+      const g = parseInt(travelers, 10);
+      if (!isNaN(g)) {
+        result = result.filter(act => {
+          const maxGroup = (act as any).maxGroupSize || 99;
+          return maxGroup >= g;
+        });
+      }
+    }
+
+    // 5. Sorting logic
+    if (sort === 'price_asc') {
+      result.sort((a, b) => (a.pricing?.price || 0) - (b.pricing?.price || 0));
+    } else if (sort === 'price_desc') {
+      result.sort((a, b) => (b.pricing?.price || 0) - (a.pricing?.price || 0));
+    } else if (sort === 'rating') {
+      result.sort((a, b) => (b.ratings?.average || 0) - (a.ratings?.average || 0));
+    }
+
+    return result;
+  }, [allActivities, query, category, subFilter, travelers, sort]);
 
   // ── Client-side category filtering ──
   const categorisedActivities = useMemo(() => {
@@ -480,6 +587,57 @@ export const DynamicActivitiesCategories = () => {
     );
   }
 
+  // ── Active Filters Dynamic Grid View ──
+  if (isFilterActive) {
+    return (
+      <div className="space-y-8 min-h-[400px]">
+        {/* Results Info Panel */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50 border border-slate-100 rounded-3xl p-6 sm:px-8">
+          <div>
+            <h3 className="text-xl font-bold text-slate-800">Matching Activities</h3>
+            <p className="text-sm text-slate-500 mt-1">
+              Found <span className="font-extrabold text-rose-500">{filteredActivities.length}</span> curated adventures
+            </p>
+          </div>
+          <button
+            onClick={() => router.push(pathname)}
+            className="self-start sm:self-auto px-5 py-2.5 bg-white border border-rose-200 hover:bg-rose-50 text-rose-600 rounded-full text-xs font-bold transition-all cursor-pointer"
+          >
+            Clear All Filters
+          </button>
+        </div>
+
+        {filteredActivities.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4 justify-items-center">
+            {filteredActivities.map((activity, index) =>
+              renderActivityCard(
+                getCardType(activity),
+                activity,
+                () => handleActivityClick(activity.slug),
+                index
+              )
+            )}
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-slate-50 rounded-[2.5rem] border border-slate-100 border-dashed max-w-2xl mx-auto px-4 mt-6">
+            <Sparkles className="text-rose-500 mx-auto mb-4 animate-bounce" size={40} />
+            <h4 className="text-xl font-black text-slate-800">No matching activities found</h4>
+            <p className="text-slate-500 mt-2 text-sm max-w-md mx-auto">
+              We couldn&apos;t find any adventure activities matching your active queries. Try adjusting your search query or clear filters.
+            </p>
+            <button
+              onClick={() => router.push(pathname)}
+              className="mt-6 px-6 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-full text-sm font-bold shadow-lg shadow-rose-200 transition-all cursor-pointer border-0"
+            >
+              Reset All Filters
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // ── Standard Categorized Scrolls Layout (Default View) ──
   return (
     <div className="space-y-10 sm:space-y-14 md:space-y-16">
       {CATEGORY_PANELS.map((panel) => {

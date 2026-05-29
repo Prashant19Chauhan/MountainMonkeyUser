@@ -4,7 +4,7 @@ export interface EnquiryPayload {
   name: string;
   email: string;
   phone: string;
-  enquiryType: 'stay' | 'package' | 'activity';
+  enquiryType: 'stay' | 'package' | 'activity' | 'destination';
   itemId: string;
   itemTitle: string;
   checkInDate?: string;

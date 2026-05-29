@@ -18,7 +18,7 @@ export interface EnquiryModalProps {
     phone?: string;
   } | null;
   enquiryData: {
-    enquiryType: 'stay' | 'package' | 'activity';
+    enquiryType: 'stay' | 'package' | 'activity' | 'destination';
     itemId: string;
     itemTitle: string;
     checkInDate?: string;

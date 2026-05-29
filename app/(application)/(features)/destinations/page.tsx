@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -12,15 +12,24 @@ import { DynamicDestinationsCategories } from '@/components/_destinations/Dynami
 
 export default function DestinationPage() {
   return (
-    <div>
-      {/* 1. Filter & Category Top Header Row */}
-      <DestinationFilterHeader />
-
-      {/* 2. Main Content Experiential Layout Container */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-10 md:py-12 space-y-10 sm:space-y-14 md:space-y-16 font-sans text-gray-900">
-        <DynamicDestinationsCategories />
-        <DestinationPromoBanner />
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
+        <div className="text-center space-y-3">
+          <div className="w-10 h-10 border-4 border-slate-900 border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-xs font-bold text-slate-500 tracking-wider uppercase">Loading Destinations...</p>
+        </div>
       </div>
-    </div>
+    }>
+      <div>
+        {/* 1. Filter & Category Top Header Row */}
+        <DestinationFilterHeader />
+
+        {/* 2. Main Content Experiential Layout Container */}
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-10 md:py-12 space-y-10 sm:space-y-14 md:space-y-16 font-sans text-gray-900">
+          <DynamicDestinationsCategories />
+          <DestinationPromoBanner />
+        </div>
+      </div>
+    </Suspense>
   );
 }

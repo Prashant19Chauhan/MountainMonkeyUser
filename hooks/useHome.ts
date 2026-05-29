@@ -123,14 +123,39 @@ export const useTestimonials = (
 
 // @/hooks/useSearchState.ts
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 export const useSearchState = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
+  // Initialize state from URL Search Params
   const [searchData, setSearchData] = useState({
-    query: "",
-    category: "",
+    query: searchParams.get("query") || searchParams.get("search") || "",
+    category: searchParams.get("category") || searchParams.get("type") || "",
+    from: searchParams.get("from") || "",
+    to: searchParams.get("to") || "",
+    date: searchParams.get("date") || searchParams.get("dates") || "",
+    duration: searchParams.get("duration") || "",
+    travelers: searchParams.get("travelers") || searchParams.get("guests") || "",
+    rooms: searchParams.get("rooms") || "",
   });
+
+  // Sync state with URL updates (essential for back-navigation or reset)
+  useEffect(() => {
+    setSearchData({
+      query: searchParams.get("query") || searchParams.get("search") || "",
+      category: searchParams.get("category") || searchParams.get("type") || "",
+      from: searchParams.get("from") || "",
+      to: searchParams.get("to") || "",
+      date: searchParams.get("date") || searchParams.get("dates") || "",
+      duration: searchParams.get("duration") || "",
+      travelers: searchParams.get("travelers") || searchParams.get("guests") || "",
+      rooms: searchParams.get("rooms") || "",
+    });
+  }, [searchParams]);
 
   const handleSearchChange = (
     e: React.ChangeEvent<
@@ -153,11 +178,29 @@ export const useSearchState = () => {
   };
 
   const handleSearchSubmit = (
-    e: React.FormEvent
+    e?: React.FormEvent
   ) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
 
-    console.log(searchData);
+    const params = new URLSearchParams();
+    
+    // Add active fields to params
+    if (searchData.query) params.set("query", searchData.query);
+    if (searchData.category) params.set("category", searchData.category);
+    if (searchData.from) params.set("from", searchData.from);
+    if (searchData.to) params.set("to", searchData.to);
+    if (searchData.date) params.set("date", searchData.date);
+    if (searchData.duration) params.set("duration", searchData.duration);
+    if (searchData.travelers) params.set("travelers", searchData.travelers);
+    if (searchData.rooms) params.set("rooms", searchData.rooms);
+
+    let targetPath = pathname;
+    if (pathname === "/") {
+      // Home page search defaults to packages
+      targetPath = "/packages";
+    }
+
+    router.push(`${targetPath}?${params.toString()}`);
   };
 
   return {
@@ -168,4 +211,5 @@ export const useSearchState = () => {
     handleSearchSubmit,
   };
 };
+
 

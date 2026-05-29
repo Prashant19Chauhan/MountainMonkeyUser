@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   Compass, Heart, Trees, Sparkles, Flower2, Landmark,
@@ -14,7 +14,7 @@ import { useAllPackages } from '@/hooks/usePackages';
 
 // Components
 import { PackageCategoryWrapper, PackageCategoryId } from './PackageCategoryWrapper';
-import { TourPackage, Destination } from '@/types/type';
+import { TourPackage } from '@/types/type';
 
 // ─── Category panel metadata ───────────────────────────────────────────────────
 
@@ -66,7 +66,7 @@ const CATEGORY_PANELS: {
 
 const LuxuryCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void }) => {
   const image = pkg.images?.[0] || "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&q=80";
-  const destName = (pkg.destination?.id as any)?.name || "Luxury Destination";
+  const destName = (pkg.destination?.id as any)?.name || (pkg.destination as any)?.name || "Luxury Destination";
   const rating = pkg.ratings?.average || 4.9;
   const price = pkg.pricing?.basePrice || 3500;
   const days = pkg.duration?.days || 5;
@@ -106,7 +106,7 @@ const LuxuryCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void })
 
 const AdventureCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void }) => {
   const image = pkg.images?.[0] || "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80";
-  const destName = (pkg.destination?.id as any)?.name || "Adventure Summit";
+  const destName = (pkg.destination?.id as any)?.name || (pkg.destination as any)?.name || "Adventure Summit";
   const rating = pkg.ratings?.average || 4.8;
   const price = pkg.pricing?.basePrice || 1200;
   const days = pkg.duration?.days || 6;
@@ -148,7 +148,7 @@ const AdventureCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void
 
 const RomanticCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void }) => {
   const image = pkg.images?.[0] || "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&q=80";
-  const destName = (pkg.destination?.id as any)?.name || "Honeymoon Escape";
+  const destName = (pkg.destination?.id as any)?.name || (pkg.destination as any)?.name || "Honeymoon Escape";
   const rating = pkg.ratings?.average || 4.9;
   const price = pkg.pricing?.basePrice || 2400;
   const days = pkg.duration?.days || 5;
@@ -188,7 +188,7 @@ const RomanticCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void 
 
 const FamilyCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void }) => {
   const image = pkg.images?.[0] || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80";
-  const destName = (pkg.destination?.id as any)?.name || "Family Retreat";
+  const destName = (pkg.destination?.id as any)?.name || (pkg.destination as any)?.name || "Family Retreat";
   const rating = pkg.ratings?.average || 4.7;
   const price = pkg.pricing?.basePrice || 1800;
   const days = pkg.duration?.days || 4;
@@ -228,7 +228,7 @@ const FamilyCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void })
 
 const SpiritualCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void }) => {
   const image = pkg.images?.[0] || "https://images.unsplash.com/photo-1486915309851-b0cc1f8a0084?auto=format&fit=crop&q=80";
-  const destName = (pkg.destination?.id as any)?.name || "Zen Pilgrimage";
+  const destName = (pkg.destination?.id as any)?.name || (pkg.destination as any)?.name || "Zen Pilgrimage";
   const rating = pkg.ratings?.average || 4.8;
   const price = pkg.pricing?.basePrice || 1100;
   const days = pkg.duration?.days || 7;
@@ -268,7 +268,7 @@ const SpiritualCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void
 
 const CulturalCard = ({ pkg, onClick }: { pkg: TourPackage; onClick: () => void }) => {
   const image = pkg.images?.[0] || "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=80";
-  const destName = (pkg.destination?.id as any)?.name || "Cultural Vault";
+  const destName = (pkg.destination?.id as any)?.name || (pkg.destination as any)?.name || "Cultural Vault";
   const rating = pkg.ratings?.average || 4.8;
   const price = pkg.pricing?.basePrice || 1400;
   const days = pkg.duration?.days || 6;
@@ -322,15 +322,142 @@ const renderPackageCard = (categoryId: PackageCategoryId, pkg: TourPackage, onCl
   }
 };
 
+const getCardType = (pkg: TourPackage): PackageCategoryId => {
+  const cats = pkg.categories || [];
+  const tags = pkg.aiMetadata?.tags || [];
+  if (cats.some(c => c.toLowerCase() === 'luxury') || tags.some(t => t.toLowerCase() === 'luxury')) return 'luxury';
+  if (cats.some(c => ['adventure', 'trekking', 'backpacking'].includes(c.toLowerCase()))) return 'adventure';
+  if (cats.some(c => ['honeymoon', 'romantic'].includes(c.toLowerCase())) || tags.some(t => t.toLowerCase() === 'romantic')) return 'romantic';
+  if (cats.some(c => ['family', 'weekend_getaway'].includes(c.toLowerCase()))) return 'family';
+  if (cats.some(c => ['spiritual', 'wellness'].includes(c.toLowerCase()))) return 'spiritual';
+  if (cats.some(c => ['cultural', 'heritage'].includes(c.toLowerCase()))) return 'cultural';
+  return 'adventure'; // Default fallback
+};
+
 // ─── Main Component ────────────────────────────────────────────────────────────
 
 export const DynamicPackagesCategories = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const { data: allData, isLoading } = useAllPackages();
   const allPackages: TourPackage[] = allData?.data || [];
 
-  // ── Client-side category filtering ──
+  // Read URL Search Parameters for Active Filtering
+  const query = searchParams.get('query') || '';
+  const from = searchParams.get('from') || '';
+  const to = searchParams.get('to') || '';
+  const category = searchParams.get('category') || '';
+  const duration = searchParams.get('duration') || '';
+  const durationRange = searchParams.get('durationRange') || '';
+  const budget = searchParams.get('budget') || '';
+  const rating = searchParams.get('rating') || '';
+  const flights = searchParams.get('flights') === 'true';
+  const sort = searchParams.get('sort') || 'recommended';
+
+  const isFilterActive = !!(query || from || to || category || duration || durationRange || budget || rating || flights);
+
+  // ── Unified Packages Filter & Sort Pipeline ──
+  const filteredPackages = useMemo(() => {
+    let result = [...allPackages];
+
+    // 1. Text Query (Title or Destination name match)
+    if (query) {
+      const q = query.toLowerCase();
+      result = result.filter(pkg => 
+        pkg.title?.toLowerCase().includes(q) ||
+        (pkg.destination?.id as any)?.name?.toLowerCase().includes(q) ||
+        (pkg.destination as any)?.name?.toLowerCase().includes(q) ||
+        pkg.categories?.some(c => c.toLowerCase().includes(q))
+      );
+    }
+
+    // 2. From Departure City
+    if (from) {
+      const f = from.toLowerCase();
+      result = result.filter(pkg => 
+        (pkg as any).departureCity?.toLowerCase().includes(f) ||
+        pkg.title?.toLowerCase().includes(`from ${f}`)
+      );
+    }
+
+    // 3. To Destination City
+    if (to) {
+      const t = to.toLowerCase();
+      result = result.filter(pkg => 
+        (pkg.destination?.id as any)?.name?.toLowerCase().includes(t) ||
+        (pkg.destination as any)?.name?.toLowerCase().includes(t)
+      );
+    }
+
+    // 4. Category/Theme (from Hero categories or FilterHeader category tabs)
+    if (category) {
+      const cat = category.toLowerCase();
+      result = result.filter(pkg => 
+        pkg.categories?.some(c => c.toLowerCase() === cat) ||
+        pkg.aiMetadata?.tags?.some(t => t.toLowerCase() === cat) ||
+        pkg.title?.toLowerCase().includes(cat)
+      );
+    }
+
+    // 5. Exact Duration in Days
+    if (duration) {
+      const days = parseInt(duration, 10);
+      if (!isNaN(days)) {
+        result = result.filter(pkg => pkg.duration?.days === days);
+      }
+    }
+
+    // 6. Duration Range
+    if (durationRange) {
+      result = result.filter(pkg => {
+        const days = pkg.duration?.days || 0;
+        if (durationRange === 'short') return days < 5;
+        if (durationRange === 'mid') return days >= 5 && days <= 8;
+        if (durationRange === 'long') return days > 8;
+        return true;
+      });
+    }
+
+    // 7. Budget Range
+    if (budget) {
+      result = result.filter(pkg => {
+        const price = pkg.pricing?.basePrice || 0;
+        if (budget === 'low') return price < 1500;
+        if (budget === 'mid') return price >= 1500 && price <= 3000;
+        if (budget === 'high') return price > 3000;
+        return true;
+      });
+    }
+
+    // 8. Minimum Rating Threshold
+    if (rating) {
+      const r = parseFloat(rating);
+      result = result.filter(pkg => (pkg.ratings?.average || 0) >= r);
+    }
+
+    // 9. Includes Flights inclusions matching
+    if (flights) {
+      result = result.filter(pkg => 
+        (pkg as any).includesFlights === true ||
+        pkg.inclusions?.some(inc => inc.toLowerCase().includes('flight') || inc.toLowerCase().includes('airfare'))
+      );
+    }
+
+    // 10. Sorting logic
+    if (sort === 'price_asc') {
+      result.sort((a, b) => (a.pricing?.basePrice || 0) - (b.pricing?.basePrice || 0));
+    } else if (sort === 'price_desc') {
+      result.sort((a, b) => (b.pricing?.basePrice || 0) - (a.pricing?.basePrice || 0));
+    } else if (sort === 'rating') {
+      result.sort((a, b) => (b.ratings?.average || 0) - (a.ratings?.average || 0));
+    }
+
+    return result;
+  }, [allPackages, query, from, to, category, duration, durationRange, budget, rating, flights, sort]);
+
+  // ── Client-side default category filtering (for scrollable layout) ──
   const categorisedPackages = useMemo(() => {
     const result: Record<PackageCategoryId, TourPackage[]> = {
       luxury: [], adventure: [], romantic: [], family: [], spiritual: [], cultural: [],
@@ -427,6 +554,57 @@ export const DynamicPackagesCategories = () => {
     );
   }
 
+  // ── Active Filters Dynamic Grid View ──
+  if (isFilterActive) {
+    return (
+      <div className="space-y-8 min-h-[400px]">
+        {/* Filter results status row */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50 border border-slate-100 rounded-3xl p-6 sm:px-8">
+          <div>
+            <h3 className="text-xl font-bold text-slate-800">Matching Packages</h3>
+            <p className="text-sm text-slate-500 mt-1">
+              Found <span className="font-extrabold text-rose-500">{filteredPackages.length}</span> custom tour itineraries
+            </p>
+          </div>
+          <button
+            onClick={() => router.push(pathname)}
+            className="self-start sm:self-auto px-5 py-2.5 bg-white border border-rose-200 hover:bg-rose-50 text-rose-600 rounded-full text-xs font-bold transition-all cursor-pointer"
+          >
+            Clear All Filters
+          </button>
+        </div>
+
+        {filteredPackages.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4 justify-items-center">
+            {filteredPackages.map((pkg, index) =>
+              renderPackageCard(
+                getCardType(pkg),
+                pkg,
+                () => handlePackageClick(pkg.slug),
+                index
+              )
+            )}
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-slate-50 rounded-[2.5rem] border border-slate-100 border-dashed max-w-2xl mx-auto px-4 mt-6">
+            <Sparkles className="text-rose-500 mx-auto mb-4 animate-bounce" size={40} />
+            <h4 className="text-xl font-black text-slate-800">No matching itineraries found</h4>
+            <p className="text-slate-500 mt-2 text-sm max-w-md mx-auto">
+              We couldn&apos;t find any tour packages matching your active filters. Try searching for something else or resetting your search parameters.
+            </p>
+            <button
+              onClick={() => router.push(pathname)}
+              className="mt-6 px-6 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-full text-sm font-bold shadow-lg shadow-rose-200 transition-all cursor-pointer border-0"
+            >
+              Reset All Filters
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // ── Standard Categorized Scrolls Layout (Default View) ──
   return (
     <div className="space-y-10 sm:space-y-14 md:space-y-16 mb-16 sm:mb-24">
       {CATEGORY_PANELS.map((panel) => {
