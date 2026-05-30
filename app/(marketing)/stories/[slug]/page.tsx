@@ -3,9 +3,9 @@ import { Metadata } from 'next';
 import StoryDetailContent from './StoryDetailContent';
 import { fetchApprovedStoryByIdPublic } from '@/services/story.services';
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   try {
-    const story = await fetchApprovedStoryByIdPublic(params.slug);
+    const story = await fetchApprovedStoryByIdPublic((await params).slug);
     if (story) {
       return {
         title: story.metaData?.title ? `${story.metaData.title} | MountainMonkey` : `${story.title} | Traveler Journal`,
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function StoryDetailPage({ params }: { params: { slug: string } }) {
+export default async function StoryDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
@@ -32,7 +32,7 @@ export default function StoryDetailPage({ params }: { params: { slug: string } }
         </div>
       </div>
     }>
-      <StoryDetailContent slug={params.slug} />
+      <StoryDetailContent slug={(await params).slug} />
     </Suspense>
   );
 }
