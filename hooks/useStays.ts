@@ -4,7 +4,8 @@ import {
     getStayAdvertisements, 
     getStayDetails,
     getStayLocalInfo,
-    getStaysPageSections
+    getStaysPageSections,
+    getStayDetailSections
 } from "../services/stays.services";
 
 export const useAllStays = (enabled: boolean = true) => {
@@ -45,5 +46,13 @@ export const useStaysPageSections = (enabled: boolean = true) => {
         queryKey: ['stays-page-sections'],
         queryFn: getStaysPageSections,
         enabled,
+    });
+};
+
+export const useStayDetailSections = (staySlug: string, enabled: boolean = true) => {
+    return useQuery({
+        queryKey: ['stay-detail-sections', staySlug],
+        queryFn: () => getStayDetailSections(staySlug),
+        enabled: enabled && !!staySlug,
     });
 };

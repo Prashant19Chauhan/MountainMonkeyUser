@@ -8,7 +8,8 @@ import {
     getPackagesDetails,
     getPackageLocalInfo,
     getSimilarPackages,
-    getPackagesPageSections
+    getPackagesPageSections,
+    getPackageDetailSections
 } from "../services/packages.services";
 
 export const useAllPackages = (enabled: boolean = true) => {
@@ -81,5 +82,13 @@ export const usePackagesPageSections = (enabled: boolean = true) => {
         queryKey: ['packages-page-sections'],
         queryFn: getPackagesPageSections,
         enabled,
+    });
+};
+
+export const usePackageDetailSections = (packageSlug: string, enabled: boolean = true) => {
+    return useQuery({
+        queryKey: ['package-detail-sections', packageSlug],
+        queryFn: () => getPackageDetailSections(packageSlug),
+        enabled: enabled && !!packageSlug,
     });
 };

@@ -1,10 +1,26 @@
 import React, { Suspense } from 'react';
 import { Metadata } from 'next';
+import { getPageMetaData } from '@/services/theme.service';
+import { mapBackendMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: "Himalayan Outdoor Adventure Activities | MountainMonkey",
-  description: "Choose from paragliding, trekking, rafting, mountain biking, and skiing in the majestic Himalayas. Expertly guided extreme sports and nature excursions.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const res = await getPageMetaData("activities-page");
+    if (res?.success && res.data) {
+      return mapBackendMetadata(res.data, {
+        title: "Himalayan Outdoor Adventure Activities | MountainMonkey",
+        description: "Choose from paragliding, trekking, rafting, mountain biking, and skiing in the majestic Himalayas. Expertly guided extreme sports and nature excursions.",
+      });
+    }
+  } catch (error) {
+    console.error("Failed to generate metadata for activities page:", error);
+  }
+
+  return {
+    title: "Himalayan Outdoor Adventure Activities | MountainMonkey",
+    description: "Choose from paragliding, trekking, rafting, mountain biking, and skiing in the majestic Himalayas. Expertly guided extreme sports and nature excursions.",
+  };
+}
 
 import { ActivityFilterHeader } from '@/components/_activities/ActivityFilterHeader';
 import { FeaturedActivitiesSection } from '@/components/_activities/FeaturedActivitiesSection';

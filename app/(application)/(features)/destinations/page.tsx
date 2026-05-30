@@ -1,10 +1,26 @@
 import React, { Suspense } from 'react';
 import { Metadata } from 'next';
+import { getPageMetaData } from '@/services/theme.service';
+import { mapBackendMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: "Bespoke Himalayan Travel Destinations | MountainMonkey",
-  description: "Explore mystical cities, alpine peaks, and hidden valleys of the Himalayas. Discover curated travel guides, historical spots, and tropical hill stations.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const res = await getPageMetaData("destinations-page");
+    if (res?.success && res.data) {
+      return mapBackendMetadata(res.data, {
+        title: "Bespoke Himalayan Travel Destinations | MountainMonkey",
+        description: "Explore mystical cities, alpine peaks, and hidden valleys of the Himalayas. Discover curated travel guides, historical spots, and tropical hill stations.",
+      });
+    }
+  } catch (error) {
+    console.error("Failed to generate metadata for destinations page:", error);
+  }
+
+  return {
+    title: "Bespoke Himalayan Travel Destinations | MountainMonkey",
+    description: "Explore mystical cities, alpine peaks, and hidden valleys of the Himalayas. Discover curated travel guides, historical spots, and tropical hill stations.",
+  };
+}
 
 import { DestinationFilterHeader } from '@/components/_destinations/DestinationFilterHeader';
 import { DestinationPromoBanner } from '@/components/_destinations/DestinationPromoBanner';

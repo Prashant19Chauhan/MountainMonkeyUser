@@ -16,6 +16,7 @@ import { PackageSafetyTips } from './PackageSafetyTips';
 import { PackageCulture } from './PackageCulture';
 import { PackageBookingLedger } from './PackageBookingLedger';
 import { PackageSimilarAdventures } from './PackageSimilarAdventures';
+import { PackageDetailCustomSections } from './PackageDetailCustomSections';
 
 type PackageDetailClientProps = {
   packageId: string;
@@ -147,6 +148,9 @@ export const PackageDetailClient = ({ packageId }: PackageDetailClientProps) => 
         heroImages={heroImages} 
         isLoadingSimilar={isLoadingSimilar} 
       />
+
+      {/* --- CUSTOM CMS SECTIONS --- */}
+      <PackageDetailCustomSections packageSlug={packageId} />
       
     </div>
   );

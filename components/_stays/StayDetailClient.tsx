@@ -12,6 +12,7 @@ import { StayAmenities } from './StayAmenities';
 import { StayConnectivity } from './StayConnectivity';
 import { StayLocalTabInsight } from './StayLocalTabInsight';
 import { StayBookingLedger } from './StayBookingLedger';
+import { StayDetailCustomSections } from './StayDetailCustomSections';
 
 export function StayDetailClient({ stayId }: { stayId: string }) {
   const { data: detailsRes, isLoading: detailsLoading, error: detailsError } = useStayDetails(stayId);
@@ -93,6 +94,11 @@ export function StayDetailClient({ stayId }: { stayId: string }) {
           )}
         </div>
 
+      </div>
+      
+      {/* CMS DYNAMIC SECTIONS */}
+      <div className="mt-16">
+        <StayDetailCustomSections staySlug={stay.slug} />
       </div>
     </div>
   );

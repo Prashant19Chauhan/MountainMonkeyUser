@@ -79,3 +79,13 @@ export const getActivitiesPageSections = async () => {
         throw error;
     }
 };
+
+export const getActivityDetailSections = async (activitySlug: string) => {
+    try {
+        const response = await api.get(`/activities/detail-sections/${activitySlug}`);
+        return response.data.data;
+    } catch (error) {
+        console.error("Error fetching activity detail sections:", error);
+        throw error;
+    }
+};

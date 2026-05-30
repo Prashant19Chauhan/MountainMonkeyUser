@@ -14,6 +14,7 @@ import { DetailOverview } from './DetailOverview';
 import { DetailChecklists } from './DetailChecklists';
 import { DetailInsightMatrix } from './DetailInsightMatrix';
 import { DetailBookingLedger } from './DetailBookingLedger';
+import { ActivityDetailCustomSections } from './ActivityDetailCustomSections';
 
 type ActivityDetailClientProps = {
   activityId: string;
@@ -91,6 +92,10 @@ export const ActivityDetailClient = ({ activityId }: ActivityDetailClientProps) 
         </div>
       </div>
 
+      {/* CMS DYNAMIC SECTIONS */}
+      <div className="mt-16">
+        <ActivityDetailCustomSections activitySlug={activity.slug} />
+      </div>
     </div>
   );
 };

@@ -1,10 +1,26 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { getPageMetaData } from '@/services/theme.service';
+import { mapBackendMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: "MountainMonkey | AI-Powered Premium Himalayan Adventures & Eco-Travel",
-  description: "Discover curated, premium Himalayan journeys with MountainMonkey. Experience high-altitude trekking, paragliding, bespoke tour packages, and curated eco-lodging with our personalized AI guide.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const res = await getPageMetaData("home-page");
+    if (res?.success && res.data) {
+      return mapBackendMetadata(res.data, {
+        title: "MountainMonkey | AI-Powered Premium Himalayan Adventures & Eco-Travel",
+        description: "Discover curated, premium Himalayan journeys with MountainMonkey. Experience high-altitude trekking, paragliding, bespoke tour packages, and curated eco-lodging with our personalized AI guide.",
+      });
+    }
+  } catch (error) {
+    console.error("Failed to generate metadata for home page:", error);
+  }
+
+  return {
+    title: "MountainMonkey | AI-Powered Premium Himalayan Adventures & Eco-Travel",
+    description: "Discover curated, premium Himalayan journeys with MountainMonkey. Experience high-altitude trekking, paragliding, bespoke tour packages, and curated eco-lodging with our personalized AI guide.",
+  };
+}
 
 // Section Components
 import { CuratedPackagesSection } from '@/components/_home/CuratedPackagesSection';

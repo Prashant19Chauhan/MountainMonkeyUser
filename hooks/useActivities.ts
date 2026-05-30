@@ -7,7 +7,8 @@ import {
     getActivityAdvertisements, 
     getActivityDetails,
     getActivityLocalInfo,
-    getActivitiesPageSections
+    getActivitiesPageSections,
+    getActivityDetailSections
 } from "../services/activities.services";
 
 export const useAllActivities = (enabled: boolean = true) => {
@@ -71,5 +72,13 @@ export const useActivitiesPageSections = (enabled: boolean = true) => {
         queryKey: ['activities-page-sections'],
         queryFn: getActivitiesPageSections,
         enabled,
+    });
+};
+
+export const useActivityDetailSections = (activitySlug: string, enabled: boolean = true) => {
+    return useQuery({
+        queryKey: ['activity-detail-sections', activitySlug],
+        queryFn: () => getActivityDetailSections(activitySlug),
+        enabled: enabled && !!activitySlug,
     });
 };

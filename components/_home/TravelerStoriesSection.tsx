@@ -9,6 +9,7 @@ import Link from 'next/link';
 
 interface TravelerStory {
   _id: string;
+  slug?: string;
   title: string;
   images?: string[];
   author?: {
@@ -40,7 +41,7 @@ export const TravelerStoriesSection = () => {
              ))
         ) : (travelerStories?.length ?? 0) > 0 ? (
           (travelerStories as TravelerStory[]).map((story: TravelerStory) => (
-            <Link href={`/stories/${story._id}`} key={story._id} className='cursor-pointer'>
+            <Link href={`/stories/${story.slug || story._id}`} key={story._id} className='cursor-pointer'>
             <div 
               className="min-w-[280px] aspect-[3/4] bg-slate-200 rounded-2xl relative overflow-hidden group snap-start"
             >

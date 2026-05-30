@@ -90,3 +90,13 @@ export const getPackagesPageSections = async () => {
         throw error;
     }
 };
+
+export const getPackageDetailSections = async (packageSlug: string) => {
+    try {
+        const response = await api.get(`/packages/detail-sections/${packageSlug}`);
+        return response.data.data;
+    } catch (error) {
+        console.error("Error fetching package detail sections:", error);
+        throw error;
+    }
+};

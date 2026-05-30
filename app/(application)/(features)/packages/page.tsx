@@ -1,10 +1,26 @@
 import React, { Suspense } from 'react';
 import { Metadata } from 'next';
+import { getPageMetaData } from '@/services/theme.service';
+import { mapBackendMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: "Premium Curated Himalayan Tour Packages | MountainMonkey",
-  description: "Book tailored Himalayan travel itineraries. All-inclusive luxury trekking, cultural journeys, and adventure holiday packages with expert local guides.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const res = await getPageMetaData("packages-page");
+    if (res?.success && res.data) {
+      return mapBackendMetadata(res.data, {
+        title: "Premium Curated Himalayan Tour Packages | MountainMonkey",
+        description: "Book tailored Himalayan travel itineraries. All-inclusive luxury trekking, cultural journeys, and adventure holiday packages with expert local guides.",
+      });
+    }
+  } catch (error) {
+    console.error("Failed to generate metadata for packages page:", error);
+  }
+
+  return {
+    title: "Premium Curated Himalayan Tour Packages | MountainMonkey",
+    description: "Book tailored Himalayan travel itineraries. All-inclusive luxury trekking, cultural journeys, and adventure holiday packages with expert local guides.",
+  };
+}
 
 import { PackageFilterHeader } from '@/components/_packages/PackageFilterHeader';
 import { FeaturedPackagesSection } from '@/components/_packages/FeaturedPackagesSection';

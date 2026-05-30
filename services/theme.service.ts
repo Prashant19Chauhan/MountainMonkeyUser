@@ -40,3 +40,13 @@ export const getThemeMetaData = async (): Promise<ThemeMetaDataResponse> => {
     throw error;
   }
 };
+
+export const getPageMetaData = async (pageId: string): Promise<any> => {
+  try {
+    const response = await api.get(`/theme-meta-data/page/${pageId}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching meta data for page ${pageId}:`, error);
+    return null;
+  }
+};

@@ -49,4 +49,14 @@ export const getStaysPageSections = async () => {
     }
 };
 
+export const getStayDetailSections = async (staySlug: string) => {
+    try {
+        const response = await api.get(`/stays/detail-sections/${staySlug}`);
+        return response.data.data;
+    } catch (error) {
+        console.error("Error fetching stay detail sections:", error);
+        throw error;
+    }
+};
+
 

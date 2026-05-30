@@ -1,10 +1,26 @@
 import React, { Suspense } from 'react';
 import { Metadata } from 'next';
+import { getPageMetaData } from '@/services/theme.service';
+import { mapBackendMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: "Curated Himalayan Eco-Stays & Boutique Luxury Hotels | MountainMonkey",
-  description: "Discover premier boutique hotels, mountain villas, and premium rustic eco-lodges in the Himalayas. Experience premium comfort in nature.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const res = await getPageMetaData("stays-page");
+    if (res?.success && res.data) {
+      return mapBackendMetadata(res.data, {
+        title: "Curated Himalayan Eco-Stays & Boutique Luxury Hotels | MountainMonkey",
+        description: "Discover premier boutique hotels, mountain villas, and premium rustic eco-lodges in the Himalayas. Experience premium comfort in nature.",
+      });
+    }
+  } catch (error) {
+    console.error("Failed to generate metadata for stays page:", error);
+  }
+
+  return {
+    title: "Curated Himalayan Eco-Stays & Boutique Luxury Hotels | MountainMonkey",
+    description: "Discover premier boutique hotels, mountain villas, and premium rustic eco-lodges in the Himalayas. Experience premium comfort in nature.",
+  };
+}
 
 import { StayFilterHeader } from '@/components/_stays/StayFilterHeader';
 import { StayMapPreview } from '@/components/_stays/StayMapPreview';
