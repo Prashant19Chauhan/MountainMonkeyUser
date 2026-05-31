@@ -206,7 +206,7 @@ function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-              className="fixed inset-y-0 right-0 w-[280px] h-screen bg-white z-[110] md:hidden shadow-2xl flex flex-col border-l border-slate-100 font-sans"
+              className="fixed inset-y-0 right-0 w-[280px] h-[100dvh] bg-white z-[110] md:hidden shadow-2xl flex flex-col border-l border-slate-100 font-sans"
             >
               {/* Drawer Header */}
               <div className="p-5 border-b border-slate-50 flex items-center justify-between">
@@ -226,7 +226,51 @@ function Header() {
 
               {/* Drawer Content */}
               <div className="flex-1 overflow-y-auto p-5 space-y-6">
-                {/* Navigation Tabs */}
+                {/* 1. Account / Auth Section (Consolidated at the very top of scroll area above the fold) */}
+                {mounted && (
+                  <div className="pb-5 border-b border-slate-100">
+                    {isAuthenticated && user ? (
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-400 to-rose-500 text-white flex items-center justify-center font-black text-xs shadow-xs">
+                            {user.firstName ? user.firstName[0].toUpperCase() : 'U'}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-xs font-black text-slate-800 truncate leading-tight">
+                              {user.firstName} {user.lastName || ''}
+                            </p>
+                            <p className="text-[9px] text-slate-400 truncate mt-0.5">{user.email}</p>
+                          </div>
+                        </div>
+                        
+                        <div className="grid grid-cols-2 gap-2">
+                          <Link href="/profile" className="no-underline" onClick={() => setIsMobileMenuOpen(false)}>
+                            <button className="w-full py-2.5 bg-slate-50 border border-slate-200/60 rounded-xl text-[9px] font-black uppercase tracking-wider text-slate-600 hover:bg-slate-100 cursor-pointer flex items-center justify-center gap-1.5">
+                              <User size={12} /> Profile
+                            </button>
+                          </Link>
+                          <button
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setIsLogoutModalOpen(true);
+                            }}
+                            className="w-full py-2.5 bg-rose-50/50 border border-rose-100 rounded-xl text-[9px] font-black uppercase tracking-wider text-rose-500 hover:bg-rose-100/50 cursor-pointer flex items-center justify-center gap-1.5"
+                          >
+                            <LogOut size={12} /> Log Out
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <Link href="/login" className="no-underline" onClick={() => setIsMobileMenuOpen(false)}>
+                        <button className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl font-black text-[10px] uppercase tracking-wider shadow-lg shadow-orange-100 transition-all cursor-pointer border-0">
+                          <span>Sign In</span>
+                        </button>
+                      </Link>
+                    )}
+                  </div>
+                )}
+
+                {/* 2. Navigation Tabs */}
                 <div className="space-y-1">
                   <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 mb-3">Expeditions</p>
                   {tabs.map((tab) => {
@@ -250,7 +294,7 @@ function Header() {
                   })}
                 </div>
 
-                {/* Mood Switcher */}
+                {/* 3. Mood Switcher */}
                 <div className="space-y-1.5">
                   <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 mb-3">Himalayan Moods</p>
                   <button
@@ -291,7 +335,7 @@ function Header() {
                             >
                               <span>{mood.label}</span>
                               <div
-                                className="w-3 h-3 rounded-full border border-slate-200 shadow-2xs"
+                                className="w-3.5 h-3.5 rounded-full border border-slate-200 shadow-2xs"
                                 style={{ backgroundColor: mood.bgColor }}
                               />
                             </button>
@@ -301,48 +345,6 @@ function Header() {
                     )}
                   </AnimatePresence>
                 </div>
-              </div>
-
-              {/* Drawer Footer / Account Controls */}
-              <div className="p-5 border-t border-slate-50 bg-slate-50/30">
-                {mounted && isAuthenticated && user ? (
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-400 to-rose-500 text-white flex items-center justify-center font-black text-xs shadow-xs">
-                        {user.firstName ? user.firstName[0].toUpperCase() : 'U'}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="text-xs font-black text-slate-800 truncate leading-tight">
-                          {user.firstName} {user.lastName || ''}
-                        </p>
-                        <p className="text-[9px] text-slate-400 truncate mt-0.5">{user.email}</p>
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-2">
-                      <Link href="/profile" className="no-underline" onClick={() => setIsMobileMenuOpen(false)}>
-                        <button className="w-full py-2 bg-white border border-slate-200 rounded-lg text-[9px] font-black uppercase tracking-wider text-slate-600 hover:bg-slate-50 cursor-pointer flex items-center justify-center gap-1">
-                          <User size={10} /> Profile
-                        </button>
-                      </Link>
-                      <button
-                        onClick={() => {
-                          setIsMobileMenuOpen(false);
-                          setIsLogoutModalOpen(true);
-                        }}
-                        className="w-full py-2 bg-white border border-rose-100 rounded-lg text-[9px] font-black uppercase tracking-wider text-rose-500 hover:bg-rose-50/50 cursor-pointer flex items-center justify-center gap-1"
-                      >
-                        <LogOut size={10} /> Log Out
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <Link href="/login" className="no-underline" onClick={() => setIsMobileMenuOpen(false)}>
-                    <button className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-black text-[10px] uppercase tracking-wider shadow-lg shadow-orange-100 transition-all cursor-pointer border-0">
-                      <span>Sign In</span>
-                    </button>
-                  </Link>
-                )}
               </div>
             </motion.div>
           </>
