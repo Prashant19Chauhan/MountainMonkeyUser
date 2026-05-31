@@ -180,12 +180,17 @@ const StoryForm = ({
   onCancel: () => void; isPending: boolean;
 }) => {
   const [form, setForm] = useState<CreateStoryPayload>(initial);
+  const [tagsText, setTagsText] = useState(() => {
+    return ((initial.tags || []) as string[]).join(', ');
+  });
 
   const set = (key: keyof CreateStoryPayload) => (value: string | string[] | number) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
   const handleTagInput = (v: string) => {
-    set('tags')(v.split(',').map((s) => s.trim()).filter(Boolean));
+    setTagsText(v);
+    const parsedTags = v.split(',').map((s) => s.trim()).filter(Boolean);
+    setForm((prev) => ({ ...prev, tags: parsedTags }));
   };
 
   return (
@@ -210,7 +215,7 @@ const StoryForm = ({
         <InputField label="Trip Duration" value={form.tripDuration || ''} onChange={set('tripDuration')} placeholder="5 days 4 nights" />
       </div>
 
-      <InputField label="Tags (comma separated)" value={((form.tags || []) as string[]).join(', ')} onChange={handleTagInput} placeholder="trekking, himalaya, adventure..." />
+      <InputField label="Tags (comma separated)" value={tagsText} onChange={handleTagInput} placeholder="trekking, himalaya, adventure..." />
       <InputField label="Cover Image URL" value={form.coverImage || ''} onChange={set('coverImage')} placeholder="https://..." />
 
       <div>

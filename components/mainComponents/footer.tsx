@@ -15,7 +15,7 @@ function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16 mb-12">
           
           {/* Column 1: Brand & Narrative */}
-          <div className="space-y-5">
+          <div className="space-y-5 text-left">
             <Link href="/" className="flex items-center gap-2.5 text-orange-500 font-black text-2xl tracking-tighter no-underline">
               <div className="bg-orange-500 text-white p-1.5 rounded-xl shadow-lg">
                 <Plane className="rotate-45" fill="currentColor" size={18} />
@@ -25,16 +25,20 @@ function Footer() {
             <p className="text-xs text-slate-400 leading-relaxed">
               Bespoke travel adventures and ecological mountain stays curated by our AI-powered travel engines. Experience the Himalayas in premium luxury and authentic native style.
             </p>
-            <div className="flex items-center gap-3 pt-2">
-              <span className="text-[10px] font-black uppercase text-slate-500 tracking-wider">Basecamp:</span>
-              <span className="text-xs text-slate-300 font-bold flex items-center gap-1">
-                <Globe size={12} className="text-orange-500" /> Manali, Himachal, India
-              </span>
+            <div className="space-y-2 pt-1.5">
+              <a href="mailto:support@mountainmonkey.com" className="text-xs font-bold text-slate-300 hover:text-orange-400 transition-colors flex items-center gap-2 no-underline">
+                <Mail size={14} className="text-orange-500" />
+                <span>support@mountainmonkey.com</span>
+              </a>
+              <a href="tel:+911902252525" className="text-xs font-bold text-slate-300 hover:text-orange-400 transition-colors flex items-center gap-2 no-underline">
+                <Phone size={14} className="text-orange-500" />
+                <span>+91 1902 252 525</span>
+              </a>
             </div>
           </div>
 
           {/* Column 2: Expeditions Nav */}
-          <div className="space-y-4">
+          <div className="space-y-4 text-left">
             <h4 className="text-xs font-black text-white uppercase tracking-[0.2em] pb-1 border-b border-slate-800">Expeditions</h4>
             <ul className="space-y-2.5 text-xs font-bold list-none p-0 m-0">
               <li>
@@ -60,37 +64,58 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Moods & Vibe */}
-          <div className="space-y-4">
-            <h4 className="text-xs font-black text-white uppercase tracking-[0.2em] pb-1 border-b border-slate-800">Himalayan Moods</h4>
-            <p className="text-[10px] text-slate-500 leading-relaxed font-bold">
-              Sync your UI styling layout seamlessly to match current high-altitude climate records.
-            </p>
-            <div className="flex flex-wrap gap-2 pt-1">
-              {['Classic Mountain', 'Sunset Orange', 'Eternal Snow', 'Deep Forest', 'Valley Bloom'].map((m) => (
-                <span key={m} className="text-[9px] uppercase font-black tracking-wider px-2 py-1 bg-slate-800 border border-slate-700/50 rounded-lg text-slate-300">
-                  {m}
-                </span>
-              ))}
-            </div>
+          {/* Column 3: Community Nav */}
+          <div className="space-y-4 text-left">
+            <h4 className="text-xs font-black text-white uppercase tracking-[0.2em] pb-1 border-b border-slate-800">Community</h4>
+            <ul className="space-y-2.5 text-xs font-bold list-none p-0 m-0">
+              <li>
+                <Link href="/stories" className="text-slate-400 hover:text-orange-400 no-underline transition-colors flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50" /> Traveler Stories
+                </Link>
+              </li>
+              <li>
+                <Link href="/testimonials" className="text-slate-400 hover:text-orange-400 no-underline transition-colors flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50" /> Testimonials
+                </Link>
+              </li>
+              <li>
+                <Link href="/blogs" className="text-slate-400 hover:text-orange-400 no-underline transition-colors flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50" /> Explorer Blogs
+                </Link>
+              </li>
+              <li>
+                <Link href="/faq" className="text-slate-400 hover:text-orange-400 no-underline transition-colors flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50" /> Frequently Asked
+                </Link>
+              </li>
+            </ul>
           </div>
 
-          {/* Column 4: Contact & Help */}
-          <div className="space-y-4">
-            <h4 className="text-xs font-black text-white uppercase tracking-[0.2em] pb-1 border-b border-slate-800">Connect</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Need help planning your next bespoke expedition? Get in touch with our expert native guides.
-            </p>
-            <div className="space-y-2 pt-1.5">
-              <a href="mailto:support@mountainmonkey.com" className="text-xs font-bold text-slate-300 hover:text-orange-400 transition-colors flex items-center gap-2 no-underline">
-                <Mail size={14} className="text-orange-500" />
-                <span>support@mountainmonkey.com</span>
-              </a>
-              <a href="tel:+911902252525" className="text-xs font-bold text-slate-300 hover:text-orange-400 transition-colors flex items-center gap-2 no-underline">
-                <Phone size={14} className="text-orange-500" />
-                <span>+91 1902 252 525</span>
-              </a>
-            </div>
+          {/* Column 4: Discover Nav */}
+          <div className="space-y-4 text-left">
+            <h4 className="text-xs font-black text-white uppercase tracking-[0.2em] pb-1 border-b border-slate-800">Discover</h4>
+            <ul className="space-y-2.5 text-xs font-bold list-none p-0 m-0">
+              <li>
+                <Link href="/about" className="text-slate-400 hover:text-orange-400 no-underline transition-colors flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50" /> About Our Brand
+                </Link>
+              </li>
+              <li>
+                <Link href="/cities" className="text-slate-400 hover:text-orange-400 no-underline transition-colors flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50" /> Alpine Hubs & Cities
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-slate-400 hover:text-orange-400 no-underline transition-colors flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50" /> Contact Guides
+                </Link>
+              </li>
+              <li>
+                <Link href="/profile" className="text-slate-400 hover:text-orange-400 no-underline transition-colors flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500/50" /> Traveler Profile
+                </Link>
+              </li>
+            </ul>
           </div>
 
         </div>

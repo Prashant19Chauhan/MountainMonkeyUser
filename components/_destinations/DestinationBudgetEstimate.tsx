@@ -12,7 +12,12 @@ type DestinationBudgetEstimateProps = {
 export const DestinationBudgetEstimate = ({ destination, onPlanTrip }: DestinationBudgetEstimateProps) => {
   const [budgetTier, setBudgetTier] = useState<'dailyAvg' | 'budget' | 'luxury'>('dailyAvg');
 
-  if (!destination.budgetEstimate) return null;
+  // Fallback budget estimate data if missing in database
+  const budgetEstimate = destination.budgetEstimate || {
+    budget: 15000,
+    dailyAvg: 3000,
+    luxury: 60000
+  };
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
@@ -44,7 +49,7 @@ export const DestinationBudgetEstimate = ({ destination, onPlanTrip }: Destinati
           Estimated Cost
         </span>
         <span className="text-4xl font-black text-slate-900 block mt-1">
-          ₹{destination.budgetEstimate[budgetTier]?.toLocaleString('en-IN') || 'N/A'}
+          ₹{budgetEstimate[budgetTier]?.toLocaleString('en-IN') || 'N/A'}
           <span className="text-xs text-slate-400 font-normal">
             /{budgetTier === 'dailyAvg' ? 'day' : 'trip'}
           </span>
@@ -54,7 +59,7 @@ export const DestinationBudgetEstimate = ({ destination, onPlanTrip }: Destinati
       <button 
         type="button" 
         onClick={onPlanTrip}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-md shadow-blue-100 cursor-pointer"
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-md shadow-blue-100 cursor-pointer border-0"
       >
         <Calendar className="w-4 h-4" /> Plan Your Trip
       </button>
