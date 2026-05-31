@@ -135,11 +135,11 @@ export const useSearchState = () => {
   const [searchData, setSearchData] = useState({
     query: searchParams.get("query") || searchParams.get("search") || "",
     category: searchParams.get("category") || searchParams.get("type") || "",
-    from: searchParams.get("from") || "",
-    to: searchParams.get("to") || "",
-    date: searchParams.get("date") || searchParams.get("dates") || "",
+    from: searchParams.get("from") || searchParams.get("sourceCityId") || "",
+    to: searchParams.get("to") || searchParams.get("destinationCityId") || "",
+    date: searchParams.get("date") || searchParams.get("dates") || searchParams.get("travelDate") || "",
     duration: searchParams.get("duration") || "",
-    travelers: searchParams.get("travelers") || searchParams.get("guests") || "",
+    travelers: searchParams.get("travelers") || searchParams.get("guests") || searchParams.get("passengers") || "",
     rooms: searchParams.get("rooms") || "",
   });
 
@@ -148,11 +148,11 @@ export const useSearchState = () => {
     setSearchData({
       query: searchParams.get("query") || searchParams.get("search") || "",
       category: searchParams.get("category") || searchParams.get("type") || "",
-      from: searchParams.get("from") || "",
-      to: searchParams.get("to") || "",
-      date: searchParams.get("date") || searchParams.get("dates") || "",
+      from: searchParams.get("from") || searchParams.get("sourceCityId") || "",
+      to: searchParams.get("to") || searchParams.get("destinationCityId") || "",
+      date: searchParams.get("date") || searchParams.get("dates") || searchParams.get("travelDate") || "",
       duration: searchParams.get("duration") || "",
-      travelers: searchParams.get("travelers") || searchParams.get("guests") || "",
+      travelers: searchParams.get("travelers") || searchParams.get("guests") || searchParams.get("passengers") || "",
       rooms: searchParams.get("rooms") || "",
     });
   }, [searchParams]);

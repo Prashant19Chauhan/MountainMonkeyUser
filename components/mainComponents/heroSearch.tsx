@@ -1,8 +1,10 @@
 "use client";
 import React from 'react';
-import { UserCircle, Calendar, Route, MapPin, Activity, Package, Hotel, Sparkles } from 'lucide-react';
+import { UserCircle, Calendar, Route, MapPin, Activity, Package, Hotel, Sparkles, Bus } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useHeroContent, useSearchState } from '@/hooks/useHome';
+import { useQuery } from '@tanstack/react-query';
+import { getActiveLocations } from '@/services/cities.services';
 
 interface SearchComponentProps {
   searchData: any;
@@ -625,6 +627,116 @@ const FlightSearch = ({}: SearchComponentProps) => (
   </div>
 );
 
+// Routes Search Component
+const RoutesSearch = ({ searchData, handleSearchChange, router }: SearchComponentProps) => {
+  const { data: locations = [], isLoading } = useQuery({
+    queryKey: ["active-locations"],
+    queryFn: getActiveLocations
+  });
+
+  const handleRoutesSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (searchData.from) params.set("sourceCityId", searchData.from);
+    if (searchData.to) params.set("destinationCityId", searchData.to);
+    if (searchData.date) params.set("travelDate", searchData.date);
+    if (searchData.travelers) params.set("passengers", searchData.travelers);
+    router.push(`/travel-routes?${params.toString()}`);
+  };
+
+  return (
+    <div className="p-4 sm:p-8">
+      <h2 className="text-2xl sm:text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
+        <Bus className="text-rose-500 shrink-0" size={24} /> Search Intercity Routes
+      </h2>
+
+      <form onSubmit={handleRoutesSubmit}>
+        <div className="grid grid-cols-1 md:grid-cols-4 border border-gray-200 rounded-2xl mb-6 bg-white overflow-hidden shadow-sm">
+          {/* ORIGIN CITY */}
+          <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 hover:bg-slate-50 transition-colors flex flex-col justify-between min-h-[96px]">
+            <label className="text-xs font-bold text-slate-400 uppercase block mb-1">Origin City</label>
+            {isLoading ? (
+              <div className="h-8 bg-slate-100 rounded-lg animate-pulse mt-2" />
+            ) : (
+              <select
+                name="from"
+                value={searchData.from}
+                onChange={handleSearchChange}
+                className="w-full text-xl sm:text-xl font-black text-slate-800 bg-transparent border-0 outline-none p-0 focus:ring-0 cursor-pointer mt-1"
+              >
+                <option value="">Select Origin</option>
+                {locations.map((loc: any) => (
+                  <option key={loc._id} value={loc._id}>{loc.name}</option>
+                ))}
+              </select>
+            )}
+            <p className="text-[10px] text-slate-400 mt-1">Starting point</p>
+          </div>
+
+          {/* DESTINATION CITY */}
+          <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 hover:bg-slate-50 transition-colors flex flex-col justify-between min-h-[96px]">
+            <label className="text-xs font-bold text-slate-400 uppercase block mb-1">Destination City</label>
+            {isLoading ? (
+              <div className="h-8 bg-slate-100 rounded-lg animate-pulse mt-2" />
+            ) : (
+              <select
+                name="to"
+                value={searchData.to}
+                onChange={handleSearchChange}
+                className="w-full text-xl sm:text-xl font-black text-slate-800 bg-transparent border-0 outline-none p-0 focus:ring-0 cursor-pointer mt-1"
+              >
+                <option value="">Select Destination</option>
+                {locations.map((loc: any) => (
+                  <option key={loc._id} value={loc._id}>{loc.name}</option>
+                ))}
+              </select>
+            )}
+            <p className="text-[10px] text-slate-400 mt-1">End point</p>
+          </div>
+
+          {/* DEPARTURE DATE */}
+          <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 hover:bg-slate-50 transition-colors flex flex-col justify-between min-h-[96px]">
+            <label className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1 mb-1">Departure <Calendar size={12} /></label>
+            <input
+              type="date"
+              name="date"
+              value={searchData.date}
+              onChange={handleSearchChange}
+              className="w-full text-lg font-black text-slate-800 bg-transparent border-0 outline-none p-0 focus:ring-0 mt-1"
+            />
+            <p className="text-[10px] text-slate-400 mt-1">Choose travel date</p>
+          </div>
+
+          {/* PASSENGERS COUNT */}
+          <div className="p-4 hover:bg-slate-50 transition-colors flex flex-col justify-between min-h-[96px]">
+            <label className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1 mb-1">Passengers <UserCircle size={12} /></label>
+            <div className="flex items-center gap-2 mt-1">
+              <input
+                type="number"
+                name="travelers"
+                min="1"
+                max="8"
+                value={searchData.travelers}
+                onChange={handleSearchChange}
+                placeholder="2"
+                className="w-full text-xl sm:text-2xl font-black text-slate-800 bg-transparent border-0 outline-none p-0 focus:ring-0 placeholder:text-slate-300"
+              />
+              <span className="text-lg font-bold text-slate-800 shrink-0">People</span>
+            </div>
+            <p className="text-[10px] text-slate-400 mt-1">Seat reservations</p>
+          </div>
+        </div>
+
+        <div className="flex justify-center">
+          <button type="submit" className="bg-linear-to-r from-blue-500 to-blue-600 hover:from-rose-500 hover:to-rose-600 text-white px-8 sm:px-20 py-3 sm:py-4 rounded-full text-lg sm:text-2xl font-black shadow-xl transition-all active:scale-95 uppercase tracking-widest cursor-pointer border-0">
+            Calculate Journeys
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
 // ─── Main Component ────────────────────────────────────────────────────────────
 
 function HeroSearch() {
@@ -667,6 +779,8 @@ function HeroSearch() {
         return <PackagesSearch {...props} />;
       case '/stays':
         return <StaysSearch {...props} />;
+      case '/travel-routes':
+        return <RoutesSearch {...props} />;
       default:
         return <FlightSearch {...props} />;
     }
