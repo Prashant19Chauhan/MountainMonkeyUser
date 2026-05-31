@@ -6,7 +6,7 @@ export interface Enquiry {
   name: string;
   email: string;
   phone: string;
-  enquiryType: "stay" | "package" | "activity" | "destination";
+  enquiryType: "stay" | "package" | "activity" | "destination" | "route";
   itemId: string;
   itemTitle: string;
   checkInDate?: string;
@@ -14,6 +14,7 @@ export interface Enquiry {
   numberOfGuests?: number;
   roomType?: string;
   message: string;
+  scheduleDetails?: string;
   status: "Pending" | "Reviewed" | "Completed";
   createdAt: string;
 }
@@ -32,7 +33,7 @@ export interface SubmitEnquiryPayload {
   name: string;
   email: string;
   phone: string;
-  enquiryType: "stay" | "package" | "activity" | "destination";
+  enquiryType: "stay" | "package" | "activity" | "destination" | "route";
   itemId: string;
   itemTitle: string;
   checkInDate?: string;
@@ -40,6 +41,7 @@ export interface SubmitEnquiryPayload {
   numberOfGuests?: number;
   roomType?: string;
   message: string;
+  scheduleDetails?: string;
 }
 
 export const submitEnquiry = async (payload: SubmitEnquiryPayload): Promise<Enquiry> => {

@@ -2,7 +2,7 @@
 
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { getActiveLocations } from "@/services/cities.services";
-import { getHubsApi, searchJourneysApi, SearchJourneysParams } from "@/services/journeys.services";
+import { getHubsApi, searchJourneysApi, SearchJourneysParams, getRouteDetailApi } from "@/services/journeys.services";
 import { useState } from "react";
 import { searchJourneysSchema } from "@/lib/validations/journeys.validation";
 
@@ -55,4 +55,12 @@ export default function useJourneys() {
     searchJourneys: searchMutation.mutate,
     searchJourneysAsync: searchMutation.mutateAsync
   };
+}
+
+export function useRouteDetail(id: string, enabled = true) {
+  return useQuery({
+    queryKey: ["route-detail", id],
+    queryFn: () => getRouteDetailApi(id),
+    enabled: !!id && enabled
+  });
 }

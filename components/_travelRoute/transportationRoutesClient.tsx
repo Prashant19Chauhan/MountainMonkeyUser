@@ -3,9 +3,9 @@
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { 
   Bus, Train, Plane, Navigation, 
-  Map, Clock, AlertCircle, ShoppingBag,
-  ChevronRight, X, SlidersHorizontal, Sparkles, Check,
-  ListFilter
+  Map, Clock, AlertCircle,
+  ChevronRight, SlidersHorizontal, Sparkles, Check,
+  ListFilter, MapPin, Calendar, UserCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useJourneys from '@/hooks/useJourneys';
@@ -24,6 +24,8 @@ interface Segment {
   operator?: string;
   vehicle?: string;
   type?: string;
+  routeId?: string;
+  slug?: string;
 }
 
 // ── Inner component that safely uses useSearchParams() ──
@@ -56,10 +58,6 @@ function TransportationRoutesExplorerInner() {
   const [selectedJourneyIndex, setSelectedJourneyIndex] = useState<number>(0);
   const [hoveredSegment, setHoveredSegment] = useState<Segment | null>(null);
 
-  const [bookingSegment, setBookingSegment] = useState<Segment | null>(null);
-  const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-  const [checkoutComplete, setCheckoutComplete] = useState(false);
-
   const [pan, setPan] = useState({ x: 20, y: -20 });
   const [zoom, setZoom] = useState(1);
 
@@ -78,6 +76,7 @@ function TransportationRoutesExplorerInner() {
   const urlDestinationCityId = urlParams.get("destinationCityId") || "";
   const urlTravelDate = urlParams.get("travelDate") || "2026-06-05";
   const urlPassengers = Number(urlParams.get("passengers")) || 2;
+  const hasSearchParams = !!urlSourceCityId && !!urlDestinationCityId;
 
   useEffect(() => {
     if (urlSourceCityId && urlDestinationCityId) {
@@ -114,6 +113,156 @@ function TransportationRoutesExplorerInner() {
       setPriceRange(Math.max(maxPrice, 10000));
     }
   }, [journeys]);
+
+  const delhiCity = locations.find((l: any) => l.name.toLowerCase().includes("delhi"));
+  const shimlaCity = locations.find((l: any) => l.name.toLowerCase().includes("shimla"));
+  const chdCity = locations.find((l: any) => l.name.toLowerCase().includes("chandigarh"));
+
+  const triggerQuickSearch = (fromId: string, toId: string) => {
+    if (!fromId || !toId) return;
+
+    setSearchParams(prev => ({
+      ...prev,
+      sourceCityId: fromId,
+      destinationCityId: toId
+    }));
+
+    const params = new URLSearchParams();
+    params.set("sourceCityId", fromId);
+    params.set("destinationCityId", toId);
+    params.set("travelDate", searchParams.travelDate);
+    params.set("passengers", String(searchParams.passengers));
+    window.history.pushState({}, "", `${window.location.pathname}?${params.toString()}`);
+
+    searchJourneys({
+      sourceCityId: fromId,
+      destinationCityId: toId,
+      travelDate: searchParams.travelDate,
+      passengers: searchParams.passengers,
+      preferences
+    });
+  };
+
+  const handleInlineSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!searchParams.sourceCityId || !searchParams.destinationCityId) return;
+
+    const params = new URLSearchParams();
+    params.set("sourceCityId", searchParams.sourceCityId);
+    params.set("destinationCityId", searchParams.destinationCityId);
+    params.set("travelDate", searchParams.travelDate);
+    params.set("passengers", String(searchParams.passengers));
+    window.history.pushState({}, "", `${window.location.pathname}?${params.toString()}`);
+
+    searchJourneys({
+      sourceCityId: searchParams.sourceCityId,
+      destinationCityId: searchParams.destinationCityId,
+      travelDate: searchParams.travelDate,
+      passengers: searchParams.passengers,
+      preferences
+    });
+  };
+
+  const renderWelcomeDashboard = () => {
+    const delhiId = delhiCity?._id || "";
+    const shimlaId = shimlaCity?._id || "";
+    const chdId = chdCity?._id || "";
+
+    return (
+      <div className="py-12 px-4 text-center max-w-4xl mx-auto space-y-12 animate-fadeIn">
+        {/* Animated Hero Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-4"
+        >
+          <div className="w-20 h-20 mx-auto rounded-full bg-rose-500/10 flex items-center justify-center text-rose-500 shadow-inner mb-6 relative">
+            <Map className="animate-pulse" size={32} />
+            <div className="absolute inset-0 rounded-full border border-rose-500/30 animate-ping" />
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-none bg-gradient-to-r from-rose-500 via-amber-500 to-rose-600 bg-clip-text text-transparent">
+            Himalayan Network Pathfinder
+          </h2>
+          <p className="text-sm font-semibold text-slate-400 uppercase tracking-widest max-w-xl mx-auto leading-relaxed">
+            Discover and calculate seamless multi-modal transit networks, high-altitude schedules, and cost estimates across northern passes.
+          </p>
+        </motion.div>
+
+        {/* Dynamic Shortcut Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+          
+          {/* Card 1: Delhi to Shimla */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => triggerQuickSearch(delhiId, shimlaId)}
+            className="p-6 bg-white/70 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200/50 dark:border-white/5 rounded-[2rem] shadow-md hover:shadow-xl transition-all cursor-pointer text-left space-y-4 group relative overflow-hidden"
+          >
+            <div className="absolute -right-10 -bottom-10 opacity-[0.03] group-hover:scale-110 transition-transform">
+              <Bus size={150} />
+            </div>
+            
+            <div className="flex justify-between items-center">
+              <span className="px-3 py-1 bg-rose-500/10 text-rose-500 text-[10px] font-black uppercase rounded-full border border-rose-500/20">Flagship Route</span>
+              <span className="text-[10px] font-black uppercase text-slate-400">8h 00m commute</span>
+            </div>
+
+            <div className="space-y-1">
+              <h3 className="text-lg font-black text-slate-800 dark:text-white flex items-center gap-2">
+                Delhi <span className="text-rose-500">➔</span> Shimla
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                Calculate routes using comfortable brand buses and regional commuter flight connections.
+              </p>
+            </div>
+
+            <div className="text-[10px] font-black uppercase tracking-wider text-rose-500 group-hover:translate-x-1.5 transition-transform flex items-center gap-1.5 pt-2">
+              Explore Network ➔
+            </div>
+          </motion.div>
+
+          {/* Card 2: Chandigarh to Shimla */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => triggerQuickSearch(chdId, shimlaId)}
+            className="p-6 bg-white/70 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200/50 dark:border-white/5 rounded-[2rem] shadow-md hover:shadow-xl transition-all cursor-pointer text-left space-y-4 group relative overflow-hidden"
+          >
+            <div className="absolute -right-10 -bottom-10 opacity-[0.03] group-hover:scale-110 transition-transform">
+              <Train size={150} />
+            </div>
+            
+            <div className="flex justify-between items-center">
+              <span className="px-3 py-1 bg-amber-500/10 text-amber-500 text-[10px] font-black uppercase rounded-full border border-amber-500/20">Scenic Rail</span>
+              <span className="text-[10px] font-black uppercase text-slate-400">3h 00m commute</span>
+            </div>
+
+            <div className="space-y-1">
+              <h3 className="text-lg font-black text-slate-800 dark:text-white flex items-center gap-2">
+                Chandigarh <span className="text-rose-500">➔</span> Shimla
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                Traverse pine slopes using high-altitude scenic toy train rails and regional local cabs.
+              </p>
+            </div>
+
+            <div className="text-[10px] font-black uppercase tracking-wider text-rose-500 group-hover:translate-x-1.5 transition-transform flex items-center gap-1.5 pt-2">
+              Explore Network ➔
+            </div>
+          </motion.div>
+
+        </div>
+
+        {/* Explanatory banner */}
+        <div className="p-5 bg-rose-500/5 border border-rose-500/10 rounded-2xl max-w-2xl mx-auto flex items-start gap-3.5 text-xs text-slate-500 dark:text-slate-400 font-semibold leading-relaxed">
+          <Sparkles className="text-rose-500 shrink-0 mt-0.5" size={18} />
+          <p className="text-left">
+            <strong>Pathfinder Pro-Tip:</strong> The routing engine automatically factors in schedule timelines, waiting buffers, available capacities, and local transfer costs (e.g. walk or cab transfers between hubs). Define your destinations in the header discovery bar to trigger calculations.
+          </p>
+        </div>
+      </div>
+    );
+  };
 
   const nodePositions = useMemo(() => {
     if (!hubs || hubs.length === 0) return {};
@@ -254,21 +403,6 @@ function TransportationRoutesExplorerInner() {
     return `M ${x1} ${y1} Q ${midX + nx * offset} ${midY + ny * offset} ${x2} ${y2}`;
   };
 
-  const handleBookingStart = (e: React.MouseEvent, segment: Segment) => {
-    e.stopPropagation();
-    setBookingSegment(segment);
-    setSelectedSeats([]);
-    setCheckoutComplete(false);
-  };
-
-  const toggleSeat = (seatCode: string) => {
-    if (selectedSeats.includes(seatCode)) {
-      setSelectedSeats(prev => prev.filter(s => s !== seatCode));
-    } else if (selectedSeats.length < searchParams.passengers) {
-      setSelectedSeats(prev => [...prev, seatCode]);
-    }
-  };
-
   const formatTime = (isoString?: string) => {
     if (!isoString) return "08:00";
     try {
@@ -281,16 +415,7 @@ function TransportationRoutesExplorerInner() {
 
       {/* ── HEADER ── */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 pb-4">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-xs font-bold text-rose-500 mb-2 uppercase tracking-wider">
-              <Sparkles size={12} className="animate-spin duration-[8000ms]" />
-              Multi-Modal Journey Pathfinder Router
-            </div>
-            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-none">
-              Transportation <span className="bg-gradient-to-r from-rose-500 to-amber-500 bg-clip-text text-transparent">& Routes explorer</span>
-            </h1>
-          </div>
+        <div className="flex flex-col lg:flex-row lg:items-center justify-end gap-4">
 
           <div className="flex items-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl p-1 shadow-sm self-start lg:self-center">
             <button
@@ -312,6 +437,8 @@ function TransportationRoutesExplorerInner() {
           </div>
         </div>
       </div>
+
+
 
       {/* ── VALIDATION ERRORS ── */}
       {validationErrors && validationErrors.length > 0 && (
@@ -335,6 +462,10 @@ function TransportationRoutesExplorerInner() {
       {/* ── TICKET LIST VIEW ── */}
       {activeView === "TICKET_LIST" && (
         <div className="max-w-7xl mx-auto px-4 md:px-8">
+          {!hasSearchParams ? (
+            renderWelcomeDashboard()
+          ) : (
+            <>
 
           {/* Top Mode Filter Pills */}
           <div className="flex flex-wrap items-center gap-3 border-b border-slate-200/60 dark:border-white/5 pb-5 mb-6 text-xs font-bold text-slate-500 dark:text-slate-400">
@@ -467,7 +598,32 @@ function TransportationRoutesExplorerInner() {
               </div>
 
               <div className="space-y-5">
-                {filteredJourneys.length > 0 ? (
+                {isSearching ? (
+                  <div className="space-y-5">
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/5 rounded-3xl p-6 animate-pulse relative overflow-hidden flex flex-col gap-6">
+                        <div className="flex justify-between items-center pb-2">
+                          <div className="w-24 h-4 bg-slate-200 dark:bg-slate-800 rounded-lg" />
+                          <div className="w-16 h-6 bg-slate-200 dark:bg-slate-800 rounded-lg" />
+                        </div>
+                        <div className="flex items-center justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="w-16 h-6 bg-slate-200 dark:bg-slate-800 rounded-lg" />
+                            <div className="w-10 h-3 bg-slate-200 dark:bg-slate-800 rounded-lg" />
+                          </div>
+                          <div className="flex-1 flex flex-col items-center gap-2">
+                            <div className="w-32 h-4 bg-slate-200 dark:bg-slate-800 rounded-lg" />
+                            <div className="w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-full" />
+                          </div>
+                          <div className="space-y-2 text-right">
+                            <div className="w-16 h-6 bg-slate-200 dark:bg-slate-800 rounded-lg" />
+                            <div className="w-10 h-3 bg-slate-200 dark:bg-slate-800 rounded-lg" />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : filteredJourneys.length > 0 ? (
                   filteredJourneys.map((jrn: any, index: number) => {
                     const tagConfigs = [
                       { label: "AI RECOMMENDED — BEST VALUE ROUTE", style: "bg-rose-500" },
@@ -531,12 +687,23 @@ function TransportationRoutesExplorerInner() {
                               <div className="text-2xl font-black text-slate-900 dark:text-white leading-none">₹{jrn.totalCost.toLocaleString()}</div>
                               <div className="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">per passenger</div>
                             </div>
-                            <button
-                              onClick={(e) => handleBookingStart(e, jrn.segments[0])}
-                              className="px-6 py-3.5 bg-rose-500 hover:bg-rose-600 text-white font-black text-xs uppercase tracking-wider rounded-2xl cursor-pointer shadow-md transition-all active:scale-95 border-0"
-                            >
-                              Select & Book
-                            </button>
+                            {(() => {
+                              const segmentRouteIds = jrn.segments.map((s: Segment) => s.routeId).filter(Boolean);
+                              const firstSeg = jrn.segments[0];
+                              const firstSegSlug = firstSeg?.slug || firstSeg?.routeId;
+                              const detailsUrl = `/travel-routes/${firstSegSlug || ""}?segments=${segmentRouteIds.join(',')}`;
+                              return (
+                                <a
+                                  href={detailsUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="px-6 py-3.5 bg-rose-500 hover:bg-rose-600 text-white font-black text-xs uppercase tracking-wider rounded-2xl cursor-pointer shadow-md transition-all active:scale-95 border-0 no-underline text-center"
+                                >
+                                  Select & Book
+                                </a>
+                              );
+                            })()}
                           </div>
                         </div>
 
@@ -548,6 +715,9 @@ function TransportationRoutesExplorerInner() {
                             <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-white/10" />
                             <span className="flex items-center gap-1">🛣️ <span className="text-slate-600 dark:text-slate-300">{jrn.totalDistance} km</span></span>
                           </div>
+
+
+
                           <div className="flex items-center gap-2">
                             {Array.from(new Set(jrn.segments.map((s: Segment) => s.mode))).map((m: any) => (
                               <span key={m} className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider border
@@ -563,20 +733,112 @@ function TransportationRoutesExplorerInner() {
                     );
                   })
                 ) : (
-                  <div className="p-12 text-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-3xl text-slate-500 italic">
-                    <AlertCircle size={24} className="mx-auto text-rose-500 mb-3" />
-                    No feasible paths found matching your filter selection.
-                  </div>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="p-8 md:p-12 text-center bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200 dark:border-white/5 rounded-[2.5rem] shadow-xl relative overflow-hidden"
+                  >
+                    <div className="absolute -right-20 -top-20 w-48 h-48 rounded-full bg-rose-500/5 blur-3xl" />
+                    <div className="absolute -left-20 -bottom-20 w-48 h-48 rounded-full bg-indigo-500/5 blur-3xl" />
+                    
+                    <div className="w-16 h-16 mx-auto rounded-full bg-rose-500/10 flex items-center justify-center text-rose-500 shadow-inner mb-6 relative">
+                      <AlertCircle className="animate-bounce" size={28} />
+                      <div className="absolute inset-0 rounded-full border border-rose-500/20 animate-ping" />
+                    </div>
+                    
+                    <h3 className="text-xl font-black text-slate-800 dark:text-white mb-2">
+                      No Feasible Paths Found
+                    </h3>
+                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">
+                      matching your active filter selection
+                    </p>
+                    
+                    <div className="max-w-md mx-auto bg-slate-50 dark:bg-slate-950/40 border border-slate-200/60 dark:border-white/5 rounded-2xl p-5 mb-8 text-left space-y-4 text-xs font-bold text-slate-600 dark:text-slate-300">
+                      <p className="leading-relaxed">
+                        We scanned all Himalayan flight routes, toy trains, local bus systems, and auto transfers, but couldn't find a path matching your filters.
+                      </p>
+                      
+                      {/* Interactive Transfers Pill Bar inside empty state */}
+                      <div className="space-y-2 border-t border-slate-200/50 dark:border-white/5 pt-3">
+                        <label className="text-[10px] text-slate-400 uppercase tracking-wider block font-black">
+                          Try increasing In-between Stops (Max Transfers)
+                        </label>
+                        <div className="flex gap-2">
+                          {[1, 2, 3, 4].map((hops) => {
+                            const isSelected = preferences.maxTransfers === hops;
+                            return (
+                              <button
+                                key={hops}
+                                type="button"
+                                onClick={() => {
+                                  setPreferences(prev => ({ ...prev, maxTransfers: hops }));
+                                  searchJourneys({
+                                    sourceCityId: searchParams.sourceCityId,
+                                    destinationCityId: searchParams.destinationCityId,
+                                    travelDate: searchParams.travelDate,
+                                    passengers: searchParams.passengers,
+                                    preferences: { ...preferences, maxTransfers: hops }
+                                  });
+                                }}
+                                className={`px-4 py-2 text-xs font-black rounded-xl border transition-all cursor-pointer ${
+                                  isSelected
+                                    ? 'bg-rose-500 text-white border-rose-500 shadow-md'
+                                    : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-500 hover:border-rose-500'
+                                }`}
+                              >
+                                {hops} {hops === 1 ? 'Stop' : 'stops'}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Popular shortcut recommendations */}
+                    <div className="space-y-4">
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
+                        Or jump to an active Corridor network in 1-Click
+                      </span>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
+                        <button
+                          type="button"
+                          onClick={() => triggerQuickSearch(delhiCity?._id || "", shimlaCity?._id || "")}
+                          className="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 hover:border-rose-500 rounded-2xl text-left cursor-pointer transition-all flex flex-col gap-1.5 shadow-sm group border-0 bg-transparent"
+                        >
+                          <span className="text-xs font-black text-slate-800 dark:text-white flex items-center gap-1.5 group-hover:text-rose-500">
+                            Delhi <Bus size={12} className="text-rose-500" /> Shimla
+                          </span>
+                          <span className="text-[9px] font-bold text-slate-400">Volvo Buses & Air Commuters</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => triggerQuickSearch(chdCity?._id || "", shimlaCity?._id || "")}
+                          className="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 hover:border-rose-500 rounded-2xl text-left cursor-pointer transition-all flex flex-col gap-1.5 shadow-sm group border-0 bg-transparent"
+                        >
+                          <span className="text-xs font-black text-slate-800 dark:text-white flex items-center gap-1.5 group-hover:text-rose-500">
+                            Chandigarh <Train size={12} className="text-amber-500" /> Shimla
+                          </span>
+                          <span className="text-[9px] font-bold text-slate-400">High-Altitude Toy Train Rail</span>
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
                 )}
               </div>
             </div>
           </div>
-        </div>
+        </>
       )}
+    </div>
+  )}
 
       {/* ── MAP GRAPH VIEW ── */}
       {activeView === "MAP_GRAPH" && (
-        <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          {!hasSearchParams ? (
+            renderWelcomeDashboard()
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
           <div className="lg:col-span-5 space-y-5">
             <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
@@ -650,11 +912,6 @@ function TransportationRoutesExplorerInner() {
                                 <span>{seg.fromHub} ➔ {seg.toHub}</span>
                                 <span className="text-slate-500">₹{seg.price}</span>
                               </div>
-                              <div className="text-[10px] text-slate-500 font-medium mt-0.5 flex flex-wrap items-center gap-2">
-                                <span>{seg.mode} | {seg.operator || "Transit Service"}</span>
-                                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-white/10" />
-                                <span>{seg.durationMin} mins</span>
-                              </div>
                             </div>
                           </div>
                         ))}
@@ -667,22 +924,27 @@ function TransportationRoutesExplorerInner() {
                           className="mt-5 pt-5 border-t border-slate-200 dark:border-white/5 overflow-hidden"
                         >
                           <div className="flex flex-col gap-2">
-                            {jrn.segments.filter((s: Segment) => s.price > 0).map((seg: Segment, sIdx: number) => (
-                              <button
-                                key={sIdx}
-                                onClick={(e) => handleBookingStart(e, seg)}
-                                className="flex items-center justify-between w-full px-4 py-3 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 text-[10px] font-black uppercase tracking-wider rounded-xl cursor-pointer transition-all text-rose-600 dark:text-white dark:bg-indigo-600/20 dark:border-indigo-500/20"
-                              >
-                                <span className="flex items-center gap-1.5">
-                                  {seg.mode === 'FLIGHT' && <Plane size={12} />}
-                                  {seg.mode === 'TRAIN' && <Train size={12} />}
-                                  {seg.mode === 'BUS' && <Bus size={12} />}
-                                  {seg.mode === 'CAB' && <Navigation size={12} />}
-                                  Book {seg.mode} Seats
-                                </span>
-                                <ChevronRight size={14} className="text-rose-500 dark:text-indigo-400" />
-                              </button>
-                            ))}
+                            {(() => {
+                              const segmentRouteIds = jrn.segments.map((s: Segment) => s.routeId).filter(Boolean);
+                              const firstSeg = jrn.segments[0];
+                              const firstSegSlug = firstSeg?.slug || firstSeg?.routeId;
+                              if (!firstSegSlug) return null;
+                              return (
+                                <a
+                                  href={`/travel-routes/${firstSegSlug}?segments=${segmentRouteIds.join(',')}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="flex items-center justify-between w-full px-5 py-4 bg-gradient-to-r from-rose-500 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 border-0 text-[11px] font-black uppercase tracking-widest rounded-2xl cursor-pointer transition-all text-white shadow-md hover:shadow-lg no-underline"
+                                >
+                                  <span className="flex items-center gap-2">
+                                    <Sparkles size={14} className="animate-pulse" />
+                                    View Journey Details & Book
+                                  </span>
+                                  <ChevronRight size={14} className="text-white" />
+                                </a>
+                              );
+                            })()}
                           </div>
                         </motion.div>
                       )}
@@ -690,9 +952,27 @@ function TransportationRoutesExplorerInner() {
                   );
                 })
               ) : (
-                <div className="p-8 text-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-[2rem] text-slate-500 italic">
+                <div className="p-8 text-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-[2rem] text-slate-500 italic space-y-4">
                   <AlertCircle size={24} className="mx-auto text-rose-500 mb-2" />
-                  No routes found. Select city search filters above.
+                  <div className="font-extrabold text-slate-800 dark:text-white">No active paths loaded.</div>
+                  <div className="text-xs text-slate-400 font-medium">Use the inline search panel above or try our popular intercity networks.</div>
+                  
+                  <div className="flex flex-col gap-2 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => triggerQuickSearch(delhiCity?._id || "", shimlaCity?._id || "")}
+                      className="w-full py-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/5 rounded-xl text-[10px] font-black uppercase tracking-wider text-rose-500 hover:bg-rose-50 cursor-pointer flex items-center justify-center gap-1.5"
+                    >
+                      <Bus size={12} /> Delhi ➔ Shimla Corridor
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => triggerQuickSearch(chdCity?._id || "", shimlaCity?._id || "")}
+                      className="w-full py-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/5 rounded-xl text-[10px] font-black uppercase tracking-wider text-amber-500 hover:bg-amber-50 cursor-pointer flex items-center justify-center gap-1.5"
+                    >
+                      <Train size={12} /> Chandigarh ➔ Shimla Corridor
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -806,129 +1086,10 @@ function TransportationRoutesExplorerInner() {
           </div>
         </div>
       )}
+    </div>
+  )}
 
-      {/* ── SEAT SELECTOR DRAWER ── */}
-      <AnimatePresence>
-        {bookingSegment && (
-          <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm">
-            <motion.div
-              initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 220 }}
-              className="w-full max-w-lg bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-white/10 rounded-t-[3rem] shadow-2xl p-6 relative overflow-hidden text-slate-800 dark:text-white"
-            >
-              <button onClick={() => setBookingSegment(null)} className="absolute top-6 right-6 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-950 flex items-center justify-center text-slate-500 hover:text-slate-800 dark:hover:text-white border-0 cursor-pointer">
-                <X size={16} />
-              </button>
 
-              {!checkoutComplete ? (
-                <div>
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-full bg-rose-500/10 flex items-center justify-center text-rose-500">
-                      {bookingSegment.mode === 'FLIGHT' && <Plane size={18} />}
-                      {bookingSegment.mode === 'TRAIN' && <Train size={18} />}
-                      {bookingSegment.mode === 'BUS' && <Bus size={18} />}
-                      {bookingSegment.mode === 'CAB' && <Navigation size={18} />}
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-black">Select {bookingSegment.mode} Seats</h3>
-                      <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">{bookingSegment.operator}</p>
-                    </div>
-                  </div>
-
-                  <div className="bg-slate-50 dark:bg-slate-950/50 rounded-2xl border border-slate-200 dark:border-white/5 p-4 mb-6 flex justify-between text-[10px] font-black uppercase tracking-wider text-slate-500">
-                    <span className="flex items-center gap-1.5"><span className="w-3.5 h-3.5 bg-slate-200 dark:bg-slate-800 border rounded-md inline-block" /> Available</span>
-                    <span className="flex items-center gap-1.5 text-rose-500"><span className="w-3.5 h-3.5 bg-rose-500 rounded-md inline-block" /> Selected</span>
-                    <span className="flex items-center gap-1.5"><span className="w-3.5 h-3.5 bg-rose-500/20 border border-rose-500/30 rounded-md inline-block" /> Booked</span>
-                  </div>
-
-                  <div className="bg-slate-100 dark:bg-slate-950/80 rounded-3xl p-6 border border-slate-200 dark:border-white/5 mb-6 max-h-[220px] overflow-y-auto flex flex-col items-center">
-                    <div className="w-24 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-full text-[8px] font-black tracking-widest text-slate-500 text-center uppercase mb-6">FRONT (DRIVER)</div>
-                    <div className="grid grid-cols-4 gap-3">
-                      {Array.from({ length: 16 }).map((_, sIdx) => {
-                        const seatCode = `${String.fromCharCode(65 + Math.floor(sIdx / 4))}${sIdx % 4 + 1}`;
-                        const isReserved = sIdx === 2 || sIdx === 7 || sIdx === 11;
-                        const isSelected = selectedSeats.includes(seatCode);
-                        return (
-                          <button
-                            key={seatCode} disabled={isReserved} onClick={() => toggleSeat(seatCode)}
-                            className={`w-10 h-10 rounded-xl font-bold text-xs flex items-center justify-center border cursor-pointer transition-all
-                              ${isReserved ? 'bg-rose-500/10 border-rose-500/20 text-rose-500/30 cursor-not-allowed'
-                                : isSelected ? 'bg-rose-500 border-rose-500 text-white scale-105 shadow-lg'
-                                : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-white/5 text-slate-500 hover:border-slate-400'}`}
-                          >
-                            {seatCode}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  <div className="space-y-4 bg-slate-50 dark:bg-slate-950 p-5 rounded-[1.75rem] border border-slate-200 dark:border-white/5 mb-6">
-                    <div className="flex justify-between text-xs font-bold text-slate-500 dark:text-slate-400">
-                      <span>Rate per Passenger</span><span className="font-extrabold">₹{bookingSegment.price}</span>
-                    </div>
-                    <div className="flex justify-between text-xs font-bold text-slate-500 dark:text-slate-400">
-                      <span>Selected seats count</span>
-                      <span className="text-rose-500 font-extrabold">{selectedSeats.length} / {searchParams.passengers} selected</span>
-                    </div>
-                    <div className="h-px bg-slate-200 dark:bg-white/5" />
-                    <div className="flex justify-between items-center font-black">
-                      <span className="text-sm">Total Ticket Price</span>
-                      <span className="text-xl">₹{selectedSeats.length * bookingSegment.price}</span>
-                    </div>
-                  </div>
-
-                  <button
-                    disabled={selectedSeats.length < searchParams.passengers}
-                    onClick={() => setCheckoutComplete(true)}
-                    className="flex items-center justify-center gap-2.5 w-full py-4 bg-gradient-to-r from-rose-500 to-indigo-500 disabled:from-slate-200 dark:disabled:from-slate-800 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-black text-xs uppercase tracking-wider rounded-2xl cursor-pointer transition-all border-0"
-                  >
-                    <ShoppingBag size={14} /> Confirm & Pay
-                  </button>
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-500 mx-auto mb-6">
-                    <Check size={32} className="animate-bounce" />
-                  </div>
-                  <h3 className="text-2xl font-black">E-Ticket Confirmed!</h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-medium">
-                    Your {bookingSegment.mode} seat reservation on {bookingSegment.operator} has been registered.
-                  </p>
-
-                  <div className="bg-slate-50 dark:bg-white text-slate-900 p-6 rounded-[2rem] shadow-xl max-w-sm mx-auto my-6 text-left relative overflow-hidden font-mono text-[10px]">
-                    <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white dark:bg-slate-900" />
-                    <div className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white dark:bg-slate-900" />
-                    <div className="flex justify-between items-center border-b border-dashed border-slate-200 pb-3 mb-3">
-                      <div>
-                        <div className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">Carrier</div>
-                        <div className="font-extrabold text-sm">{bookingSegment.mode} EXPRESS</div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">Date</div>
-                        <div className="font-extrabold">{searchParams.travelDate}</div>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                      <div><div className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">From Hub</div><div className="font-black text-slate-700">{bookingSegment.fromHub}</div></div>
-                      <div><div className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">To Hub</div><div className="font-black text-slate-700">{bookingSegment.toHub}</div></div>
-                    </div>
-                    <div className="grid grid-cols-3 gap-2 border-t border-dashed border-slate-200 pt-3">
-                      <div><div className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">Seats</div><div className="font-black text-slate-700">{selectedSeats.join(', ')}</div></div>
-                      <div><div className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">Rate</div><div className="font-black text-slate-700">₹{bookingSegment.price}</div></div>
-                      <div className="text-right"><div className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">Total</div><div className="font-black text-slate-700 text-xs">₹{selectedSeats.length * bookingSegment.price}</div></div>
-                    </div>
-                  </div>
-
-                  <button onClick={() => setBookingSegment(null)} className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-xl text-xs font-black uppercase tracking-wider cursor-pointer border-0 transition-colors">
-                    Done Explorer
-                  </button>
-                </div>
-              )}
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

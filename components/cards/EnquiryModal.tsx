@@ -18,13 +18,15 @@ export interface EnquiryModalProps {
     phone?: string;
   } | null;
   enquiryData: {
-    enquiryType: 'stay' | 'package' | 'activity' | 'destination';
+    enquiryType: 'stay' | 'package' | 'activity' | 'destination' | 'route';
     itemId: string;
     itemTitle: string;
     checkInDate?: string;
     checkOutDate?: string;
     numberOfGuests?: number;
     roomType?: string;
+    message?: string;
+    scheduleDetails?: any;
   };
 }
 
@@ -40,7 +42,7 @@ export const EnquiryModal = ({ isOpen, onClose, user, enquiryData }: EnquiryModa
   const [name, setName] = useState(getInitialName());
   const [email, setEmail] = useState(user?.email || '');
   const [phone, setPhone] = useState(user?.phone || '');
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(enquiryData.message || '');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -50,12 +52,15 @@ export const EnquiryModal = ({ isOpen, onClose, user, enquiryData }: EnquiryModa
 
   // Sync with user data once hydrated or if it changes
   useEffect(() => {
-    if (user && isOpen) {
-      setName(prev => prev || getInitialName());
-      setEmail(prev => prev || user.email || '');
-      setPhone(prev => prev || user.phone || '');
+    if (isOpen) {
+      if (user) {
+        setName(prev => prev || getInitialName());
+        setEmail(prev => prev || user.email || '');
+        setPhone(prev => prev || user.phone || '');
+      }
+      setMessage(enquiryData.message || '');
     }
-  }, [user, isOpen]);
+  }, [user, isOpen, enquiryData]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,7 +82,8 @@ export const EnquiryModal = ({ isOpen, onClose, user, enquiryData }: EnquiryModa
         checkOutDate: enquiryData.checkOutDate,
         numberOfGuests: enquiryData.numberOfGuests,
         roomType: enquiryData.roomType,
-        message
+        message,
+        scheduleDetails: enquiryData.scheduleDetails
       });
       toast.success("Your enquiry has been sent successfully!");
       setMessage('');

@@ -30,3 +30,13 @@ export const getHubsApi = async () => {
     throw error;
   }
 };
+
+export const getRouteDetailApi = async (id: string) => {
+  try {
+    const response = await api.get(`/journeys/route/${id}`);
+    return response.data?.data || null;
+  } catch (error) {
+    console.error("Error fetching route detail:", error);
+    throw error;
+  }
+};
