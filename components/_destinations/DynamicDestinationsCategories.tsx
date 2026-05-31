@@ -212,7 +212,7 @@ export const DynamicDestinationsCategories = () => {
               <span className="text-[9px] font-black uppercase tracking-widest text-cyan-400 block mb-1">
                 {regionName}
               </span>
-              <h4 className="text-xl font-extrabold mb-2 leading-tight">{dest.name}</h4>
+              <h4 className="text-xl font-extrabold mb-2 leading-tight line-clamp-2 break-words">{dest.name}</h4>
               <div className="flex items-center justify-between">
                 <span className="text-[9px] bg-white/10 px-2 py-1 rounded-lg border border-white/10 uppercase font-black text-slate-300">Active</span>
                 <span className="flex items-center gap-1 text-[10px] font-black text-yellow-400">
@@ -245,7 +245,7 @@ export const DynamicDestinationsCategories = () => {
               <span className="text-[9px] font-black uppercase tracking-widest text-orange-400 block mb-1">
                 {regionName}
               </span>
-              <h4 className="text-xl font-extrabold mb-2 leading-tight group-hover:text-orange-400 transition-colors">{dest.name}</h4>
+              <h4 className="text-xl font-extrabold mb-2 leading-tight group-hover:text-orange-400 transition-colors line-clamp-2 break-words">{dest.name}</h4>
               <span className="text-[9px] bg-orange-500/10 text-orange-400 px-2 py-1 rounded-lg border border-orange-500/20 uppercase font-black">Peak Trek</span>
             </div>
           </motion.div>
@@ -272,7 +272,7 @@ export const DynamicDestinationsCategories = () => {
               <span className="text-[9px] font-black uppercase font-sans tracking-widest text-amber-300 block mb-1">
                 🕌 {regionName}
               </span>
-              <h4 className="text-xl font-bold font-serif mb-2 leading-tight">{dest.name}</h4>
+              <h4 className="text-xl font-bold font-serif mb-2 leading-tight line-clamp-2 break-words">{dest.name}</h4>
               <span className="text-[9px] bg-white/10 text-white px-2 py-1 rounded-lg uppercase font-sans font-black">Archive Verified</span>
             </div>
           </motion.div>
@@ -298,7 +298,7 @@ export const DynamicDestinationsCategories = () => {
               <span className="text-[9px] font-black uppercase tracking-widest text-cyan-300 block mb-1">
                 {regionName}
               </span>
-              <h4 className="text-xl font-extrabold mb-2 leading-tight">{dest.name}</h4>
+              <h4 className="text-xl font-extrabold mb-2 leading-tight line-clamp-2 break-words">{dest.name}</h4>
               <span className="text-[9px] bg-cyan-600/20 text-cyan-300 px-2 py-1 rounded-lg border border-cyan-500/20 uppercase font-black">Lake / Coastal</span>
             </div>
           </div>
@@ -324,7 +324,7 @@ export const DynamicDestinationsCategories = () => {
               <span className="text-[9px] font-black uppercase tracking-widest text-emerald-300 block mb-1">
                 🌿 {regionName}
               </span>
-              <h4 className="text-xl font-extrabold mb-2 leading-tight">{dest.name}</h4>
+              <h4 className="text-xl font-extrabold mb-2 leading-tight line-clamp-2 break-words">{dest.name}</h4>
               <span className="text-[9px] bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-lg border border-emerald-500/20 uppercase font-black font-sans">Wild Forest</span>
             </div>
           </div>
@@ -350,7 +350,7 @@ export const DynamicDestinationsCategories = () => {
               <span className="text-[9px] font-black uppercase tracking-widest text-indigo-300 block mb-1">
                 Lotus {regionName}
               </span>
-              <h4 className="text-xl font-extrabold mb-2 leading-tight">{dest.name}</h4>
+              <h4 className="text-xl font-extrabold mb-2 leading-tight line-clamp-2 break-words">{dest.name}</h4>
               <span className="text-[9px] bg-indigo-500/20 text-indigo-300 px-2 py-1 rounded-lg border border-indigo-500/20 uppercase font-black">Monastery</span>
             </div>
           </div>
@@ -454,7 +454,7 @@ export const DynamicDestinationsCategories = () => {
             {/* Horizontal scrollable flex row */}
             <div
               ref={scrollRefs[cat.id]}
-              className="flex items-center gap-6 overflow-x-auto pb-4 pt-1 no-scrollbar scroll-smooth flex-nowrap"
+              className="flex items-center gap-4 sm:gap-6 overflow-x-auto pb-4 pt-1 no-scrollbar scroll-smooth flex-nowrap"
             >
               {cat.list.map((dest: Destination, index: number) => 
                 renderCard(cat.id, dest, () => handleDestinationClick(dest.slug), index)

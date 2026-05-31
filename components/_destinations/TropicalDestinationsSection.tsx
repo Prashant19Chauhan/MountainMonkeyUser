@@ -66,7 +66,7 @@ export const TropicalDestinationsSection = () => {
                 </div>
               </div>
               <div className="p-5">
-                <h4 className="font-bold text-lg mb-1">{dest.name}</h4>
+                <h4 className="font-bold text-lg mb-1 line-clamp-2 break-words leading-tight">{dest.name}</h4>
                 <p className="text-gray-400 text-xs flex items-center gap-1 mb-4 font-medium">
                   <MapPin size={12} /> {dest.location?.address?.split(',').pop()?.trim() || "Location"}
                 </p>

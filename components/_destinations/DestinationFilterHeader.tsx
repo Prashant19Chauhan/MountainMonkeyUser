@@ -49,15 +49,15 @@ export const DestinationFilterHeader = () => {
   if (query) activeFiltersCount++;
 
   return (
-    <div className="w-full mx-auto px-8 py-8 font-sans">
-      <h2 className="text-2xl font-bold mb-8 text-gray-900">Top Destinations</h2>
+    <div className="w-full mx-auto px-4 sm:px-8 py-6 sm:py-8 font-sans">
+      <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-8 text-gray-900">Top Destinations</h2>
 
       {/* Destinations Horizontal Circular Avatar Scroll */}
-      <div className="flex items-center gap-8 overflow-x-auto pb-8 no-scrollbar scroll-smooth">
+      <div className="flex items-center gap-4 sm:gap-8 overflow-x-auto pb-6 sm:pb-8 no-scrollbar scroll-smooth">
         {isLoadingAll ? (
-          <div className="flex gap-8 animate-pulse">
+          <div className="flex gap-4 sm:gap-8 animate-pulse">
             {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
-              <div key={i} className="flex flex-col items-center gap-3">
+              <div key={i} className="flex flex-col items-center gap-3 w-24 text-center">
                 <div className="w-20 h-20 bg-gray-200 rounded-full"></div>
                 <div className="w-16 h-4 bg-gray-200 rounded"></div>
               </div>
@@ -67,7 +67,7 @@ export const DestinationFilterHeader = () => {
           <div
             key={dest._id}
             onClick={() => router.push(`/destinations/${dest.slug || dest._id}`)}
-            className="flex flex-col items-center gap-3 flex-shrink-0 cursor-pointer group"
+            className="flex flex-col items-center gap-3 flex-shrink-0 cursor-pointer group w-24 text-center"
           >
             <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-transparent group-hover:border-rose-500 transition-all shadow-sm">
               <Image
@@ -76,7 +76,7 @@ export const DestinationFilterHeader = () => {
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
               />
             </div>
-            <span className="text-sm font-bold text-gray-900 group-hover:text-rose-500 transition-colors">{dest.name}</span>
+            <span className="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-rose-500 transition-colors line-clamp-2 break-words leading-tight px-1">{dest.name}</span>
           </div>
         ))}
       </div>

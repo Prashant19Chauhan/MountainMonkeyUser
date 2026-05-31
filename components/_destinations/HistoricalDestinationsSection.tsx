@@ -57,7 +57,7 @@ export const HistoricalDestinationsSection = () => {
                       <span className="text-blue-600 text-[10px] font-black tracking-widest uppercase block">
                         {item.location?.address?.split(',').pop()?.trim() || "Location"}
                       </span>
-                      <h3 className="text-xl font-bold text-gray-900">{item.name}</h3>
+                      <h3 className="text-xl font-bold text-gray-900 line-clamp-2 break-words leading-tight">{item.name}</h3>
                       <p className="text-gray-400 text-xs leading-relaxed line-clamp-2 font-medium">
                         {item.shortDescription || "Discover the breathtaking rich history and cultural heritage of this beautiful destination."}
                       </p>

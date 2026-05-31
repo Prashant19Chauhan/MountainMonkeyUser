@@ -60,7 +60,7 @@ export const TopDestinationsSection = () => {
                   <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-6 left-6 text-white">
                     <p className="text-[10px] font-black tracking-widest uppercase mb-1 opacity-80">DISCOVER</p>
-                    <h3 className="font-black text-xl leading-tight">{dest.name}</h3>
+                    <h3 className="font-black text-xl leading-tight line-clamp-2 break-words">{dest.name}</h3>
                   </div>
                 </div>
               </div>

@@ -64,7 +64,7 @@ export const TrendingDestinationsSection = () => {
                 <div className="flex items-center gap-1 text-xs opacity-90 mb-1">
                   <MapPin size={12} /> {trendingDestinations[0]?.location?.address?.split(',').pop()?.trim() || "Location"}
                 </div>
-                <h3 className="text-4xl font-bold mb-4">{trendingDestinations[0]?.name || "Destination"}</h3>
+                <h3 className="text-2xl sm:text-4xl font-bold mb-4 line-clamp-2 break-words leading-tight">{trendingDestinations[0]?.name || "Destination"}</h3>
                 <div className="flex items-center gap-4">
                   <span className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-medium">
                     Verified Active Hub
@@ -97,7 +97,7 @@ export const TrendingDestinationsSection = () => {
                   />
                   <div className="absolute inset-0 bg-black/30" />
                   <div className="absolute bottom-4 left-4 text-white">
-                    <h4 className="text-xl font-bold">{dest.name}</h4>
+                    <h4 className="text-lg sm:text-xl font-bold line-clamp-2 break-words leading-tight">{dest.name}</h4>
                     <p className="text-[10px] opacity-80 uppercase tracking-widest">
                       {dest.location?.address?.split(',').pop()?.trim() || "Location"}
                     </p>
