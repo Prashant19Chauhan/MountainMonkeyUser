@@ -695,8 +695,6 @@ function TransportationRoutesExplorerInner() {
                               return (
                                 <a
                                   href={detailsUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
                                   onClick={(e) => e.stopPropagation()}
                                   className="px-6 py-3.5 bg-rose-500 hover:bg-rose-600 text-white font-black text-xs uppercase tracking-wider rounded-2xl cursor-pointer shadow-md transition-all active:scale-95 border-0 no-underline text-center"
                                 >
